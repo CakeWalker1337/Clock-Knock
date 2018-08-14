@@ -1,7 +1,9 @@
-package com.saritasa.clock_knock;
+package com.saritasa.clock_knock.features;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.saritasa.clock_knock.R;
 
 public class MainActivity extends AppCompatActivity{
 
