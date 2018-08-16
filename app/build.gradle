@@ -1,29 +1,38 @@
 apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
 
-android{
+android {
     compileSdkVersion 28
-    defaultConfig{
+    defaultConfig {
+
+
         applicationId "com.saritasa.clock_knock"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "long", "NETWORK_TIMEOUT_MILLIS", "10_000"
+        buildConfigField "long", "CONNECT_TIMEOUT_MILLIS", "30_000"
+        buildConfigField "int", "COUNT_RETRY_REQUEST", "3"
     }
-    buildTypes{
-        release{
+    buildTypes {
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
-dependencies{
+dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation libraries.jUnit
     androidTestImplementation libraries.testRunner
     androidTestImplementation libraries.expressoCore
+
 
     //Support
     implementation libraries.appcompatV7
@@ -46,12 +55,18 @@ dependencies{
 
     //Dagger
     implementation libraries.dagger
+    annotationProcessor libraries.daggerCompiler
+    implementation libraries.daggerSupport
+    annotationProcessor libraries.daggerProcessor
 
-    //MVP
-    implementation libraries.moxy
 
     //Utils
     implementation libraries.butterknife
     implementation libraries.timber
+
+    implementation libraries.moxy
+    implementation libraries.moxyAppCompat
+    annotationProcessor libraries.moxyCompiler
+
 
 }
