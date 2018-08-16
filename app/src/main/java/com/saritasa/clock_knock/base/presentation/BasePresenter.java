@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.base;
+package com.saritasa.clock_knock.base.presentation;
 
 import com.arellomobile.mvp.MvpPresenter;
 

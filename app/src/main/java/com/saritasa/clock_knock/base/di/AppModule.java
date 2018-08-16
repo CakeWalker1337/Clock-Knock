@@ -1,6 +1,10 @@
 package com.saritasa.clock_knock.base.di;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+
+import com.saritasa.clock_knock.base.data.ResourceManager;
+import com.saritasa.clock_knock.base.data.ResourceManagerImpl;
 
 import javax.inject.Singleton;
 
@@ -21,4 +25,12 @@ public class AppModule{
     Context provideContext(){
         return mContext;
     }
+
+    @NonNull
+    @Provides
+    @Singleton
+    ResourceManager provideResourceManager(@NonNull Context aContext){
+        return new ResourceManagerImpl(aContext);
+    }
+
 }
