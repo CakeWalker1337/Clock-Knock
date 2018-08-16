@@ -35,6 +35,11 @@ ext.versions = [
         butterknife        : '8.8.1',
 
         moxy               : '1.5.5',
+
+        //OAuth
+        googleOauthClient   : '1.24.1',
+        googleHttpClient    : '1.11.0-beta',
+        googleCollections   : '1.0'
 ]
 
 ext.gradlePlugins = [
@@ -82,7 +87,14 @@ ext.libraries = [
         butterknifeCompiler  : "com.jakewharton:butterknife-compiler:$versions.butterknife",
         timber               : "com.jakewharton.timber:timber:$versions.timber",
 
+        //Moxy
         moxy                 : "com.arello-mobile:moxy:$versions.moxy",
         moxyCompiler         : "com.arello-mobile:moxy-compiler:$versions.moxy",
-        moxyAppCompat         : "com.arello-mobile:moxy-app-compat:$versions.moxy"
+        moxyAppCompat         : "com.arello-mobile:moxy-app-compat:$versions.moxy",
+
+        //OAuth
+        googleOauthClient   : "com.google.oauth-client:google-oauth-client:$versions.googleOauthClient",
+        googleHttpClient    : "com.google.http-client:google-http-client-jackson2:$versions.googleHttpClient",
+        googleCollections   : "com.google.collections:google-collections:$versions.googleCollections"
+
 ]

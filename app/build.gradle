@@ -1,10 +1,9 @@
 apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
 
-android {
+android{
     compileSdkVersion 28
-    defaultConfig {
-
+    defaultConfig{
 
         applicationId "com.saritasa.clock_knock"
         minSdkVersion 23
@@ -16,24 +15,23 @@ android {
         buildConfigField "long", "NETWORK_TIMEOUT_MILLIS", "10_000"
         buildConfigField "long", "CONNECT_TIMEOUT_MILLIS", "30_000"
         buildConfigField "int", "COUNT_RETRY_REQUEST", "3"
-        buildConfigField "String", "BASE_URL", '"https://clock-knock.atlassian.net/rest/api/2/"'
+        buildConfigField "String", "BASE_URL", '"https://clock-knock.atlassian.net"'
     }
-    buildTypes {
-        release {
+    buildTypes{
+        release{
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-
 }
 
-dependencies {
+dependencies{
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:support-v4:28.0.0-rc01'
     testImplementation libraries.jUnit
     androidTestImplementation libraries.testRunner
     androidTestImplementation libraries.expressoCore
-
 
     //Support
     implementation libraries.appcompatV7
@@ -60,14 +58,17 @@ dependencies {
     implementation libraries.daggerSupport
     annotationProcessor libraries.daggerProcessor
 
-
     //Utils
     implementation libraries.butterknife
     implementation libraries.timber
 
     implementation libraries.moxy
     implementation libraries.moxyAppCompat
-    annotationProcessor libraries.moxyCompiler
 
+    implementation libraries.googleOauthClient
+    implementation libraries.googleHttpClient
+    implementation libraries.googleCollections
+
+    annotationProcessor libraries.moxyCompiler
 
 }
