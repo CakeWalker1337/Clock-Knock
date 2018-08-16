@@ -63,4 +63,10 @@ dependencies {
     //Utils
     implementation libraries.butterknife
     implementation libraries.timber
+
+    implementation libraries.moxy
+    implementation libraries.moxyAppCompat
+    annotationProcessor libraries.moxyCompiler
+
+
 }
