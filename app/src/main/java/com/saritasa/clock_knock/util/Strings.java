@@ -16,4 +16,17 @@ public final class Strings{
      * Home
      */
     public static final String HOME_URL = "https://clock-knock.atlassian.net";
+
+    /**
+     * Marker for getting verification key from HTML-page
+     */
+    public static final String SEARCH_MARKER = "\'Clock-Knock App\'";
+
+
+    public static final String JS_INTERFACE_KEY = "jsinterface";
+
+
+    public static final String WEB_USER_AGENT = "Chrome/56.0.0.0 Mobile";
+
+
 }

@@ -5,10 +5,10 @@ import com.google.api.client.auth.oauth.OAuthGetAccessToken;
 public class JiraOAuthAccessToken extends OAuthGetAccessToken{
 
     /**
-     * @param authorizationServerUrl encoded authorization server URL
+     * @param aAuthorizationServerUrl encoded authorization server URL
      */
-    public JiraOAuthAccessToken(String authorizationServerUrl) {
-        super(authorizationServerUrl);
+    public JiraOAuthAccessToken(String aAuthorizationServerUrl) {
+        super(aAuthorizationServerUrl);
         this.usePost = true;
     }
 

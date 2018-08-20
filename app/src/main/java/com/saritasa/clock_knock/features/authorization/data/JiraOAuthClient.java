@@ -12,13 +12,13 @@ import java.security.spec.InvalidKeySpecException;
 
 public class JiraOAuthClient {
 
-    private final JiraOAuthTokenFactory oAuthGetAccessTokenFactory;
-    private final String authorizationUrl;
-    private String temporaryTokenString;
+    private final JiraOAuthTokenFactory mOAuthGetAccessTokenFactory;
+    private final String mAuthorizationUrl;
+    private String mTemporaryTokenString;
 
     public JiraOAuthClient() {
-        this.oAuthGetAccessTokenFactory = new JiraOAuthTokenFactory();
-        authorizationUrl = BuildConfig.BASE_URL + "/plugins/servlet/oauth/authorize";
+        this.mOAuthGetAccessTokenFactory = new JiraOAuthTokenFactory();
+        mAuthorizationUrl = BuildConfig.BASE_URL + "/plugins/servlet/oauth/authorize";
     }
 
     /**
@@ -30,15 +30,15 @@ public class JiraOAuthClient {
      * @throws IOException
      */
     public String getTemporaryToken() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException  {
-        JiraOAuthTemporaryToken temporaryToken = oAuthGetAccessTokenFactory.getTemporaryToken(Strings.CONSUMER_KEY, Strings.PRIVATE_KEY);
+        JiraOAuthTemporaryToken temporaryToken = mOAuthGetAccessTokenFactory.getTemporaryToken(Strings.CONSUMER_KEY, Strings.PRIVATE_KEY);
         OAuthCredentialsResponse response = temporaryToken.execute();
-        temporaryTokenString = response.token;
+        mTemporaryTokenString = response.token;
         return response.token;
     }
 
     public String getAuthorizationUrl() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
         String token = getTemporaryToken();
-        OAuthAuthorizeTemporaryTokenUrl authorizationTokenURL = new OAuthAuthorizeTemporaryTokenUrl(authorizationUrl);
+        OAuthAuthorizeTemporaryTokenUrl authorizationTokenURL = new OAuthAuthorizeTemporaryTokenUrl(mAuthorizationUrl);
         authorizationTokenURL.temporaryToken = token;
         return authorizationTokenURL.toString();
     }
@@ -46,14 +46,14 @@ public class JiraOAuthClient {
     /**
      * Gets acces token from JIRA
      *
-     * @param secret      secret (verification code provided by JIRA after request token authorization)
+     * @param aSecret      secret (verification code provided by JIRA after request token authorization)
      * @return access token value
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      * @throws IOException
      */
-    public String getAccessToken(String secret) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
-        JiraOAuthAccessToken oAuthAccessToken = oAuthGetAccessTokenFactory.getJiraOAuthGetAccessToken(temporaryTokenString, secret, Strings.CONSUMER_KEY, Strings.PRIVATE_KEY);
+    public String getAccessToken(String aSecret) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
+        JiraOAuthAccessToken oAuthAccessToken = mOAuthGetAccessTokenFactory.getJiraOAuthGetAccessToken(mTemporaryTokenString, aSecret, Strings.CONSUMER_KEY, Strings.PRIVATE_KEY);
         OAuthCredentialsResponse response = oAuthAccessToken.execute();
         return response.token;
     }
@@ -61,17 +61,17 @@ public class JiraOAuthClient {
     /**
      * Creates OAuthParameters used to make authorized request to JIRA
      *
-     * @param tmpToken
-     * @param secret
-     * @param consumerKey
-     * @param privateKey
+     * @param aTmpToken
+     * @param aSecret
+     * @param aConsumerKey
+     * @param aPrivateKey
      * @return
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public OAuthParameters getParameters(String tmpToken, String secret, String consumerKey, String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        JiraOAuthAccessToken oAuthAccessToken = oAuthGetAccessTokenFactory.getJiraOAuthGetAccessToken(tmpToken, secret, consumerKey, privateKey);
-        oAuthAccessToken.verifier = secret;
+    public OAuthParameters getParameters(String aTmpToken, String aSecret, String aConsumerKey, String aPrivateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        JiraOAuthAccessToken oAuthAccessToken = mOAuthGetAccessTokenFactory.getJiraOAuthGetAccessToken(aTmpToken, aSecret, aConsumerKey, aPrivateKey);
+        oAuthAccessToken.verifier = aSecret;
         return oAuthAccessToken.createParameters();
     }
 }
