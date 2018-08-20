@@ -11,7 +11,7 @@ public class ResourceManagerImpl implements ResourceManager{
     }
 
     @Override
-    public String getStringResource(int aResourceId){
-        return mContext.getString(aResourceId);
+    public String getStringResource(int aResourceId, Object... aParams){
+        return mContext.getString(aResourceId, aParams);
     }
 }

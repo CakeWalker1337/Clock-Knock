@@ -1,8 +1,8 @@
 package com.saritasa.clock_knock.features.tasks.presentation;
 
-import com.arellomobile.mvp.MvpView;
+import com.saritasa.clock_knock.base.presentation.BaseView;
 
-public interface TasksView extends MvpView{
+public interface TasksView extends BaseView{
 
     void showTasks();
 }
