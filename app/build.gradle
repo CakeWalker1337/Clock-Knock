@@ -26,6 +26,10 @@ android {
     }
 
 
+    compileOptions{
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -36,7 +40,7 @@ dependencies {
 
 
     //Support
-    implementation libraries.appcompatV7
+   // implementation libraries.appcompatV7
 
     //UI
     implementation libraries.constraintLayout
@@ -69,6 +73,11 @@ dependencies {
     implementation libraries.moxyAppCompat
     annotationProcessor libraries.moxyCompiler
 
+   // implementation libraries.fastAdapter
 
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    //implementation libraries.recyclerView
+
+    implementation 'com.mikepenz:fastadapter:3.3.0-rc01'
+    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0-rc01'
 }

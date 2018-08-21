@@ -10,11 +10,13 @@ public class TasksPriorityEntity{
     private String mIconurl;
     @SerializedName("name")
     private String mName;
+    @SerializedName("id")
+    private String mPriorityId;
 
     @Override
     public int hashCode(){
 
-        return Objects.hash(mIconurl, mName);
+        return Objects.hash(mIconurl, mName, mPriorityId);
     }
 
     @Override
@@ -27,7 +29,8 @@ public class TasksPriorityEntity{
         }
         TasksPriorityEntity that = (TasksPriorityEntity) aO;
         return Objects.equals(mIconurl, that.mIconurl) &&
-                Objects.equals(mName, that.mName);
+                Objects.equals(mName, that.mName) &&
+                Objects.equals(mPriorityId, that.mPriorityId);
     }
 
     @Override
@@ -35,7 +38,16 @@ public class TasksPriorityEntity{
         return "TasksPriorityEntity{" +
                 "mIconurl='" + mIconurl + '\'' +
                 ", mName='" + mName + '\'' +
+                ", mPriorityId='" + mPriorityId + '\'' +
                 '}';
+    }
+
+    public String getPriorityId(){
+        return mPriorityId;
+    }
+
+    public void setPriorityId(final String aPriorityId){
+        mPriorityId = aPriorityId;
     }
 
     public String getIconurl(){

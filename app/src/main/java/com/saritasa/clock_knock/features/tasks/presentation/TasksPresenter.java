@@ -8,4 +8,6 @@ public interface TasksPresenter<VIEW extends MvpView>{
 
     void detachView(VIEW aView);
 
+    void loadTasks();
+
 }

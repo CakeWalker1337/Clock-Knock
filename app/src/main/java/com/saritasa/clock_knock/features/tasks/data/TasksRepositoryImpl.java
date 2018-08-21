@@ -3,8 +3,9 @@ package com.saritasa.clock_knock.features.tasks.data;
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
 import com.saritasa.clock_knock.base.data.ResourceManager;
+import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 
 public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepository{
 
@@ -15,9 +16,9 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
         mRestApi = aRestApi;
     }
 
-    public Single<TasksResponseEntity> loadTasks(){
-        return null;
-
+    public Observable<TasksDomain> loadTasks(){
+        return mRestApi.getTasks("assignee=maxim.kovalev")
+                .flatMapObservable(TasksDataMapper::mapTasksEntityToDomain);
     }
 
 }
