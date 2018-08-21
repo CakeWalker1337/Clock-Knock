@@ -1,57 +1,16 @@
 package com.saritasa.clock_knock.features.authorization.presentation;
 
-import android.util.Log;
+import com.arellomobile.mvp.MvpView;
 
-import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
-import com.saritasa.clock_knock.features.authorization.data.JiraOAuthClient;
+public interface AuthPresenter<VIEW extends MvpView>{
 
-@InjectViewState
-public class AuthPresenter extends MvpPresenter<AuthView>{
+    void attachView(VIEW aView);
 
-    private JiraOAuthClient mJiraOAuthClient = new JiraOAuthClient();
+    void detachView(VIEW aView);
 
-    public AuthPresenter(){
+    void onAuthAllowed(String aPage);
 
-    }
+    void onAuthDenied();
 
-    public void onAuthAllowed(String aBody){
-
-        String[] pieces = aBody.split("\'");
-
-        String verificationToken = pieces[0];
-
-        Log.w("Auth", "Verification Token: " + verificationToken);
-
-        new Thread(() -> {
-            try{
-                String accessToken = mJiraOAuthClient.getAccessToken(verificationToken);
-                Log.w("Access", "Access token: " + accessToken);
-            } catch(Exception aException){
-                aException.printStackTrace();
-            }
-        }).start();
-    }
-
-    public void onAuthDenied(){
-        getViewState().goToLogin();
-    }
-
-    public void getAuthPage(){
-        new Thread(){
-
-            public void run(){
-                try{
-
-                    String url = mJiraOAuthClient.getAuthorizationUrl();
-
-                    getViewState().loadPageByUrl(url);
-
-                } catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
-
+    void getAuthPage();
 }

@@ -1,38 +1,44 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
+
+import javax.inject.Inject;
 
 public class LoginFragment extends MvpAppCompatFragment implements LoginView{
 
     private NavigationCallback mNavigationCallback;
 
-    @InjectPresenter
-    public LoginPresenter mLoginPresenter;
+    @Inject
+    public LoginPresenter<LoginView> mLoginPresenter;
 
     public LoginFragment(){
 
     }
 
     @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
+    public void onAttach(Context aContext){
+        super.onAttach(aContext);
 
-        if(context instanceof NavigationCallback){
-            mNavigationCallback = (NavigationCallback) context;
+        App.get(aContext).getAppComponent()
+                .loginComponentBuilder()
+                .build()
+                .inject(this);
+
+        mLoginPresenter.attachView(this);
+
+        if(aContext instanceof NavigationCallback){
+            mNavigationCallback = (NavigationCallback) aContext;
         }
     }
 

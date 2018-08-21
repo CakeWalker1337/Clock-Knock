@@ -1,12 +1,12 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
-import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
+import com.arellomobile.mvp.MvpView;
 
-@InjectViewState
-public class LoginPresenter extends MvpPresenter<LoginView>{
+public interface LoginPresenter<VIEW extends MvpView>{
 
-    public void onLoginClicked() {
-        getViewState().goToAuthFragment();
-    }
+    void attachView(VIEW aView);
+
+    void detachView(VIEW aView);
+
+    void onLoginClicked();
 }

@@ -3,6 +3,8 @@ package com.saritasa.clock_knock.base.di;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.saritasa.clock_knock.base.data.PreferenceManager;
+import com.saritasa.clock_knock.base.data.PreferenceManagerImpl;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.base.data.ResourceManagerImpl;
 
@@ -31,6 +33,13 @@ public class AppModule{
     @Singleton
     ResourceManager provideResourceManager(@NonNull Context aContext){
         return new ResourceManagerImpl(aContext);
+    }
+
+    @NonNull
+    @Provides
+    @Singleton
+    PreferenceManager providePreferenceManager(@NonNull Context aContext) {
+        return new PreferenceManagerImpl(aContext);
     }
 
 }

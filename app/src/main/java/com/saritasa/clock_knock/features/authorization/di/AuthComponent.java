@@ -3,9 +3,11 @@ package com.saritasa.clock_knock.features.authorization.di;
 import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.features.authorization.presentation.AuthFragment;
+import com.saritasa.clock_knock.features.main.presentation.MainActivity;
 
 import dagger.Subcomponent;
 
+@AuthScope
 @Subcomponent(modules = AuthModule.class)
 public interface AuthComponent{
 
@@ -18,7 +20,7 @@ public interface AuthComponent{
     interface Builder{
 
         @NonNull
-        Builder loginModule(@NonNull AuthModule aModule);
+        Builder authModule(@NonNull AuthModule aModule);
 
         @NonNull
         AuthComponent build();

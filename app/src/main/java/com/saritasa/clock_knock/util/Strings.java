@@ -29,4 +29,8 @@ public final class Strings{
     public static final String WEB_USER_AGENT = "Chrome/56.0.0.0 Mobile";
 
 
+    public static final String PREFERENCE_TOKEN = "access_token";
+
+
+    public static final String PREFERENCE_USERNAME = "username";
 }

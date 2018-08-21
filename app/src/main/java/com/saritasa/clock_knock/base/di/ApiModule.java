@@ -2,6 +2,7 @@ package com.saritasa.clock_knock.base.di;
 
 import com.saritasa.clock_knock.BuildConfig;
 import com.saritasa.clock_knock.api.RestApi;
+import com.saritasa.clock_knock.base.network.exception.RxErrorHandlingCallAdapterFactory;
 
 import javax.inject.Singleton;
 
@@ -21,7 +22,8 @@ public class ApiModule{
         Retrofit.Builder builder = new Retrofit.Builder();
 
         return builder.addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(aOkHttpClient);
     }

@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.features.authorization.di.AuthComponent;
+import com.saritasa.clock_knock.features.login.di.LoginComponent;
+import com.saritasa.clock_knock.features.main.di.MainComponent;
 
 import dagger.Component;
 
@@ -12,6 +14,12 @@ public interface AppComponent{
 
     @NonNull
     AuthComponent.Builder authComponentBuilder();
+
+    @NonNull
+    MainComponent.Builder mainComponentBuilder();
+
+    @NonNull
+    LoginComponent.Builder loginComponentBuilder();
 
     void inject(App aApp);
 }

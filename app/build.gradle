@@ -50,6 +50,7 @@ dependencies{
 
     //Support
     implementation libraries.appcompatV7
+    implementation libraries.design
 
     //UI
     implementation libraries.constraintLayout

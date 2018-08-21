@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,16 @@ import android.webkit.CookieManager;
 import android.webkit.WebView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
 import com.saritasa.clock_knock.util.Strings;
 
+import javax.inject.Inject;
+
 public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
-    @InjectPresenter
-    public AuthPresenter mAuthPresenter;
-
+    @Inject
+    public AuthPresenter<AuthFragment> mAuthPresenter;
 
     private NavigationCallback mNavigationCallback;
 
@@ -38,7 +39,9 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
                 .build()
                 .inject(this);
 
-        if (aContext instanceof NavigationCallback) {
+        mAuthPresenter.attachView(this);
+
+        if(aContext instanceof NavigationCallback){
             mNavigationCallback = (NavigationCallback) aContext;
         }
     }
@@ -66,20 +69,25 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     @Override
     public void loadPageByUrl(final String url){
         WebView webView = getView().findViewById(R.id.webWindow);
-        new Thread(){
-
-            @Override
-            public void run(){
-                getActivity().runOnUiThread(() -> {
-                    webView.loadUrl(url);
-                });
-            }
-        }.start();
-
+        webView.loadUrl(url);
     }
 
     @Override
     public void goToLogin(){
+        mNavigationCallback.goToLogin();
+    }
+
+    @Override
+    public void completeAuthentication(){
+        mNavigationCallback.onAuthenticationComplete();
+    }
+
+    @Override
+    public void showError(final String aMessage){
+        View view = getView();
+        if(view != null){
+            Snackbar.make(getView(), aMessage, Snackbar.LENGTH_LONG).show();
+        }
         mNavigationCallback.goToLogin();
     }
 
@@ -97,8 +105,10 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
         super.onDetach();
     }
 
+    public interface NavigationCallback{
 
-    public interface NavigationCallback {
+        void onAuthenticationComplete();
+
         void goToLogin();
     }
 }
