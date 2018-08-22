@@ -29,6 +29,8 @@ public class AuthInteractorImpl extends BaseInteractorImpl<AuthRepository> imple
 
         Log.w("Auth", "Verification Token: " + verificationToken);
 
+        mAuthRepository.saveSecretToken(verificationToken);
+
         return mAuthRepository.getAccessToken(verificationToken);
     }
 

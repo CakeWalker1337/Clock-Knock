@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.features.main.data;
+package com.saritasa.clock_knock.features.login.data;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -9,4 +9,8 @@ public interface LoginPresenter<VIEW extends MvpView>{
     void detachView(VIEW aView);
 
     void onLoginClicked();
+
+    void completeAuthorization();
+
+    boolean isAccessTokenExist();
 }

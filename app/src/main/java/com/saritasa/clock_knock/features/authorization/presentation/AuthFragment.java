@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
+import com.saritasa.clock_knock.features.main.presentation.NavigationListener;
 import com.saritasa.clock_knock.util.Strings;
 
 import javax.inject.Inject;
@@ -22,9 +23,9 @@ import javax.inject.Inject;
 public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
     @Inject
-    public AuthPresenter<AuthFragment> mAuthPresenter;
+    public AuthPresenter mAuthPresenter;
 
-    private NavigationCallback mNavigationCallback;
+    private NavigationListener mNavigationListener;
 
     public AuthFragment(){
 
@@ -33,7 +34,7 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     @Override
     public void onAttach(Context aContext){
         super.onAttach(aContext);
-        App.get(aContext.getApplicationContext())
+        App.get(aContext)
                 .getAppComponent()
                 .authComponentBuilder()
                 .build()
@@ -41,15 +42,14 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
         mAuthPresenter.attachView(this);
 
-        if(aContext instanceof NavigationCallback){
-            mNavigationCallback = (NavigationCallback) aContext;
+        if(aContext instanceof NavigationListener){
+            mNavigationListener = (NavigationListener) aContext;
         }
     }
 
     @Override
     public void onCreate(Bundle aSavedInstanceState){
         super.onCreate(aSavedInstanceState);
-
     }
 
     @Override
@@ -62,7 +62,6 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         WebView webView = view.findViewById(R.id.webWindow);
         setupWebView(webView);
-
         mAuthPresenter.getAuthPage();
     }
 
@@ -74,21 +73,21 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
     @Override
     public void goToLogin(){
-        mNavigationCallback.goToLogin();
+        mNavigationListener.goToLogin();
     }
 
     @Override
     public void completeAuthentication(){
-        mNavigationCallback.onAuthenticationComplete();
+        mNavigationListener.onAuthenticationComplete();
     }
 
     @Override
     public void showError(final String aMessage){
         View view = getView();
         if(view != null){
-            Snackbar.make(getView(), aMessage, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, aMessage, Snackbar.LENGTH_LONG).show();
         }
-        mNavigationCallback.goToLogin();
+        mNavigationListener.goToLogin();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -103,12 +102,5 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     @Override
     public void onDetach(){
         super.onDetach();
-    }
-
-    public interface NavigationCallback{
-
-        void onAuthenticationComplete();
-
-        void goToLogin();
     }
 }

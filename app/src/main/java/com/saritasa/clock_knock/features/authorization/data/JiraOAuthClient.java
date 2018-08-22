@@ -36,10 +36,9 @@ public class JiraOAuthClient {
         return response.token;
     }
 
-    public String getAuthorizationUrl() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
-        String token = getTemporaryToken();
+    public String getAuthorizationUrl(String aTemporaryToken) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
         OAuthAuthorizeTemporaryTokenUrl authorizationTokenURL = new OAuthAuthorizeTemporaryTokenUrl(mAuthorizationUrl);
-        authorizationTokenURL.temporaryToken = token;
+        authorizationTokenURL.temporaryToken = aTemporaryToken;
         return authorizationTokenURL.toString();
     }
 

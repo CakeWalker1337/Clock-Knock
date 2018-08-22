@@ -8,7 +8,7 @@ import com.saritasa.clock_knock.features.main.presentation.MainActivity;
 import dagger.Subcomponent;
 
 @MainScope
-@Subcomponent
+@Subcomponent(modules = {MainModule.class})
 public interface MainComponent{
 
     void inject(@NonNull MainActivity aActivity);

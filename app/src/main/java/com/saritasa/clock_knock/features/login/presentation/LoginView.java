@@ -6,4 +6,8 @@ import com.saritasa.clock_knock.base.presentation.BaseView;
 public interface LoginView extends BaseView{
 
     void goToAuthFragment();
+
+    void showError(String aMessage);
+
+    void onAuthorizationComplete();
 }

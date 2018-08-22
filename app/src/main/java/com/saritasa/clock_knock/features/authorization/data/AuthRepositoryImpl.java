@@ -36,7 +36,10 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
 
         return Single.just("")
                 .subscribeOn(Schedulers.computation())
-                .map(aUrl -> mJiraOAuthClient.getAuthorizationUrl());
+                .map(aUrl -> {
+                    String temporaryToken = mJiraOAuthClient.getTemporaryToken();
+                    return mJiraOAuthClient.getAuthorizationUrl(temporaryToken);
+                });
     }
 
     @Override
@@ -49,5 +52,10 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
     @Override
     public void saveAccessToken(final String aAccessToken){
         mPreferenceManager.saveAccessToken(aAccessToken);
+    }
+
+    @Override
+    public void saveSecretToken(final String aSecretToken){
+        mPreferenceManager.saveSecretToken(aSecretToken);
     }
 }

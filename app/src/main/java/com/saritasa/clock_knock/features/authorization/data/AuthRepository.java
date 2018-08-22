@@ -11,4 +11,6 @@ public interface AuthRepository extends BaseRepository{
     Single<String> getAccessToken(String verificationToken);
 
     void saveAccessToken(String aAccessToken);
+
+    void saveSecretToken(String aSecretToken);
 }

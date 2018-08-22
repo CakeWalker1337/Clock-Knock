@@ -2,6 +2,7 @@ package com.saritasa.clock_knock.features.main.presentation;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.saritasa.clock_knock.App;
@@ -11,10 +12,13 @@ import com.saritasa.clock_knock.features.login.presentation.LoginFragment;
 
 import javax.inject.Inject;
 
-public class MainActivity extends MvpAppCompatActivity implements MainView, LoginFragment.NavigationCallback, AuthFragment.NavigationCallback{
+public class MainActivity extends MvpAppCompatActivity implements MainView, NavigationListener{
 
     @Inject
-    MainPresenter<MainActivity> mMainPresenter;
+    public MainPresenter mMainPresenter;
+
+    private AuthFragment mAuthFragment;
+    private LoginFragment mLoginFragment;
 
     @Override
     protected void onCreate(Bundle aSavedInstanceState){
@@ -28,29 +32,44 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Logi
 
         mMainPresenter.attachView(this);
 
-        if (!mMainPresenter.checkAccessToken()){
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            LoginFragment fragment = new LoginFragment();
-            fragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
-            fragmentManager.beginTransaction().show(fragment).commit();
+        mAuthFragment = new AuthFragment();
+        mLoginFragment = new LoginFragment();
+
+        goToLogin();
+
+        if (mMainPresenter.checkAccessToken()){
+            onAuthenticationComplete();
         }
         else {
-            onAuthenticationComplete();
+            goToLogin();
         }
     }
 
     @Override
     public void goToAuth(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new AuthFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mAuthFragment).commit();
     }
 
     @Override
     public void onAuthenticationComplete(){
-        //TODO: Add getting username from login fragment
+        goToLogin();
+        mLoginFragment.completeAuthorization();
+    }
+
+    @Override
+    public void goToTasks(){
+        // Show task fragment
+        Log.w("MainActivity", "Showing task fragment");
     }
 
     @Override
     public void goToLogin(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new LoginFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mLoginFragment).commit();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMainPresenter.detachView(this);
     }
 }

@@ -12,20 +12,20 @@ public class PreferenceManagerImpl implements PreferenceManager{
 
     private SharedPreferences mSharedPreferences;
 
-    public PreferenceManagerImpl(@NonNull Context aContext) {
+    public PreferenceManagerImpl(@NonNull Context aContext){
         String appName = aContext.getString(R.string.app_name);
         mSharedPreferences = aContext.getSharedPreferences(appName, Context.MODE_PRIVATE);
     }
 
     @Override
     public void saveAccessToken(final String aAccessToken){
-        mSharedPreferences.edit().putString(Strings.PREFERENCE_TOKEN, aAccessToken).apply();
+        mSharedPreferences.edit().putString(Strings.PREFERENCE_ACCESS_TOKEN, aAccessToken).apply();
     }
 
     @Nullable
     @Override
     public String getAccessToken(){
-        return mSharedPreferences.getString(Strings.PREFERENCE_TOKEN, null);
+        return mSharedPreferences.getString(Strings.PREFERENCE_ACCESS_TOKEN, null);
     }
 
     @Override
@@ -42,5 +42,15 @@ public class PreferenceManagerImpl implements PreferenceManager{
     @Override
     public void clearAllData(){
         mSharedPreferences.edit().clear().apply();
+    }
+
+    @Override
+    public void saveSecretToken(final String aSecretToken){
+        mSharedPreferences.edit().putString(Strings.PREFERENCE_SECRET_TOKEN, aSecretToken).apply();
+    }
+
+    @Override
+    public String getSecretToken(){
+        return mSharedPreferences.getString(Strings.PREFERENCE_SECRET_TOKEN, null);
     }
 }

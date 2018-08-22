@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
@@ -30,8 +31,16 @@ public final class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory
         mOriginal = RxJava2CallAdapterFactory.create();
     }
 
+    private RxErrorHandlingCallAdapterFactory(Scheduler aScheduler){
+        mOriginal = RxJava2CallAdapterFactory.createWithScheduler(aScheduler);
+    }
+
     public static CallAdapter.Factory create(){
         return new RxErrorHandlingCallAdapterFactory();
+    }
+
+    public static CallAdapter.Factory createWithScheduler(Scheduler aScheduler){
+        return new RxErrorHandlingCallAdapterFactory(aScheduler);
     }
 
     @Override

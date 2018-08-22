@@ -2,6 +2,7 @@ package com.saritasa.clock_knock.features.login.di;
 
 import android.support.annotation.NonNull;
 
+import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.PreferenceManager;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.login.data.LoginRepository;
@@ -35,7 +36,7 @@ public class LoginModule{
     @NonNull
     @LoginScope
     @Provides
-    public LoginRepository providesRepository(ResourceManager aResourceManager, PreferenceManager aPreferenceManager) {
-        return new LoginRepositoryImpl(aResourceManager, aPreferenceManager);
+    public LoginRepository providesRepository(ResourceManager aResourceManager, PreferenceManager aPreferenceManager, RestApi aRestApi) {
+        return new LoginRepositoryImpl(aResourceManager, aPreferenceManager, aRestApi);
     }
 }

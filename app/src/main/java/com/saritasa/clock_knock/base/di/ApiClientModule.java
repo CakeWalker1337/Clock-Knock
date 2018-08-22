@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.base.di;
 
+import android.content.Context;
+
+import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.saritasa.clock_knock.BuildConfig;
 import com.saritasa.clock_knock.base.data.PreferenceManager;
 
@@ -22,29 +25,31 @@ public class ApiClientModule{
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient(PreferenceManager aPreferenceManager){
+    public OkHttpClient provideOkHttpClient(PreferenceManager aPreferenceManager, Context aContext){
 
-        Interceptor headerInterceptor = chain -> {
-            Request original = chain.request();
+        Interceptor headerInterceptor = aChain -> {
+            Request request1 = aChain.request();
             String accessToken = aPreferenceManager.getAccessToken();
             if(accessToken != null){
-                Request request = original.newBuilder()
-                        .header("Authorization", "Bearer: " + accessToken)
-                        .method(original.method(), original.body())
+
+                //TODO: Change this to parameters intercepting from JiraOAuthClient
+                Request request = request1.newBuilder()
+                        .header("Authorization", "Bearer " + accessToken)
+                        .method(request1.method(), request1.body())
                         .build();
-                return chain.proceed(request);
+                return aChain.proceed(request);
             }
-            return chain.proceed(original);
+            return aChain.proceed(request1);
         };
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder mClientBuilder = new OkHttpClient.Builder()
                 .connectTimeout(BuildConfig.CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                 .readTimeout(BuildConfig.NETWORK_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                 .writeTimeout(BuildConfig.NETWORK_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
-                .addInterceptor(interceptor)
+                .addInterceptor(new ChuckInterceptor(aContext))
                 .addInterceptor(headerInterceptor);
 
         return mClientBuilder.build();

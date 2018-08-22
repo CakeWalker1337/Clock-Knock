@@ -41,6 +41,7 @@ public class AuthPresenterImpl extends BasePresenter<AuthView> implements AuthPr
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aAccessToken -> {
                                mAuthInteractor.saveAccessToken(aAccessToken);
+                               Log.w("Access", "Access token: " + aAccessToken);
                                getViewState().completeAuthentication();
                            },
                            aThrowable -> getViewState().showError(aThrowable.getMessage()));
