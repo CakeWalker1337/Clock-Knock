@@ -4,12 +4,12 @@ import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
 import com.saritasa.clock_knock.features.tasks.domain.TasksInteractor;
 
-import java.util.List;
-
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
+/**
+ * Presenter for Tasks module.
+ */
 @InjectViewState
 public class TasksPresenterImpl extends BasePresenter<TasksView> implements TasksPresenter<TasksView>{
 
@@ -32,25 +32,14 @@ public class TasksPresenterImpl extends BasePresenter<TasksView> implements Task
     @Override
     public void loadTasks(){
 
+        Timber.d("Loading tasks");
         mTasksInteractor.loadTasks()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<TasksObject>>(){
-
-                    @Override
-                    public void onSubscribe(final Disposable d){
-
-                    }
-
-                    @Override
-                    public void onSuccess(final List<TasksObject> aTasksObjects){
-                        getViewState().updateView(aTasksObjects);
-                    }
-
-                    @Override
-                    public void onError(final Throwable e){
-
-                    }
-                });
+                .subscribe(aTasksAdapterItems -> {
+                               Timber.d("Task was loaded");
+                               getViewState().updateView(aTasksAdapterItems);
+                           },
+                           Timber::e);
 
     }
 

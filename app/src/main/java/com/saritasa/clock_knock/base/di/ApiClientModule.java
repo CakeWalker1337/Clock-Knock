@@ -11,9 +11,17 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+/**
+ * DI API client module.
+ */
 @Module
 public class ApiClientModule{
 
+    /**
+     * Provides OkHttpClient object. Singleton.
+     *
+     * @return OkHttpClient object.
+     */
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient(){

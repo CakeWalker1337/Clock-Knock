@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+/**
+ * POJO Class for parsing JSON.
+ */
 public class TasksResponseEntity{
 
     @SerializedName("issues")

@@ -5,19 +5,28 @@ import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
 import java.util.Objects;
 
+/**
+ * POJO Class for parsing JSON.
+ */
 public class TasksIssueEntity{
 
     @SerializedName("fields")
     private TasksFieldsEntity mFields;
     @SerializedName("key")
-    private String mKey;
+    private String mName;
     @SerializedName("id")
     private String mId;
+
+    public TasksIssueEntity(TasksFieldsEntity aFields, String aName, String aId){
+        mId = aId;
+        mName = aName;
+        mFields = aFields;
+    }
 
     @Override
     public int hashCode(){
 
-        return Objects.hash(mFields, mKey, mId);
+        return Objects.hash(mFields, mName, mId);
     }
 
     @Override
@@ -30,7 +39,7 @@ public class TasksIssueEntity{
         }
         TasksIssueEntity that = (TasksIssueEntity) aO;
         return Objects.equals(mFields, that.mFields) &&
-                Objects.equals(mKey, that.mKey) &&
+                Objects.equals(mName, that.mName) &&
                 Objects.equals(mId, that.mId);
     }
 
@@ -38,7 +47,7 @@ public class TasksIssueEntity{
     public String toString(){
         return "TasksResponseEntity{" +
                 "mFields=" + mFields +
-                ", mKey='" + mKey + '\'' +
+                ", mName='" + mName + '\'' +
                 ", mId='" + mId + '\'' +
                 '}';
     }
@@ -51,12 +60,12 @@ public class TasksIssueEntity{
         mFields = aFields;
     }
 
-    public String getKey(){
-        return mKey;
+    public String getName(){
+        return mName;
     }
 
-    public void setKey(String aKey){
-        mKey = aKey;
+    public void setName(String aName){
+        mName = aName;
     }
 
     public String getId(){
@@ -70,9 +79,9 @@ public class TasksIssueEntity{
     public TasksDomain toTaskDomain(){
         TasksDomain tasksDomain = new TasksDomain();
         tasksDomain.setId(getId());
-        tasksDomain.setKey(getKey());
-        tasksDomain.setPriorityIconUrl(getFields().getPriority().getIconurl());
-        tasksDomain.setProjectAvatarUrl(getFields().getProject().getAvatarurls().getLargeAvatarUrl());
+        tasksDomain.setName(getName());
+        tasksDomain.setPriorityIconUrl(getFields().getPriority().getIconUrl());
+        tasksDomain.setProjectAvatarUrl(getFields().getProject().getAvatarUrls().getLargeAvatarUrl());
         tasksDomain.setStatus(getFields().getStatus().getName());
         tasksDomain.setSummary(getFields().getSummary());
         tasksDomain.setPriorityId(Integer.parseInt(getFields().getPriority().getPriorityId()));

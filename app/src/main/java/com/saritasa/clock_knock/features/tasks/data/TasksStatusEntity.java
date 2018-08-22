@@ -4,7 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * POJO Class for parsing JSON.
+ */
 public class TasksStatusEntity{
+
+    public TasksStatusEntity(String aName){
+        mName = aName;
+    }
 
     @SerializedName("name")
     private String mName;

@@ -4,17 +4,25 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * POJO Class for parsing JSON.
+ */
 public class TasksProjectEntity{
 
     @SerializedName("avatarUrls")
-    private TasksAvatarUrlsEntity mAvatarurls;
+    private TasksAvatarUrlsEntity mAvatarUrls;
     @SerializedName("name")
     private String mName;
+
+    public TasksProjectEntity(String aName, TasksAvatarUrlsEntity aAvatarUrls){
+        mName = aName;
+        mAvatarUrls = aAvatarUrls;
+    }
 
     @Override
     public int hashCode(){
 
-        return Objects.hash(mAvatarurls, mName);
+        return Objects.hash(mAvatarUrls, mName);
     }
 
     @Override
@@ -26,24 +34,24 @@ public class TasksProjectEntity{
             return false;
         }
         TasksProjectEntity that = (TasksProjectEntity) aO;
-        return Objects.equals(mAvatarurls, that.mAvatarurls) &&
+        return Objects.equals(mAvatarUrls, that.mAvatarUrls) &&
                 Objects.equals(mName, that.mName);
     }
 
     @Override
     public String toString(){
         return "TasksProjectEntity{" +
-                "mAvatarurls=" + mAvatarurls +
+                "mAvatarUrls=" + mAvatarUrls +
                 ", mName='" + mName + '\'' +
                 '}';
     }
 
-    public TasksAvatarUrlsEntity getAvatarurls(){
-        return mAvatarurls;
+    public TasksAvatarUrlsEntity getAvatarUrls(){
+        return mAvatarUrls;
     }
 
-    public void setAvatarurls(TasksAvatarUrlsEntity aAvatarurls){
-        mAvatarurls = aAvatarurls;
+    public void setAvatarUrls(TasksAvatarUrlsEntity aAvatarUrls){
+        mAvatarUrls = aAvatarUrls;
     }
 
     public String getName(){

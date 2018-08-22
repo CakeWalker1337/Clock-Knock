@@ -2,6 +2,11 @@ package com.saritasa.clock_knock.base.presentation;
 
 import com.arellomobile.mvp.MvpPresenter;
 
+/**
+ * Base presenter class.
+ *
+ * @param <VIEW> View using in presenter. Must be inherit of BaseView.
+ */
 public class BasePresenter<VIEW extends BaseView> extends MvpPresenter<VIEW>{
 
     @Override

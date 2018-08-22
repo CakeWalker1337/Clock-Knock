@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * POJO Class for parsing JSON.
+ */
 public class TasksAvatarUrlsEntity{
 
     @SerializedName("16x16")
@@ -17,6 +20,10 @@ public class TasksAvatarUrlsEntity{
 
     @SerializedName("48x48")
     private String mXLargeAvatarUrl;
+
+    public TasksAvatarUrlsEntity(final String aLargeAvatarUrl){
+        mLargeAvatarUrl = aLargeAvatarUrl;
+    }
 
     @Override
     public int hashCode(){

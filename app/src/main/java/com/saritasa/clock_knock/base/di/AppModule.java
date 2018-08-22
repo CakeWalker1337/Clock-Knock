@@ -11,6 +11,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * DI Application module class.
+ */
 @Module
 public class AppModule{
 
@@ -20,12 +23,22 @@ public class AppModule{
         mContext = aContext;
     }
 
+    /**
+     * Provides context into other classes. Singleton.
+     *
+     * @return provided context.
+     */
     @Provides
     @Singleton
     Context provideContext(){
         return mContext;
     }
 
+    /**
+     * Provides resource manager. Singleton.
+     * @param aContext context for creating resource manager.
+     * @return resource manager object.
+     */
     @NonNull
     @Provides
     @Singleton

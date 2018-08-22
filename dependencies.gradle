@@ -15,7 +15,7 @@ ext.versions = [
 
         //UI
         constraintLayout   : '1.1.2',
-        glide              : '4.8.0',
+        glide              : '4.6.1',
 
         //Network
         retrofit           : '2.4.0',
@@ -37,7 +37,7 @@ ext.versions = [
         moxy               : '1.5.5',
 
         recyclerView       : "27.1.1",
-        fastAdapter        : "3.3.0-rc01"
+        fastAdapter        : "3.2.8"
 ]
 
 ext.gradlePlugins = [
@@ -60,6 +60,7 @@ ext.libraries = [
         //UI
         constraintLayout     : "com.android.support.constraint:constraint-layout:$versions.constraintLayout",
         glide                : "com.github.bumptech.glide:glide:$versions.glide",
+        glideCompiler        : "com.github.bumptech.glide:compiler:$versions.glide",
 
         //Network
         retrofit             : "com.squareup.retrofit2:retrofit:$versions.retrofit",
@@ -81,6 +82,9 @@ ext.libraries = [
 
         //Utils
         butterknife          : "com.jakewharton:butterknife:$versions.butterknife",
+
+
+
         butterknifeCompiler  : "com.jakewharton:butterknife-compiler:$versions.butterknife",
         timber               : "com.jakewharton.timber:timber:$versions.timber",
 

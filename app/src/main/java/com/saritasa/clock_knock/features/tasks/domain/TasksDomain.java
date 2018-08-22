@@ -1,23 +1,26 @@
 package com.saritasa.clock_knock.features.tasks.domain;
 
-import com.saritasa.clock_knock.features.tasks.presentation.TasksObject;
+import com.saritasa.clock_knock.features.tasks.presentation.TasksAdapterItem;
 
 import java.util.Objects;
 
+/**
+ * Data class for domain layer. Contains priorityId using for sorting list of this type of objects.
+ */
 public class TasksDomain{
 
-    private String key;
-    private String id;
-    private String priorityIconUrl;
-    private String projectAvatarUrl;
-    private String status;
-    private String summary;
-    private int priorityId;
+    private String mName;
+    private String mId;
+    private String mPriorityIconUrl;
+    private String mProjectAvatarUrl;
+    private String mStatus;
+    private String mSummary;
+    private int mPriorityId;
 
     @Override
     public int hashCode(){
 
-        return Objects.hash(key, id, priorityIconUrl, projectAvatarUrl, status, summary);
+        return Objects.hash(mName, mId, mPriorityIconUrl, mProjectAvatarUrl, mStatus, mSummary);
     }
 
     @Override
@@ -29,90 +32,95 @@ public class TasksDomain{
             return false;
         }
         TasksDomain that = (TasksDomain) aO;
-        return Objects.equals(key, that.key) &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(priorityIconUrl, that.priorityIconUrl) &&
-                Objects.equals(projectAvatarUrl, that.projectAvatarUrl) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(summary, that.summary);
+        return Objects.equals(mName, that.mName) &&
+                Objects.equals(mId, that.mId) &&
+                Objects.equals(mPriorityIconUrl, that.mPriorityIconUrl) &&
+                Objects.equals(mProjectAvatarUrl, that.mProjectAvatarUrl) &&
+                Objects.equals(mStatus, that.mStatus) &&
+                Objects.equals(mSummary, that.mSummary);
     }
 
     @Override
     public String toString(){
         return "TasksDomain{" +
-                "key='" + key + '\'' +
-                ", id='" + id + '\'' +
-                ", priorityIconUrl='" + priorityIconUrl + '\'' +
-                ", projectAvatarUrl='" + projectAvatarUrl + '\'' +
-                ", status='" + status + '\'' +
-                ", summary='" + summary + '\'' +
+                "mName='" + mName + '\'' +
+                ", mId='" + mId + '\'' +
+                ", mPriorityIconUrl='" + mPriorityIconUrl + '\'' +
+                ", mProjectAvatarUrl='" + mProjectAvatarUrl + '\'' +
+                ", mStatus='" + mStatus + '\'' +
+                ", mSummary='" + mSummary + '\'' +
                 '}';
     }
 
     public int getPriorityId(){
-        return priorityId;
+        return mPriorityId;
     }
 
     public void setPriorityId(final int aPriorityId){
-        priorityId = aPriorityId;
+        mPriorityId = aPriorityId;
     }
 
-    public String getKey(){
-        return key;
+    public String getName(){
+        return mName;
     }
 
-    public void setKey(final String aKey){
-        key = aKey;
+    public void setName(final String aName){
+        mName = aName;
     }
 
     public String getId(){
-        return id;
+        return mId;
     }
 
     public void setId(final String aId){
-        id = aId;
+        mId = aId;
     }
 
     public String getPriorityIconUrl(){
-        return priorityIconUrl;
+        return mPriorityIconUrl;
     }
 
     public void setPriorityIconUrl(final String aPriorityIconUrl){
-        priorityIconUrl = aPriorityIconUrl;
+        mPriorityIconUrl = aPriorityIconUrl;
     }
 
     public String getProjectAvatarUrl(){
-        return projectAvatarUrl;
+        return mProjectAvatarUrl;
     }
 
     public void setProjectAvatarUrl(final String aProjectAvatarUrl){
-        projectAvatarUrl = aProjectAvatarUrl;
+        mProjectAvatarUrl = aProjectAvatarUrl;
     }
 
     public String getStatus(){
-        return status;
+        return mStatus;
     }
 
     public void setStatus(final String aStatus){
-        status = aStatus;
+        mStatus = aStatus;
     }
 
     public String getSummary(){
-        return summary;
+        return mSummary;
     }
 
     public void setSummary(final String aSummary){
-        summary = aSummary;
+        mSummary = aSummary;
     }
 
-    public TasksObject toTasksObject(){
-        TasksObject tasksObject = new TasksObject();
-        tasksObject.setId(getId());
-        tasksObject.setKey(getKey());
-        tasksObject.setPriorityIconUrl(getPriorityIconUrl());
-        tasksObject.setProjectAvatarUrl(getProjectAvatarUrl());
-        tasksObject.setStatus(getStatus());
-        tasksObject.setSummary(getSummary());
-        return tasksObject;
+    /**
+     * Converts this object to TasksAdapterItem.
+     *
+     * @return Converted object.
+     */
+    public TasksAdapterItem toTasksObject(){
+        TasksAdapterItem tasksAdapterItem = new TasksAdapterItem();
+        tasksAdapterItem.setId(getId());
+        tasksAdapterItem.setName(getName());
+        tasksAdapterItem.setPriorityIconUrl(getPriorityIconUrl());
+        tasksAdapterItem.setProjectAvatarUrl(getProjectAvatarUrl());
+        tasksAdapterItem.setStatus(getStatus());
+        tasksAdapterItem.setSummary(getSummary());
+        return tasksAdapterItem;
     }
 }

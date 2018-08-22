@@ -4,19 +4,28 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * POJO Class for parsing JSON.
+ */
 public class TasksPriorityEntity{
 
     @SerializedName("iconUrl")
-    private String mIconurl;
+    private String mIconUrl;
     @SerializedName("name")
     private String mName;
     @SerializedName("id")
     private String mPriorityId;
 
+    public TasksPriorityEntity(String aName, String aIconUrl, String aPriorityId){
+        mName = aName;
+        mPriorityId = aPriorityId;
+        mIconUrl = aIconUrl;
+    }
+
     @Override
     public int hashCode(){
 
-        return Objects.hash(mIconurl, mName, mPriorityId);
+        return Objects.hash(mIconUrl, mName, mPriorityId);
     }
 
     @Override
@@ -28,7 +37,7 @@ public class TasksPriorityEntity{
             return false;
         }
         TasksPriorityEntity that = (TasksPriorityEntity) aO;
-        return Objects.equals(mIconurl, that.mIconurl) &&
+        return Objects.equals(mIconUrl, that.mIconUrl) &&
                 Objects.equals(mName, that.mName) &&
                 Objects.equals(mPriorityId, that.mPriorityId);
     }
@@ -36,7 +45,7 @@ public class TasksPriorityEntity{
     @Override
     public String toString(){
         return "TasksPriorityEntity{" +
-                "mIconurl='" + mIconurl + '\'' +
+                "mIconUrl='" + mIconUrl + '\'' +
                 ", mName='" + mName + '\'' +
                 ", mPriorityId='" + mPriorityId + '\'' +
                 '}';
@@ -50,12 +59,12 @@ public class TasksPriorityEntity{
         mPriorityId = aPriorityId;
     }
 
-    public String getIconurl(){
-        return mIconurl;
+    public String getIconUrl(){
+        return mIconUrl;
     }
 
-    public void setIconurl(String aIconurl){
-        mIconurl = aIconurl;
+    public void setIconUrl(String aIconUrl){
+        mIconUrl = aIconUrl;
     }
 
     public String getName(){

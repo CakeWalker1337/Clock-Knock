@@ -12,9 +12,18 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * DI api module class. Includes API client module.
+ */
 @Module(includes = {ApiClientModule.class})
 public class ApiModule{
 
+    /**
+     * Provides Retrofit builder. Singleton
+     *
+     * @param aOkHttpClient client for creating Retrofit builder.
+     * @return retrofit builder object.
+     */
     @Provides
     @Singleton
     public Retrofit.Builder provideRetrofitBuilder(OkHttpClient aOkHttpClient){
@@ -26,6 +35,11 @@ public class ApiModule{
                 .client(aOkHttpClient);
     }
 
+    /**
+     * Provides RestApi object. Singleton.
+     * @param aBuilder Retrofit builder for creating RestApi object.
+     * @return RestApi object.
+     */
     @Provides
     @Singleton
     public RestApi provideRestApi(Retrofit.Builder aBuilder){

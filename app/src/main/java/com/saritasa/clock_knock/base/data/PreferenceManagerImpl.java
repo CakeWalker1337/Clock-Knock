@@ -3,6 +3,9 @@ package com.saritasa.clock_knock.base.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Preference manager class. Contains shared preference object.
+ */
 public class PreferenceManagerImpl implements PreferenceManager{
 
     private SharedPreferences mSharedPreferences;

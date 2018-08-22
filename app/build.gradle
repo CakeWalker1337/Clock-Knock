@@ -40,11 +40,12 @@ dependencies {
 
 
     //Support
-   // implementation libraries.appcompatV7
+    implementation libraries.appcompatV7
 
     //UI
     implementation libraries.constraintLayout
     implementation libraries.glide
+    annotationProcessor libraries.glideCompiler
 
     //Network
     implementation libraries.retrofit
@@ -65,19 +66,23 @@ dependencies {
     annotationProcessor libraries.daggerProcessor
 
 
-    //Utils
-    implementation libraries.butterknife
+    annotationProcessor libraries.butterknifeCompiler
+
+    implementation (libraries.butterknife) {
+        exclude module: 'support-compat'
+    }
+
     implementation libraries.timber
 
     implementation libraries.moxy
     implementation libraries.moxyAppCompat
     annotationProcessor libraries.moxyCompiler
 
-   // implementation libraries.fastAdapter
+    implementation libraries.fastAdapter
 
-    //implementation libraries.recyclerView
+    implementation libraries.recyclerView
 
-    implementation 'com.mikepenz:fastadapter:3.3.0-rc01'
-    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0-rc01'
+//    implementation 'com.mikepenz:fastadapter:3.3.0-rc01'
+//    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
+//    implementation 'androidx.recyclerview:recyclerview:1.0.0-rc01'
 }

@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.base.data;
 
+/**
+ * Base repository class. Contains resource manager.
+ */
 public class BaseRepositoryImpl implements BaseRepository{
 
     ResourceManager mResourceManager;

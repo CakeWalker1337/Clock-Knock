@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * POJO Class for parsing JSON.
+ */
 public class TasksFieldsEntity{
 
     @SerializedName("status")
@@ -16,6 +19,14 @@ public class TasksFieldsEntity{
     private String mDescription;
     @SerializedName("summary")
     private String mSummary;
+
+    public TasksFieldsEntity(String aSummary, String aDescription, TasksStatusEntity aStatus, TasksPriorityEntity aPriority, TasksProjectEntity aProject){
+        mSummary = aSummary;
+        mDescription = aDescription;
+        mStatus = aStatus;
+        mPriority = aPriority;
+        mProject = aProject;
+    }
 
     @Override
     public int hashCode(){

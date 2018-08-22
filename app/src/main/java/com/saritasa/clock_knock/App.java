@@ -11,10 +11,19 @@ import com.saritasa.clock_knock.base.di.DaggerAppComponent;
 
 import timber.log.Timber;
 
+/**
+ * Application class.
+ */
 public class App extends Application{
 
     AppComponent mAppComponent;
 
+    /**
+     * Gets application object from context.
+     *
+     * @param aContext context.
+     * @return Application object.
+     */
     @NonNull
     public static App get(@NonNull Context aContext){
         return (App) aContext.getApplicationContext();
@@ -30,17 +39,24 @@ public class App extends Application{
         mAppComponent.inject(this);
     }
 
+    /**
+     * Gets AppComponent object.
+     *
+     * @return AppComponent object.
+     */
+    public AppComponent getAppComponent(){
+        return mAppComponent;
+    }
+
+    /**
+     * Builds DI application component.
+     * @return application component object.
+     */
     protected AppComponent buildAppComponent(){
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .apiModule(new ApiModule())
                 .build();
     }
-
-    public AppComponent getAppComponent(){
-        return mAppComponent;
-    }
-
-
 
 }
