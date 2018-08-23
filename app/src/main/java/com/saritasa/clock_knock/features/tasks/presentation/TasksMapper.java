@@ -22,12 +22,12 @@ public class TasksMapper{
         return aTaskDomainObservable
                 .sorted((aTasksDomain1, aTasksDomain2) -> {
                     if(aTasksDomain1.getPriorityId() < aTasksDomain2.getPriorityId()){
-                        return 1;
+                        return -1;
 
                     } else if(aTasksDomain1.getPriorityId() == aTasksDomain2.getPriorityId()){
                         return 0;
                     } else{
-                        return -1;
+                        return 1;
                     }
                 })
                 .map(TasksMapper::mapDomainObjectToPresentationObject)

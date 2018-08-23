@@ -3,6 +3,9 @@ apply from: '../dependencies.gradle'
 
 android {
     compileSdkVersion 28
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     defaultConfig {
 
 
@@ -34,9 +37,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Tests
     testImplementation libraries.jUnit
     androidTestImplementation libraries.testRunner
     androidTestImplementation libraries.expressoCore
+    testImplementation libraries.mock
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation libraries.mockCompiler
+
 
 
     //Support

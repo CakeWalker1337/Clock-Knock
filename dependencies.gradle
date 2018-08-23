@@ -37,7 +37,8 @@ ext.versions = [
         moxy               : '1.5.5',
 
         recyclerView       : "27.1.1",
-        fastAdapter        : "3.2.8"
+        fastAdapter        : "3.2.8",
+        mock               : "2.10.0"
 ]
 
 ext.gradlePlugins = [
@@ -56,7 +57,8 @@ ext.libraries = [
         jUnit                : "junit:junit:$versions.jUnit",
         testRunner           : "com.android.support.test:runner:$versions.testRunner",
         expressoCore         : "com.android.support.test.espresso:espresso-core:$versions.expresso",
-
+        mock                 : "org.mockito:mockito-core:$versions.mock",
+        mockCompiler         : "org.mockito:mockito-android:$versions.mock",
         //UI
         constraintLayout     : "com.android.support.constraint:constraint-layout:$versions.constraintLayout",
         glide                : "com.github.bumptech.glide:glide:$versions.glide",
