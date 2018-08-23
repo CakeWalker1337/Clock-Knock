@@ -7,6 +7,9 @@ import android.support.annotation.StringRes;
 
 import javax.inject.Inject;
 
+/**
+ * An implementation class containing methods with the project resource operations
+ */
 public class ResourceManagerImpl implements ResourceManager{
 
     private final Context mContext;

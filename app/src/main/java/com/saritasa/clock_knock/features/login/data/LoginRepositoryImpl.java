@@ -4,28 +4,32 @@ import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
-import com.saritasa.clock_knock.base.data.PreferenceManager;
+import com.saritasa.clock_knock.base.data.GlobalRepository;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.login.domain.UsernameDomain;
 
 import io.reactivex.Single;
 
+/**
+ * An implementation repository class for executing data working methods while logging in
+ */
 public class LoginRepositoryImpl extends BaseRepositoryImpl implements LoginRepository{
 
-    private PreferenceManager mPreferenceManager;
+    private GlobalRepository mGlobalRepository;
 
     private ResourceManager mResourceManager;
 
     private RestApi mRestApi;
 
     /**
-     * @param aResourceManager resource manager
+     * @param aResourceManager Resource manager
+     * @param aGlobalRepository Global repository
+     * @param aRestApi Rest API interface
      */
-    public LoginRepositoryImpl(@NonNull final ResourceManager aResourceManager, PreferenceManager aPreferenceManager, RestApi aRestApi){
+    public LoginRepositoryImpl(@NonNull final ResourceManager aResourceManager, GlobalRepository aGlobalRepository, RestApi aRestApi){
         super(aResourceManager);
-
         mResourceManager = aResourceManager;
-        mPreferenceManager = aPreferenceManager;
+        mGlobalRepository = aGlobalRepository;
         mRestApi = aRestApi;
     }
 
@@ -36,11 +40,11 @@ public class LoginRepositoryImpl extends BaseRepositoryImpl implements LoginRepo
 
     @Override
     public void saveUsername(final String aUsername){
-        mPreferenceManager.saveUsername(aUsername);
+        mGlobalRepository.saveUsername(aUsername);
     }
 
     @Override
     public boolean isAccessTokenExist(){
-        return mPreferenceManager.getAccessToken() != null;
+        return mGlobalRepository.getAccessToken() != null;
     }
 }

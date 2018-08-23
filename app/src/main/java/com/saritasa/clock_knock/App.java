@@ -11,10 +11,19 @@ import com.saritasa.clock_knock.base.di.DaggerAppComponent;
 
 import timber.log.Timber;
 
+/**
+ * A custom Application class
+ */
 public class App extends Application{
 
     AppComponent mAppComponent;
 
+    /**
+     * Gets App class instance from context
+     *
+     * @param aContext Context
+     * @return App object instance
+     */
     @NonNull
     public static App get(@NonNull Context aContext){
         return (App) aContext.getApplicationContext();
@@ -30,6 +39,11 @@ public class App extends Application{
         mAppComponent.inject(this);
     }
 
+    /**
+     * Builds App Component interface for Dagger
+     *
+     * @return AppComponent interface
+     */
     protected AppComponent buildAppComponent(){
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
@@ -37,6 +51,11 @@ public class App extends Application{
                 .build();
     }
 
+    /**
+     * Gets AppComponent instance
+     *
+     * @return AppComponent interface instance
+     */
     public AppComponent getAppComponent(){
         return mAppComponent;
     }

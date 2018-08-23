@@ -2,10 +2,16 @@ package com.saritasa.clock_knock.features.login.domain;
 
 import java.util.Objects;
 
+/**
+ * A data-class for holding the username when got it from repository
+ */
 public class UsernameDomain{
 
     private String mUsername;
 
+    /**
+     * @param aUsername Username string
+     */
     public UsernameDomain(final String aUsername){
         mUsername = aUsername;
     }

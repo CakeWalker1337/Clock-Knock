@@ -18,6 +18,9 @@ import com.saritasa.clock_knock.features.main.presentation.NavigationListener;
 
 import javax.inject.Inject;
 
+/**
+ * The Login fragment class
+ */
 public class LoginFragment extends MvpAppCompatFragment implements LoginView{
 
     private NavigationListener mNavigationListener;
@@ -26,13 +29,13 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
     public LoginPresenter mLoginPresenter;
 
     public LoginFragment(){
-
     }
 
     @Override
     public void onAttach(Context aContext){
         super.onAttach(aContext);
 
+        // Initialize the Navigation listener
         if(aContext instanceof NavigationListener){
             mNavigationListener = (NavigationListener) aContext;
         }
@@ -57,10 +60,6 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
                 .build()
                 .inject(this);
 
-        Log.w("LoginFragment", "onCreated");
-        if (mLoginPresenter == null) {
-            Log.w("LoginFragment", "PRESENTER IS NULL");
-        }
         mLoginPresenter.attachView(this);
 
         if (mLoginPresenter.isAccessTokenExist()) {
@@ -69,13 +68,6 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
 
         Button button = view.findViewById(R.id.loginButton);
         button.setOnClickListener(aView -> mLoginPresenter.onLoginClicked());
-    }
-
-    public void completeAuthorization() {
-        if (mLoginPresenter == null) {
-            Log.w("LoginFragment", "PRESENTER IS NULL [1]");
-        }
-
     }
 
     @Override

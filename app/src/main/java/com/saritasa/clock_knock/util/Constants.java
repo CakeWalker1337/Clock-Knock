@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.util;
 
+/**
+ * A final class for numeric constants
+ */
 public final class Constants{
     /**
      * Undefined value

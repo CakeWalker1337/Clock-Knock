@@ -4,11 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * A data-class for holding the username when got it from API
+ */
 public class UsernameEntity{
 
     @SerializedName("key")
     private String mKey;
 
+    /**
+     * @param aKey Username string
+     */
     public UsernameEntity(final String aKey){
         mKey = aKey;
     }

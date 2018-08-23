@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+/**
+ * Data class for holding the API error message and code
+ */
 public class ApiError{
 
     @SerializedName("status")
@@ -12,6 +15,10 @@ public class ApiError{
     @SerializedName("message")
     private String mMessage;
 
+    /**
+     * @param aStatus A status error code of request
+     * @param aMessage An error message
+     */
     public ApiError(final Integer aStatus, final String aMessage){
         mStatus = aStatus;
         mMessage = aMessage;

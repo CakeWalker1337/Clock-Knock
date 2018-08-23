@@ -5,6 +5,9 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Scope;
 
+/**
+ * Scope for the Auth feature
+ */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthScope{

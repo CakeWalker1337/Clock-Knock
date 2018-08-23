@@ -6,10 +6,18 @@ import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
 import com.saritasa.clock_knock.features.authorization.data.AuthRepository;
 
 import io.reactivex.Single;
+import timber.log.Timber;
 
+/**
+ * An implementation interactor class for executing domain data working methods
+ */
 public class AuthInteractorImpl extends BaseInteractorImpl<AuthRepository> implements AuthInteractor{
 
     private AuthRepository mAuthRepository;
+
+    /**
+     * @param aAuthRepository Auth repository interface
+     */
     public AuthInteractorImpl(final AuthRepository aAuthRepository){
         super(aAuthRepository);
         mAuthRepository = aAuthRepository;
@@ -27,7 +35,7 @@ public class AuthInteractorImpl extends BaseInteractorImpl<AuthRepository> imple
 
         String verificationToken = pieces[1];
 
-        Log.w("Auth", "Verification Token: " + verificationToken);
+        Timber.d("Verification Token: " + verificationToken);
 
         mAuthRepository.saveSecretToken(verificationToken);
 

@@ -8,9 +8,7 @@ import com.saritasa.clock_knock.base.network.exception.RetrofitException;
 import static com.saritasa.clock_knock.util.Constants.UNDEFINED_VALUE;
 
 /**
- * Contain methods for work with network
- *
- * @author kv
+ * A final class for some network operations (by Konstantin Veretelnikov)
  */
 public final class NetworkUtil{
 

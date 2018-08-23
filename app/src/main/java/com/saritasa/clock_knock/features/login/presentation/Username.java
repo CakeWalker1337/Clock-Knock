@@ -5,10 +5,16 @@ import com.saritasa.clock_knock.features.login.domain.UsernameDomain;
 
 import java.util.Objects;
 
+/**
+ * A data-class for holding the username when got it from interactor
+ */
 public class Username{
 
     private String mUsername;
 
+    /**
+     * @param aUsername Username string
+     */
     public Username(final String aUsername){
         mUsername = aUsername;
     }

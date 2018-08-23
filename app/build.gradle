@@ -85,7 +85,7 @@ dependencies{
     implementation libraries.googleHttpClient
     implementation libraries.googleCollections
 
-    implementation 'com.readystatesoftware.chuck:library:1.1.0'
+    implementation libraries.mockito
 
     annotationProcessor libraries.moxyCompiler
 

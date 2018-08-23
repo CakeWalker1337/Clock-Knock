@@ -12,6 +12,11 @@ import com.saritasa.clock_knock.features.login.presentation.LoginFragment;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
+/**
+ * The Main activity class
+ */
 public class MainActivity extends MvpAppCompatActivity implements MainView, NavigationListener{
 
     @Inject
@@ -25,24 +30,19 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         super.onCreate(aSavedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Inject the necessary variables
         App.get(this).getAppComponent()
                 .mainComponentBuilder()
                 .build()
                 .inject(this);
 
+        // Attach the presenter
         mMainPresenter.attachView(this);
 
         mAuthFragment = new AuthFragment();
         mLoginFragment = new LoginFragment();
 
         goToLogin();
-
-        if (mMainPresenter.checkAccessToken()){
-            onAuthenticationComplete();
-        }
-        else {
-            goToLogin();
-        }
     }
 
     @Override
@@ -53,13 +53,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     @Override
     public void onAuthenticationComplete(){
         goToLogin();
-        mLoginFragment.completeAuthorization();
     }
 
     @Override
     public void goToTasks(){
         // Show task fragment
-        Log.w("MainActivity", "Showing task fragment");
+        Timber.d("Showing task fragment");
     }
 
     @Override

@@ -8,6 +8,9 @@ import android.webkit.WebViewClient;
 
 import com.saritasa.clock_knock.util.Strings;
 
+/**
+ * A class for control the WebView actions
+ */
 public class OAuthWebViewClient extends WebViewClient
 {
     @Override

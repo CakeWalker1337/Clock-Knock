@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.features.authorization.data;
+package com.saritasa.clock_knock.base.network.oauth.token;
 
 import com.google.api.client.auth.oauth.OAuthRsaSigner;
 import com.google.api.client.http.apache.ApacheHttpTransport;
@@ -11,6 +11,9 @@ import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 
+/**
+ * A class for generating different types of tokens
+ */
 public class JiraOAuthTokenFactory {
     protected final String mAccessTokenUrl;
     protected final String mRequestTokenUrl;
@@ -74,7 +77,6 @@ public class JiraOAuthTokenFactory {
     private OAuthRsaSigner getOAuthRsaSigner(String aPrivateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         OAuthRsaSigner oAuthRsaSigner = new OAuthRsaSigner();
         oAuthRsaSigner.privateKey = getPrivateKey(aPrivateKey);
-        System.out.println(new String(oAuthRsaSigner.privateKey.getEncoded()));
         return oAuthRsaSigner;
     }
 

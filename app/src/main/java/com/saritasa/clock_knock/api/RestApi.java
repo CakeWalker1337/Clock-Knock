@@ -9,6 +9,9 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+/**
+ * The Retrofit API interface for throwing requests to a server
+ */
 public interface RestApi{
 
     @GET
@@ -17,6 +20,11 @@ public interface RestApi{
     @GET
     Observable<Response<ResponseBody>> getTaskWorkLog();
 
+    /**
+     * Gets username of current user
+     *
+     * @return Parsed username of current user
+     */
     @GET("rest/api/2/myself")
     Single<UsernameEntity> getUsername();
 }

@@ -4,14 +4,25 @@ import android.webkit.JavascriptInterface;
 
 import com.saritasa.clock_knock.util.Strings;
 
+/**
+ * A class to intercept the pages from WebView
+ */
 public class JavaScriptInterface{
 
     private AuthPresenter mAuthPresenter;
 
+    /**
+     * @param aAuthPresenter Auth presenter object
+     */
     public JavaScriptInterface(AuthPresenter aAuthPresenter){
         mAuthPresenter = aAuthPresenter;
     }
 
+    /**
+     * Handles page body and checks when user allows or denies the OAUth authentication
+     *
+     * @param aData Page body string
+     */
     @JavascriptInterface
     public void printPage(String aData){
 

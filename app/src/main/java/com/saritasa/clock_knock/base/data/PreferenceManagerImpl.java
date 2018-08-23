@@ -8,10 +8,16 @@ import android.support.annotation.Nullable;
 import com.saritasa.clock_knock.R;
 import com.saritasa.clock_knock.util.Strings;
 
+/**
+ * An implementation class with the SharedPreferences operations
+ */
 public class PreferenceManagerImpl implements PreferenceManager{
 
     private SharedPreferences mSharedPreferences;
 
+    /**
+     * @param aContext Context
+     */
     public PreferenceManagerImpl(@NonNull Context aContext){
         String appName = aContext.getString(R.string.app_name);
         mSharedPreferences = aContext.getSharedPreferences(appName, Context.MODE_PRIVATE);

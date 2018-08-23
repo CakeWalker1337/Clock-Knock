@@ -11,18 +11,40 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 
+/**
+ * Main component contains feature subcomponents and API and App modules
+ */
 @Singleton
 @Component(modules = {ApiModule.class, AppModule.class})
 public interface AppComponent{
 
+    /**
+     * Gets the Auth component builder
+     *
+     * @return Auth component builder
+     */
     @NonNull
     AuthComponent.Builder authComponentBuilder();
 
+    /**
+     * Gets the Main component builder
+     *
+     * @return Main component builder
+     */
     @NonNull
     MainComponent.Builder mainComponentBuilder();
 
+    /**
+     * Gets the Login component builder
+     *
+     * @return Login component builder
+     */
     @NonNull
     LoginComponent.Builder loginComponentBuilder();
 
+    /**
+     * Injects App component to the App class
+     * @param aApp App class object
+     */
     void inject(App aApp);
 }

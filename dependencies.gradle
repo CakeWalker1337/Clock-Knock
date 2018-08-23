@@ -9,6 +9,7 @@ ext.versions = [
         jUnit              : '4.12',
         testRunner         : '1.0.2',
         expresso           : '3.0.2',
+        mockito            : '2.21.0',
 
         //Support
         supportLibrary     : '27.1.1',
@@ -37,9 +38,9 @@ ext.versions = [
         moxy               : '1.5.5',
 
         //OAuth
-        googleOauthClient   : '1.24.1',
-        googleHttpClient    : '1.11.0-beta',
-        googleCollections   : '1.0'
+        googleOauthClient  : '1.24.1',
+        googleHttpClient   : '1.11.0-beta',
+        googleCollections  : '1.0'
 ]
 
 ext.gradlePlugins = [
@@ -58,6 +59,7 @@ ext.libraries = [
         jUnit                : "junit:junit:$versions.jUnit",
         testRunner           : "com.android.support.test:runner:$versions.testRunner",
         expressoCore         : "com.android.support.test.espresso:espresso-core:$versions.expresso",
+        mockito              : "org.mockito:mockito-core:$versions.mockito",
 
         //UI
         constraintLayout     : "com.android.support.constraint:constraint-layout:$versions.constraintLayout",
@@ -90,11 +92,11 @@ ext.libraries = [
         //Moxy
         moxy                 : "com.arello-mobile:moxy:$versions.moxy",
         moxyCompiler         : "com.arello-mobile:moxy-compiler:$versions.moxy",
-        moxyAppCompat         : "com.arello-mobile:moxy-app-compat:$versions.moxy",
+        moxyAppCompat        : "com.arello-mobile:moxy-app-compat:$versions.moxy",
 
         //OAuth
-        googleOauthClient   : "com.google.oauth-client:google-oauth-client:$versions.googleOauthClient",
-        googleHttpClient    : "com.google.http-client:google-http-client-jackson2:$versions.googleHttpClient",
-        googleCollections   : "com.google.collections:google-collections:$versions.googleCollections"
+        googleOauthClient    : "com.google.oauth-client:google-oauth-client:$versions.googleOauthClient",
+        googleHttpClient     : "com.google.http-client:google-http-client-jackson2:$versions.googleHttpClient",
+        googleCollections    : "com.google.collections:google-collections:$versions.googleCollections"
 
 ]

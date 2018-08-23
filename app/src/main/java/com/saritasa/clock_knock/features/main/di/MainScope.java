@@ -5,6 +5,9 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Scope;
 
+/**
+ * Scope for the Main feature
+ */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MainScope{

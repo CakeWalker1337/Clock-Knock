@@ -3,22 +3,25 @@ package com.saritasa.clock_knock.features.authorization.presentation;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
-import com.saritasa.clock_knock.features.authorization.data.JiraOAuthClient;
 import com.saritasa.clock_knock.features.authorization.domain.AuthInteractor;
 
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
+/**
+ * A class which implements methods from AuthPresenter interface
+ */
 @InjectViewState
 public class AuthPresenterImpl extends BasePresenter<AuthView> implements AuthPresenter<AuthView>{
 
     private AuthInteractor mAuthInteractor;
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
+    /**
+     * @param aAuthInteractor Auth interactor
+     */
     public AuthPresenterImpl(AuthInteractor aAuthInteractor){
         mAuthInteractor = aAuthInteractor;
     }
@@ -31,8 +34,6 @@ public class AuthPresenterImpl extends BasePresenter<AuthView> implements AuthPr
     @Override
     public void detachView(AuthView aAuthView){
         super.detachView(aAuthView);
-
-        mCompositeDisposable.clear();
     }
 
     @Override
@@ -41,7 +42,7 @@ public class AuthPresenterImpl extends BasePresenter<AuthView> implements AuthPr
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aAccessToken -> {
                                mAuthInteractor.saveAccessToken(aAccessToken);
-                               Log.w("Access", "Access token: " + aAccessToken);
+                               Timber.d("Access token: " + aAccessToken);
                                getViewState().completeAuthentication();
                            },
                            aThrowable -> getViewState().showError(aThrowable.getMessage()));

@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.util;
 
+/**
+ * A final class for string constants
+ */
 public final class Strings{
 
     /**
@@ -13,27 +16,32 @@ public final class Strings{
     public static final String CONSUMER_KEY = "OauthKey";
 
     /**
-     * Home
-     */
-    public static final String HOME_URL = "https://clock-knock.atlassian.net";
-
-    /**
      * Marker for getting verification key from HTML-page
      */
     public static final String SEARCH_MARKER = "\'Clock-Knock App\'";
 
-
+    /**
+     * Javascript interface key
+     */
     public static final String JS_INTERFACE_KEY = "jsinterface";
 
-
+    /**
+     * Web user agent data
+     */
     public static final String WEB_USER_AGENT = "Chrome/56.0.0.0 Mobile";
 
-
+    /**
+     * Shared preferences key for auth access token
+     */
     public static final String PREFERENCE_ACCESS_TOKEN = "access_token";
 
-    public static final String PREFERENCE_TEMPORARY_TOKEN = "temporary_token";
-
+    /**
+     * Shared preferences key for auth secret token
+     */
     public static final String PREFERENCE_SECRET_TOKEN = "secret_token";
 
+    /**
+     * Shared preferences key for username
+     */
     public static final String PREFERENCE_USERNAME = "username";
 }

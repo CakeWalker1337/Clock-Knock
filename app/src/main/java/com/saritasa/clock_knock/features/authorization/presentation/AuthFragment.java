@@ -20,6 +20,9 @@ import com.saritasa.clock_knock.util.Strings;
 
 import javax.inject.Inject;
 
+/**
+ * The Auth Fragment class
+ */
 public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
     @Inject
@@ -28,20 +31,22 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     private NavigationListener mNavigationListener;
 
     public AuthFragment(){
-
     }
 
     @Override
     public void onAttach(Context aContext){
         super.onAttach(aContext);
+        // Inject data
         App.get(aContext)
                 .getAppComponent()
                 .authComponentBuilder()
                 .build()
                 .inject(this);
 
+        // Attach view to presenter
         mAuthPresenter.attachView(this);
 
+        // Initialize the navigation interface
         if(aContext instanceof NavigationListener){
             mNavigationListener = (NavigationListener) aContext;
         }
@@ -90,6 +95,11 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
         mNavigationListener.goToLogin();
     }
 
+    /**
+     * Sets up the WebView
+     *
+     * @param aWebView WebView object
+     */
     @SuppressLint("SetJavaScriptEnabled")
     private void setupWebView(WebView aWebView){
         aWebView.getSettings().setJavaScriptEnabled(true);
@@ -102,5 +112,6 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     @Override
     public void onDetach(){
         super.onDetach();
+        mAuthPresenter.detachView(this);
     }
 }

@@ -1,34 +1,40 @@
 package com.saritasa.clock_knock.features.authorization.data;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
-import com.saritasa.clock_knock.base.data.PreferenceManager;
+import com.saritasa.clock_knock.base.data.GlobalRepository;
 import com.saritasa.clock_knock.base.data.ResourceManager;
-
-import javax.inject.Inject;
+import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClient;
+import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClientImpl;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * An implementation repository class for executing data working methods
+ */
 public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthRepository{
 
     private JiraOAuthClient mJiraOAuthClient;
-    private PreferenceManager mPreferenceManager;
+    private GlobalRepository mGlobalRepository;
     private ResourceManager mResourceManager;
 
     /**
-     * @param aResourceManager resource manager
+     *
+     * @param aResourceManager Resource manager
+     * @param aGlobalRepository Global repository
+     * @param aJiraOAuthClient Jira OAuth client
      */
     public AuthRepositoryImpl(@NonNull ResourceManager aResourceManager,
-                              @NonNull PreferenceManager aPreferenceManager,
+                              @NonNull GlobalRepository aGlobalRepository,
                               @NonNull JiraOAuthClient aJiraOAuthClient){
         super(aResourceManager);
 
         mResourceManager = aResourceManager;
-        mPreferenceManager = aPreferenceManager;
+        mGlobalRepository = aGlobalRepository;
         mJiraOAuthClient = aJiraOAuthClient;
+
     }
 
     @Override
@@ -51,11 +57,11 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
 
     @Override
     public void saveAccessToken(final String aAccessToken){
-        mPreferenceManager.saveAccessToken(aAccessToken);
+        mGlobalRepository.saveAccessToken(aAccessToken);
     }
 
     @Override
     public void saveSecretToken(final String aSecretToken){
-        mPreferenceManager.saveSecretToken(aSecretToken);
+        mGlobalRepository.saveSecretToken(aSecretToken);
     }
 }
