@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.presentation;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,9 +31,6 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
     private String mStatus;
     private String mSummary;
 
-    public TasksAdapterItem(){
-    }
-
     @Override
     public String toString(){
         return "TasksDomain{" +
@@ -53,7 +51,7 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
     }
 
     @Override
-    public boolean equals(final Object aObject){
+    public boolean equals(@Nullable final Object aObject){
         if(this == aObject){
             return true;
         }
@@ -85,51 +83,57 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
         return R.layout.item_task;
     }
 
+    @NonNull
     public String getName(){
         return mName;
     }
 
-    public void setName(final String aName){
+    public void setName(@NonNull final String aName){
         mName = aName;
     }
 
+    @NonNull
     public String getId(){
         return mId;
     }
 
-    public void setId(final String aId){
+    public void setId(@NonNull final String aId){
         mId = aId;
     }
 
+    @NonNull
     public String getPriorityIconUrl(){
         return mPriorityIconUrl;
     }
 
-    public void setPriorityIconUrl(final String aPriorityIconUrl){
+    public void setPriorityIconUrl(@NonNull final String aPriorityIconUrl){
         mPriorityIconUrl = aPriorityIconUrl;
     }
 
+    @NonNull
     public String getProjectAvatarUrl(){
         return mProjectAvatarUrl;
     }
 
-    public void setProjectAvatarUrl(final String aProjectAvatarUrl){
+    public void setProjectAvatarUrl(@NonNull final String aProjectAvatarUrl){
         mProjectAvatarUrl = aProjectAvatarUrl;
     }
 
+    @NonNull
     public String getStatus(){
         return mStatus;
     }
 
-    public void setStatus(final String aStatus){
+    public void setStatus(@NonNull final String aStatus){
         mStatus = aStatus;
     }
 
+    @NonNull
     public String getSummary(){
         return mSummary;
     }
 
-    public void setSummary(final String aSummary){
+    public void setSummary(@NonNull final String aSummary){
         mSummary = aSummary;
     }
 

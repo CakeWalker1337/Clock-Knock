@@ -1,7 +1,8 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
-import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
 import java.util.Objects;
 
@@ -17,7 +18,14 @@ public class TasksIssueEntity{
     @SerializedName("id")
     private String mId;
 
-    public TasksIssueEntity(TasksFieldsEntity aFields, String aName, String aId){
+    /**
+     * Constructs TasksIssueEntity object with params.
+     *
+     * @param aFields - Entity fields object
+     * @param aName - name of issue
+     * @param aId - id of issue
+     */
+    public TasksIssueEntity(@NonNull TasksFieldsEntity aFields, @NonNull String aName, @NonNull String aId){
         mId = aId;
         mName = aName;
         mFields = aFields;
@@ -52,40 +60,33 @@ public class TasksIssueEntity{
                 '}';
     }
 
+    @NonNull
     public TasksFieldsEntity getFields(){
         return mFields;
     }
 
-    public void setFields(TasksFieldsEntity aFields){
+    public void setFields(@NonNull TasksFieldsEntity aFields){
         mFields = aFields;
     }
 
+    @NonNull
     public String getName(){
         return mName;
     }
 
-    public void setName(String aName){
+    public void setName(@NonNull String aName){
         mName = aName;
     }
 
+    @NonNull
     public String getId(){
         return mId;
     }
 
-    public void setId(String aId){
+    public void setId(@NonNull String aId){
         mId = aId;
     }
 
-    public TasksDomain toTaskDomain(){
-        TasksDomain tasksDomain = new TasksDomain();
-        tasksDomain.setId(getId());
-        tasksDomain.setName(getName());
-        tasksDomain.setPriorityIconUrl(getFields().getPriority().getIconUrl());
-        tasksDomain.setProjectAvatarUrl(getFields().getProject().getAvatarUrls().getLargeAvatarUrl());
-        tasksDomain.setStatus(getFields().getStatus().getName());
-        tasksDomain.setSummary(getFields().getSummary());
-        tasksDomain.setPriorityId(Integer.parseInt(getFields().getPriority().getPriorityId()));
-        return tasksDomain;
-    }
+
 
 }

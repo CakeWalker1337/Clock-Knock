@@ -20,6 +20,5 @@ public class MainActivity extends MvpAppCompatActivity{
         TasksFragment tasksFragment = new TasksFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.mainLayout, tasksFragment).commit();
 
-        //TODO: CREATE TESTS!!
     }
 }

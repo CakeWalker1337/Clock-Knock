@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
 import com.saritasa.clock_knock.base.data.ResourceManager;
@@ -18,18 +20,27 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
 
     RestApi mRestApi;
 
-    public TasksRepositoryImpl(ResourceManager aResourceManager, RestApi aRestApi){
+    /**
+     * Constructs TasksRepositoryImpl object with params.
+     *
+     * @param aResourceManager - resource manager object
+     * @param aRestApi - object of rest api
+     */
+    public TasksRepositoryImpl(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi){
         super(aResourceManager);
         mRestApi = aRestApi;
     }
 
+    @NonNull
     @Override
     public Observable<TasksDomain> loadTasks(){
         Timber.d("Loading tasks");
         return
                 //mRestApi.getTasks("assignee=maxim.kovalev")
                 getTestApiTask()
-                        .flatMapObservable(TasksEntityMapper::mapTasksEntityToDomainObjects);
+                        .flatMapObservable(aTasksResponseEntity -> Observable.fromIterable(aTasksResponseEntity.getIssues()))
+                        .map(TasksEntityMapper::mapEntityObjectToDomainObject)
+                        .filter(aTasksDomain -> !aTasksDomain.getStatus().equals("Done"));
     }
 
     /**
@@ -38,19 +49,18 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
      *
      * @return Single object of imitated api response.
      */
+    @NonNull
     private Single<TasksResponseEntity> getTestApiTask(){
 
         return Single.create(emitter -> {
             TasksResponseEntity tasksResponseEntity = new TasksResponseEntity();
 
             TasksStatusEntity tasksStatusEntity = new TasksStatusEntity("IN PROGRESS");
-            TasksPriorityEntity tasksPriorityEntity = new TasksPriorityEntity("Medium",
-                                                                              "http://www.iconninja.com/files/704/5/100/home-icon.png",
+            TasksPriorityEntity tasksPriorityEntity = new TasksPriorityEntity("http://www.iconninja.com/files/704/5/100/home-icon.png",
                                                                               "3");
             TasksAvatarUrlsEntity tasksAvatarUrlsEntity = new TasksAvatarUrlsEntity("http://www.iconninja.com/files/704/5/100/home-icon.png");
-            TasksProjectEntity tasksProjectEntity = new TasksProjectEntity("TestProj", tasksAvatarUrlsEntity);
+            TasksProjectEntity tasksProjectEntity = new TasksProjectEntity(tasksAvatarUrlsEntity);
             TasksFieldsEntity tasksFieldsEntity = new TasksFieldsEntity("Test task",
-                                                                        "This is a task for testing methods.",
                                                                         tasksStatusEntity,
                                                                         tasksPriorityEntity,
                                                                         tasksProjectEntity);

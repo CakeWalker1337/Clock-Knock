@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -9,82 +11,48 @@ import java.util.Objects;
  */
 public class TasksAvatarUrlsEntity{
 
-    @SerializedName("16x16")
-    private String mSmallAvatarUrl;
-
-    @SerializedName("24x24")
-    private String mMediumAvatarUrl;
-
     @SerializedName("32x32")
     private String mLargeAvatarUrl;
 
-    @SerializedName("48x48")
-    private String mXLargeAvatarUrl;
-
-    public TasksAvatarUrlsEntity(final String aLargeAvatarUrl){
+    /**
+     * Constructs AvatarUrlEntity object with params.
+     *
+     * @param aLargeAvatarUrl - avatar url for downloading.
+     */
+    public TasksAvatarUrlsEntity(@Nullable final String aLargeAvatarUrl){
         mLargeAvatarUrl = aLargeAvatarUrl;
     }
 
     @Override
     public int hashCode(){
-
-        return Objects.hash(mSmallAvatarUrl, mMediumAvatarUrl, mLargeAvatarUrl, mXLargeAvatarUrl);
+        return Objects.hash(mLargeAvatarUrl);
     }
 
     @Override
-    public boolean equals(final Object aO){
-        if(this == aO){
+    public boolean equals(@Nullable final Object aObject){
+        if(this == aObject){
             return true;
         }
-        if(aO == null || getClass() != aO.getClass()){
+        if(aObject == null || getClass() != aObject.getClass()){
             return false;
         }
-        TasksAvatarUrlsEntity that = (TasksAvatarUrlsEntity) aO;
-        return Objects.equals(mSmallAvatarUrl, that.mSmallAvatarUrl) &&
-                Objects.equals(mMediumAvatarUrl, that.mMediumAvatarUrl) &&
-                Objects.equals(mLargeAvatarUrl, that.mLargeAvatarUrl) &&
-                Objects.equals(mXLargeAvatarUrl, that.mXLargeAvatarUrl);
+        TasksAvatarUrlsEntity that = (TasksAvatarUrlsEntity) aObject;
+        return Objects.equals(mLargeAvatarUrl, that.mLargeAvatarUrl);
     }
 
     @Override
     public String toString(){
         return "TasksAvatarUrlsEntity{" +
-                "mSmallAvatarUrl='" + mSmallAvatarUrl + '\'' +
-                ", mMediumAvatarUrl='" + mMediumAvatarUrl + '\'' +
-                ", mLargeAvatarUrl='" + mLargeAvatarUrl + '\'' +
-                ", mXLargeAvatarUrl='" + mXLargeAvatarUrl + '\'' +
+                "mLargeAvatarUrl='" + mLargeAvatarUrl + '\'' +
                 '}';
     }
 
-    public String getSmallAvatarUrl(){
-        return mSmallAvatarUrl;
-    }
-
-    public void setSmallAvatarUrl(final String aSmallAvatarUrl){
-        mSmallAvatarUrl = aSmallAvatarUrl;
-    }
-
-    public String getMediumAvatarUrl(){
-        return mMediumAvatarUrl;
-    }
-
-    public void setMediumAvatarUrl(final String aMediumAvatarUrl){
-        mMediumAvatarUrl = aMediumAvatarUrl;
-    }
-
-    public String getXLargeAvatarUrl(){
-        return mXLargeAvatarUrl;
-    }
-
-    public void setXLargeAvatarUrl(final String aXLargeAvatarUrl){
-        mXLargeAvatarUrl = aXLargeAvatarUrl;
-    }
-
+    @Nullable
     public String getLargeAvatarUrl(){
         return mLargeAvatarUrl;
     }
 
-    public void setLargeAvatarUrl(final String aLargeAvatarUrl){
+    public void setLargeAvatarUrl(@Nullable final String aLargeAvatarUrl){
         mLargeAvatarUrl = aLargeAvatarUrl;
     }
 }

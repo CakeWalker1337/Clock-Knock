@@ -2,6 +2,7 @@ package com.saritasa.clock_knock.features.tasks.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
+import com.saritasa.clock_knock.features.tasks.di.TasksModule;
 
 import java.util.List;
 
@@ -76,7 +78,7 @@ public class TasksFragment extends MvpAppCompatFragment implements TasksView{
     }
 
     @Override
-    public void onAttach(final Context context){
+    public void onAttach(@NonNull final Context context){
         super.onAttach(context);
         Timber.d("Attached");
     }
@@ -88,7 +90,7 @@ public class TasksFragment extends MvpAppCompatFragment implements TasksView{
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
         Timber.d("Fragment created");
@@ -96,6 +98,7 @@ public class TasksFragment extends MvpAppCompatFragment implements TasksView{
         App.get(getContext())
                 .getAppComponent()
                 .tasksComponentBuilder()
+                .tasksModule(new TasksModule())
                 .build()
                 .inject(this);
 

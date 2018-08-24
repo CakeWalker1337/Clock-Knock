@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.domain;
 
-import com.saritasa.clock_knock.features.tasks.presentation.TasksAdapterItem;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Objects;
 
@@ -24,14 +25,14 @@ public class TasksDomain{
     }
 
     @Override
-    public boolean equals(final Object aO){
-        if(this == aO){
+    public boolean equals(@Nullable final Object aObject){
+        if(this == aObject){
             return true;
         }
-        if(aO == null || getClass() != aO.getClass()){
+        if(aObject == null || getClass() != aObject.getClass()){
             return false;
         }
-        TasksDomain that = (TasksDomain) aO;
+        TasksDomain that = (TasksDomain) aObject;
         return Objects.equals(mName, that.mName) &&
                 Objects.equals(mId, that.mId) &&
                 Objects.equals(mPriorityIconUrl, that.mPriorityIconUrl) &&
@@ -52,59 +53,66 @@ public class TasksDomain{
                 '}';
     }
 
+    @NonNull
     public int getPriorityId(){
         return mPriorityId;
     }
 
-    public void setPriorityId(final int aPriorityId){
+    public void setPriorityId(@NonNull final int aPriorityId){
         mPriorityId = aPriorityId;
     }
 
+    @NonNull
     public String getName(){
         return mName;
     }
 
-    public void setName(final String aName){
+    public void setName(@NonNull final String aName){
         mName = aName;
     }
 
+    @NonNull
     public String getId(){
         return mId;
     }
 
-    public void setId(final String aId){
+    public void setId(@NonNull final String aId){
         mId = aId;
     }
 
+    @NonNull
     public String getPriorityIconUrl(){
         return mPriorityIconUrl;
     }
 
-    public void setPriorityIconUrl(final String aPriorityIconUrl){
+    public void setPriorityIconUrl(@NonNull final String aPriorityIconUrl){
         mPriorityIconUrl = aPriorityIconUrl;
     }
 
+    @NonNull
     public String getProjectAvatarUrl(){
         return mProjectAvatarUrl;
     }
 
-    public void setProjectAvatarUrl(final String aProjectAvatarUrl){
+    public void setProjectAvatarUrl(@NonNull final String aProjectAvatarUrl){
         mProjectAvatarUrl = aProjectAvatarUrl;
     }
 
+    @NonNull
     public String getStatus(){
         return mStatus;
     }
 
-    public void setStatus(final String aStatus){
+    public void setStatus(@NonNull final String aStatus){
         mStatus = aStatus;
     }
 
+    @NonNull
     public String getSummary(){
         return mSummary;
     }
 
-    public void setSummary(final String aSummary){
+    public void setSummary(@NonNull final String aSummary){
         mSummary = aSummary;
     }
 
@@ -113,14 +121,5 @@ public class TasksDomain{
      *
      * @return Converted object.
      */
-    public TasksAdapterItem toTasksObject(){
-        TasksAdapterItem tasksAdapterItem = new TasksAdapterItem();
-        tasksAdapterItem.setId(getId());
-        tasksAdapterItem.setName(getName());
-        tasksAdapterItem.setPriorityIconUrl(getPriorityIconUrl());
-        tasksAdapterItem.setProjectAvatarUrl(getProjectAvatarUrl());
-        tasksAdapterItem.setStatus(getStatus());
-        tasksAdapterItem.setSummary(getSummary());
-        return tasksAdapterItem;
-    }
+
 }

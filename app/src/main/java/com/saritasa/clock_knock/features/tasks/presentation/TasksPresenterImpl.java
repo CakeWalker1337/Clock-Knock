@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
 import com.saritasa.clock_knock.features.tasks.domain.TasksInteractor;
@@ -15,17 +17,22 @@ public class TasksPresenterImpl extends BasePresenter<TasksView> implements Task
 
     private TasksInteractor mTasksInteractor;
 
-    public TasksPresenterImpl(TasksInteractor aTasksInteractor){
+    /**
+     * Constructs TasksPresenterImpl object with params.
+     *
+     * @param aTasksInteractor - interactor object.
+     */
+    public TasksPresenterImpl(@NonNull TasksInteractor aTasksInteractor){
         mTasksInteractor = aTasksInteractor;
     }
 
     @Override
-    public void attachView(final TasksView view){
+    public void attachView(@NonNull final TasksView view){
         super.attachView(view);
     }
 
     @Override
-    public void detachView(final TasksView view){
+    public void detachView(@NonNull final TasksView view){
         super.detachView(view);
     }
 
@@ -35,6 +42,7 @@ public class TasksPresenterImpl extends BasePresenter<TasksView> implements Task
         Timber.d("Loading tasks");
         mTasksInteractor.loadTasks()
                 .observeOn(AndroidSchedulers.mainThread())
+                .toList()
                 .subscribe(aTasksAdapterItems -> {
                                Timber.d("Task was loaded");
                                getViewState().updateView(aTasksAdapterItems);

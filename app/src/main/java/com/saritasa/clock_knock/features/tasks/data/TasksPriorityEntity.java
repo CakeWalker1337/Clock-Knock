@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -11,13 +14,16 @@ public class TasksPriorityEntity{
 
     @SerializedName("iconUrl")
     private String mIconUrl;
-    @SerializedName("name")
-    private String mName;
     @SerializedName("id")
     private String mPriorityId;
 
-    public TasksPriorityEntity(String aName, String aIconUrl, String aPriorityId){
-        mName = aName;
+    /**
+     * Constructs TasksPriorityEntity object with params.
+     *
+     * @param aIconUrl - priority icon url
+     * @param aPriorityId - priority id
+     */
+    public TasksPriorityEntity(@NonNull String aIconUrl, @NonNull String aPriorityId){
         mPriorityId = aPriorityId;
         mIconUrl = aIconUrl;
     }
@@ -25,11 +31,11 @@ public class TasksPriorityEntity{
     @Override
     public int hashCode(){
 
-        return Objects.hash(mIconUrl, mName, mPriorityId);
+        return Objects.hash(mIconUrl, mPriorityId);
     }
 
     @Override
-    public boolean equals(final Object aO){
+    public boolean equals(@Nullable final Object aO){
         if(this == aO){
             return true;
         }
@@ -38,7 +44,6 @@ public class TasksPriorityEntity{
         }
         TasksPriorityEntity that = (TasksPriorityEntity) aO;
         return Objects.equals(mIconUrl, that.mIconUrl) &&
-                Objects.equals(mName, that.mName) &&
                 Objects.equals(mPriorityId, that.mPriorityId);
     }
 
@@ -46,32 +51,26 @@ public class TasksPriorityEntity{
     public String toString(){
         return "TasksPriorityEntity{" +
                 "mIconUrl='" + mIconUrl + '\'' +
-                ", mName='" + mName + '\'' +
                 ", mPriorityId='" + mPriorityId + '\'' +
                 '}';
     }
 
+    @NonNull
     public String getPriorityId(){
         return mPriorityId;
     }
 
-    public void setPriorityId(final String aPriorityId){
+    public void setPriorityId(@NonNull final String aPriorityId){
         mPriorityId = aPriorityId;
     }
 
+    @NonNull
     public String getIconUrl(){
         return mIconUrl;
     }
 
-    public void setIconUrl(String aIconUrl){
+    public void setIconUrl(@NonNull String aIconUrl){
         mIconUrl = aIconUrl;
     }
 
-    public String getName(){
-        return mName;
-    }
-
-    public void setName(String aName){
-        mName = aName;
-    }
 }

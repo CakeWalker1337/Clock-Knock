@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -9,7 +12,12 @@ import java.util.Objects;
  */
 public class TasksStatusEntity{
 
-    public TasksStatusEntity(String aName){
+    /**
+     * Constructs TasksStatusEntity object with params.
+     *
+     * @param aName - name of status
+     */
+    public TasksStatusEntity(@NonNull String aName){
         mName = aName;
     }
 
@@ -23,7 +31,7 @@ public class TasksStatusEntity{
     }
 
     @Override
-    public boolean equals(final Object aO){
+    public boolean equals(@Nullable final Object aO){
         if(this == aO){
             return true;
         }
@@ -41,11 +49,12 @@ public class TasksStatusEntity{
                 '}';
     }
 
+    @NonNull
     public String getName(){
         return mName;
     }
 
-    public void setName(String aName){
+    public void setName(@NonNull String aName){
         mName = aName;
     }
 }

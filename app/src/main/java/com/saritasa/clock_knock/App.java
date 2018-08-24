@@ -44,6 +44,7 @@ public class App extends Application{
      *
      * @return AppComponent object.
      */
+    @NonNull
     public AppComponent getAppComponent(){
         return mAppComponent;
     }
@@ -52,6 +53,7 @@ public class App extends Application{
      * Builds DI application component.
      * @return application component object.
      */
+    @NonNull
     protected AppComponent buildAppComponent(){
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))

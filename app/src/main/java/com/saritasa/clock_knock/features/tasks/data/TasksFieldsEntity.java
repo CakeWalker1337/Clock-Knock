@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -15,14 +18,22 @@ public class TasksFieldsEntity{
     private TasksPriorityEntity mPriority;
     @SerializedName("project")
     private TasksProjectEntity mProject;
-    @SerializedName("description")
-    private String mDescription;
     @SerializedName("summary")
     private String mSummary;
 
-    public TasksFieldsEntity(String aSummary, String aDescription, TasksStatusEntity aStatus, TasksPriorityEntity aPriority, TasksProjectEntity aProject){
+    /**
+     * Constructs TasksFieldsEntity object with params.
+     *
+     * @param aSummary - Short description of task.
+     * @param aStatus - status entity.
+     * @param aPriority - priority entity.
+     * @param aProject - project entity.
+     */
+    public TasksFieldsEntity(@NonNull String aSummary,
+                             @NonNull TasksStatusEntity aStatus,
+                             @NonNull TasksPriorityEntity aPriority,
+                             @NonNull TasksProjectEntity aProject){
         mSummary = aSummary;
-        mDescription = aDescription;
         mStatus = aStatus;
         mPriority = aPriority;
         mProject = aProject;
@@ -31,22 +42,21 @@ public class TasksFieldsEntity{
     @Override
     public int hashCode(){
 
-        return Objects.hash(mStatus, mPriority, mProject, mDescription, mSummary);
+        return Objects.hash(mStatus, mPriority, mProject, mSummary);
     }
 
     @Override
-    public boolean equals(final Object aO){
-        if(this == aO){
+    public boolean equals(@Nullable final Object aObject){
+        if(this == aObject){
             return true;
         }
-        if(aO == null || getClass() != aO.getClass()){
+        if(aObject == null || getClass() != aObject.getClass()){
             return false;
         }
-        TasksFieldsEntity that = (TasksFieldsEntity) aO;
+        TasksFieldsEntity that = (TasksFieldsEntity) aObject;
         return Objects.equals(mStatus, that.mStatus) &&
                 Objects.equals(mPriority, that.mPriority) &&
                 Objects.equals(mProject, that.mProject) &&
-                Objects.equals(mDescription, that.mDescription) &&
                 Objects.equals(mSummary, that.mSummary);
     }
 
@@ -56,48 +66,43 @@ public class TasksFieldsEntity{
                 "mStatus=" + mStatus +
                 ", mPriority=" + mPriority +
                 ", mProject=" + mProject +
-                ", mDescription='" + mDescription + '\'' +
                 ", mSummary='" + mSummary + '\'' +
                 '}';
     }
 
+    @NonNull
     public TasksStatusEntity getStatus(){
         return mStatus;
     }
 
-    public void setStatus(TasksStatusEntity aStatus){
+    public void setStatus(@NonNull TasksStatusEntity aStatus){
         mStatus = aStatus;
     }
 
+    @NonNull
     public TasksPriorityEntity getPriority(){
         return mPriority;
     }
 
-    public void setPriority(TasksPriorityEntity aPriority){
+    public void setPriority(@NonNull TasksPriorityEntity aPriority){
         mPriority = aPriority;
     }
 
+    @NonNull
     public TasksProjectEntity getProject(){
         return mProject;
     }
 
-    public void setProject(TasksProjectEntity aProject){
+    public void setProject(@NonNull TasksProjectEntity aProject){
         mProject = aProject;
     }
 
-    public String getDescription(){
-        return mDescription;
-    }
-
-    public void setDescription(String aDescription){
-        mDescription = aDescription;
-    }
-
+    @NonNull
     public String getSummary(){
         return mSummary;
     }
 
-    public void setSummary(String aSummary){
+    public void setSummary(@NonNull String aSummary){
         mSummary = aSummary;
     }
 }

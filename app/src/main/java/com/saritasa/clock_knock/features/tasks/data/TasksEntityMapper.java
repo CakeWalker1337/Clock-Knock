@@ -1,8 +1,8 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
-import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
+import android.support.annotation.NonNull;
 
-import io.reactivex.Observable;
+import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
 /**
  * Mapper class for mapping data between entity and domain layers.
@@ -10,30 +10,22 @@ import io.reactivex.Observable;
 public class TasksEntityMapper{
 
     /**
-     * Maps API response into domain objects.
-     *
-     * @param aEntity API response object.
-     * @return Observable with domain objects.
-     */
-    public static Observable<TasksDomain> mapTasksEntityToDomainObjects(TasksResponseEntity aEntity){
-        Observable<TasksDomain> observable = Observable.create(emitter -> {
-            for(TasksIssueEntity issue : aEntity.getIssues()){
-                emitter.onNext(mapEntityObjectToDomainObject(issue));
-            }
-            emitter.onComplete();
-        });
-        return observable
-                .filter(aTasksDomain -> !aTasksDomain.getStatus().equals("Done"));
-    }
-
-    /**
      * Maps single issue object into tasks domain object.
      *
      * @param aTasksIssueEntity issue object to map.
      * @return mapped TaskDomain object.
      */
-    public static TasksDomain mapEntityObjectToDomainObject(TasksIssueEntity aTasksIssueEntity){
-        return aTasksIssueEntity.toTaskDomain();
+    @NonNull
+    public static TasksDomain mapEntityObjectToDomainObject(@NonNull TasksIssueEntity aTasksIssueEntity){
+        TasksDomain tasksDomain = new TasksDomain();
+        tasksDomain.setId(aTasksIssueEntity.getId());
+        tasksDomain.setName(aTasksIssueEntity.getName());
+        tasksDomain.setPriorityIconUrl(aTasksIssueEntity.getFields().getPriority().getIconUrl());
+        tasksDomain.setProjectAvatarUrl(aTasksIssueEntity.getFields().getProject().getAvatarUrls().getLargeAvatarUrl());
+        tasksDomain.setStatus(aTasksIssueEntity.getFields().getStatus().getName());
+        tasksDomain.setSummary(aTasksIssueEntity.getFields().getSummary());
+        tasksDomain.setPriorityId(Integer.parseInt(aTasksIssueEntity.getFields().getPriority().getPriorityId()));
+        return tasksDomain;
     }
 
 }
