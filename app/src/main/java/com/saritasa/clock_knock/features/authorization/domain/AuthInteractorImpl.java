@@ -33,7 +33,7 @@ public class AuthInteractorImpl extends BaseInteractorImpl<AuthRepository> imple
     public Single<String> finishAuthentication(final String aPage){
         String[] pieces = aPage.split("\'");
 
-        String verificationToken = pieces[1];
+        String verificationToken = pieces[0];
 
         Timber.d("Verification Token: " + verificationToken);
 

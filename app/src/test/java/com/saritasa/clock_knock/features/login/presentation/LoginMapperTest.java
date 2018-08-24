@@ -10,7 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Testing class for LoginMapper class
+ * Test {@link LoginMapper}
  */
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class LoginMapperTest{

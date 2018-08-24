@@ -25,18 +25,6 @@ import dagger.Provides;
 public class AuthModule{
 
     /**
-     * Provides the Jira OAuth client
-     *
-     * @return Jira OAuth client object
-     */
-    @NonNull
-    @AuthScope
-    @Provides
-    public JiraOAuthClient providesJiraOAuthClient(){
-        return new JiraOAuthClientImpl();
-    }
-
-    /**
      * Provides the Auth presenter
      *
      * @param aAuthInteractor Auth interactor object

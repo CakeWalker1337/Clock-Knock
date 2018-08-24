@@ -34,7 +34,7 @@ public class JavaScriptInterface{
             int paragraphIndex = aData.indexOf("</p>", markerIndex);
 
             if(quoteIndex < paragraphIndex){
-                mAuthPresenter.onAuthAllowed(aData.substring(quoteIndex));
+                mAuthPresenter.onAuthAllowed(aData.substring(quoteIndex+1));
             } else{
                 mAuthPresenter.onAuthDenied();
             }

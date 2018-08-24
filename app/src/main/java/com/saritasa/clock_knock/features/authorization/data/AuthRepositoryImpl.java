@@ -41,7 +41,7 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
     public Single<String> getAuthPageUrl(){
 
         return Single.just("")
-                .subscribeOn(Schedulers.computation())
+                .observeOn(Schedulers.computation())
                 .map(aUrl -> {
                     String temporaryToken = mJiraOAuthClient.getTemporaryToken();
                     return mJiraOAuthClient.getAuthorizationUrl(temporaryToken);

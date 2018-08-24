@@ -11,7 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Testing class for LoginEntityMapper class
+ * Test {@link LoginEntityMapper}
  */
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class LoginEntityMapperTest{
