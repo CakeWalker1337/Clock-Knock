@@ -2,6 +2,8 @@ package com.saritasa.clock_knock.features.auth.presentation;
 
 import android.support.annotation.NonNull;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.MvpView;
 
 /**
