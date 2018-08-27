@@ -59,10 +59,12 @@ ext.libraries = [
         expressoCore         : "com.android.support.test.espresso:espresso-core:$versions.expresso",
         mock                 : "org.mockito:mockito-core:$versions.mock",
         mockCompiler         : "org.mockito:mockito-android:$versions.mock",
+
         //UI
         constraintLayout     : "com.android.support.constraint:constraint-layout:$versions.constraintLayout",
         glide                : "com.github.bumptech.glide:glide:$versions.glide",
         glideCompiler        : "com.github.bumptech.glide:compiler:$versions.glide",
+        design               : "com.android.support:design:$versions.supportLibrary",
 
         //Network
         retrofit             : "com.squareup.retrofit2:retrofit:$versions.retrofit",

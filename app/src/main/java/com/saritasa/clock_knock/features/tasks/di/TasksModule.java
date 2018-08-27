@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.di;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.tasks.data.TasksRepository;
@@ -25,9 +27,10 @@ public class TasksModule{
      * @param aTasksRepository Provided repository object using in interactor.
      * @return Interactor of tasks module.
      */
+    @NonNull
     @Provides
     @TasksScope
-    TasksInteractor provideTasksInteractor(TasksRepository aTasksRepository){
+    TasksInteractor provideTasksInteractor(@NonNull TasksRepository aTasksRepository){
         return new TasksInteractorImpl(aTasksRepository);
     }
 
@@ -37,9 +40,10 @@ public class TasksModule{
      * @param aRestApi Provided API object using in repository.
      * @return Repository of tasks module.
      */
+    @NonNull
     @Provides
     @TasksScope
-    TasksRepository provideTasksRepository(ResourceManager aResourceManager, RestApi aRestApi){
+    TasksRepository provideTasksRepository(@NonNull ResourceManager aResourceManager, RestApi aRestApi){
         return new TasksRepositoryImpl(aResourceManager, aRestApi);
     }
 
@@ -48,9 +52,10 @@ public class TasksModule{
      * @param aTasksInteractor Provided interactor object for using in presenter.
      * @return Presenter of tasks module.
      */
+    @NonNull
     @Provides
     @TasksScope
-    TasksPresenter provideTasksPresenter(TasksInteractor aTasksInteractor){
+    TasksPresenter provideTasksPresenter(@NonNull TasksInteractor aTasksInteractor){
         return new TasksPresenterImpl(aTasksInteractor);
     }
 

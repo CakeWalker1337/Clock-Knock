@@ -18,7 +18,7 @@ public class MainActivity extends MvpAppCompatActivity{
         Timber.d("Beginning");
 
         TasksFragment tasksFragment = new TasksFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.mainLayout, tasksFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.flRoot, tasksFragment).commit();
 
     }
 }

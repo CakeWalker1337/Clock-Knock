@@ -5,12 +5,15 @@ import android.support.annotation.NonNull;
 import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Task entity mapper test class
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TasksEntityMapperTest{
     /**
      * Tests mapping single entity object to domain object.

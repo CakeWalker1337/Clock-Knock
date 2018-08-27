@@ -70,38 +70,71 @@ public class TasksFieldsEntity{
                 '}';
     }
 
+    /**
+     * Gets status of issue.
+     *
+     * @return status.
+     */
     @NonNull
     public TasksStatusEntity getStatus(){
         return mStatus;
     }
 
+    /**
+     * Sets status of issue.
+     * @param aStatus status.
+     */
     public void setStatus(@NonNull TasksStatusEntity aStatus){
         mStatus = aStatus;
     }
 
+    /**
+     * Gets priority of issue.
+     * @return priority.
+     */
     @NonNull
     public TasksPriorityEntity getPriority(){
         return mPriority;
     }
 
+    /**
+     * Sets priority of issue.
+     * @param aPriority priority.
+     */
     public void setPriority(@NonNull TasksPriorityEntity aPriority){
         mPriority = aPriority;
     }
 
+    /**
+     * Gets project data.
+     * @return project object.
+     */
     @NonNull
     public TasksProjectEntity getProject(){
         return mProject;
     }
 
+    /**
+     * Sets project data of issue.
+     * @param aProject project object.
+     */
     public void setProject(@NonNull TasksProjectEntity aProject){
         mProject = aProject;
     }
 
+    /**
+     * Gets summary of issue.
+     * @return summary.
+     */
     @NonNull
     public String getSummary(){
         return mSummary;
     }
 
+    /**
+     * Sets summary of issue.
+     * @param aSummary summary.
+     */
     public void setSummary(@NonNull String aSummary){
         mSummary = aSummary;
     }

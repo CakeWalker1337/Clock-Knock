@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.data;
 
+import android.support.annotation.Nullable;
+
 /**
  * Interface of base repository.
  */
@@ -12,6 +14,7 @@ public interface BaseRepository{
      * @param aParams other params.
      * @return String by resource id.
      */
+    @Nullable
     String getStringResource(int aResourceId, Object... aParams);
 
 }

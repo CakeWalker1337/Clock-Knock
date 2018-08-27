@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.domain;
 
+import android.support.annotation.Nullable;
+
 import com.saritasa.clock_knock.base.data.BaseRepository;
 
 /**
@@ -11,7 +13,10 @@ public class BaseInteractorImpl<REPOSITORY extends BaseRepository> implements Ba
 
     protected REPOSITORY mRepository;
 
-    public BaseInteractorImpl(REPOSITORY aRepository){
+    /**
+     * @param aRepository - Repository instance.
+     */
+    public BaseInteractorImpl(@Nullable REPOSITORY aRepository){
         mRepository = aRepository;
     }
 
@@ -21,6 +26,7 @@ public class BaseInteractorImpl<REPOSITORY extends BaseRepository> implements Ba
      * @param aParams additive parameters
      * @return String by resource id.
      */
+    @Nullable
     public String getStringResource(int aId, Object... aParams){
         return mRepository.getStringResource(aId, aParams);
     }

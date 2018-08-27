@@ -83,56 +83,121 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
         return R.layout.item_task;
     }
 
+    @Override
+    public long getIdentifier(){
+        return super.getIdentifier();
+    }
+
+    /**
+     * Gets name of item.
+     *
+     * @return name.
+     */
     @NonNull
     public String getName(){
         return mName;
     }
 
+    /**
+     * Sets name of item.
+     *
+     * @param aName name.
+     */
     public void setName(@NonNull final String aName){
         mName = aName;
     }
 
+    /**
+     * Gets id of item.
+     *
+     * @return id.
+     */
     @NonNull
     public String getId(){
         return mId;
     }
 
+    /**
+     * Sets id of item.
+     *
+     * @param aId id.
+     */
     public void setId(@NonNull final String aId){
         mId = aId;
     }
 
+    /**
+     * Gets priority icon url of item.
+     *
+     * @return priority icon url.
+     */
     @NonNull
     public String getPriorityIconUrl(){
         return mPriorityIconUrl;
     }
 
+    /**
+     * Sets priority icon url of item.
+     *
+     * @param aPriorityIconUrl priority icon url.
+     */
     public void setPriorityIconUrl(@NonNull final String aPriorityIconUrl){
         mPriorityIconUrl = aPriorityIconUrl;
     }
 
+    /**
+     * Gets project avatar url of item.
+     *
+     * @return project avatar url.
+     */
     @NonNull
     public String getProjectAvatarUrl(){
         return mProjectAvatarUrl;
     }
 
+    /**
+     * Sets project avatar url of item.
+     *
+     * @param aProjectAvatarUrl project avatar url.
+     */
     public void setProjectAvatarUrl(@NonNull final String aProjectAvatarUrl){
         mProjectAvatarUrl = aProjectAvatarUrl;
     }
 
+    /**
+     * Gets status of item.
+     *
+     * @return status.
+     */
     @NonNull
     public String getStatus(){
         return mStatus;
     }
 
+    /**
+     * Sets status of item.
+     *
+     * @param aStatus name.
+     */
     public void setStatus(@NonNull final String aStatus){
         mStatus = aStatus;
     }
 
+    /**
+     * Gets summary of item.
+     *
+     * @return summary.
+     */
     @NonNull
     public String getSummary(){
         return mSummary;
     }
 
+    /**
+     * Sets summary of item.
+     *
+     * @param aSummary summary.
+     */
     public void setSummary(@NonNull final String aSummary){
         mSummary = aSummary;
     }
@@ -182,8 +247,8 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
             tvTitle.setText(null);
             tvStatus.setText(null);
             tvSummary.setText(null);
-            ivPriorityIcon.setImageBitmap(null);
-            ivProjectIcon.setImageBitmap(null);
+            Glide.with(ivPriorityIcon).clear(ivPriorityIcon);
+            Glide.with(ivProjectIcon).clear(ivProjectIcon);
         }
 
     }

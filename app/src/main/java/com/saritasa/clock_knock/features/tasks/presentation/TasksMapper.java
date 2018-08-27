@@ -16,7 +16,7 @@ public class TasksMapper{
      * @return Presentation object.
      */
     @NonNull
-    public static TasksAdapterItem mapDomainObjectToPresentationObject(@NonNull TasksDomain aTasksDomain){
+    public static TasksAdapterItem mapTasksDomainToTasksAdapterItem(@NonNull TasksDomain aTasksDomain){
         TasksAdapterItem tasksAdapterItem = new TasksAdapterItem();
         tasksAdapterItem.setId(aTasksDomain.getId());
         tasksAdapterItem.setName(aTasksDomain.getName());

@@ -5,14 +5,16 @@ import android.support.annotation.NonNull;
 import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Tasks mapper test class.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TasksMapperTest{
-
 
     /**
      * Tests mapping domain object to presentation object. Results before and after launching will be equal.
@@ -20,7 +22,7 @@ public class TasksMapperTest{
     @Test
     public void mapDomainObjectToPresentationObject_isObjectsEquals(){
         TasksDomain domainObject = createTasksDomain();
-        TasksAdapterItem mappedObject = TasksMapper.mapDomainObjectToPresentationObject(domainObject);
+        TasksAdapterItem mappedObject = TasksMapper.mapTasksDomainToTasksAdapterItem(domainObject);
         TasksAdapterItem tasksAdapterItem = createTasksAdapterItem();
 
         assertEquals(tasksAdapterItem, mappedObject);
@@ -28,6 +30,7 @@ public class TasksMapperTest{
 
     /**
      * Creates tasks domain object.
+     *
      * @return Domain object.
      */
     @NonNull

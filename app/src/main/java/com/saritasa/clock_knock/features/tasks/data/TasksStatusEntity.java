@@ -13,8 +13,6 @@ import java.util.Objects;
 public class TasksStatusEntity{
 
     /**
-     * Constructs TasksStatusEntity object with params.
-     *
      * @param aName - name of status
      */
     public TasksStatusEntity(@NonNull String aName){
@@ -49,11 +47,20 @@ public class TasksStatusEntity{
                 '}';
     }
 
+    /**
+     * Gets name of status.
+     *
+     * @return name of status.
+     */
     @NonNull
     public String getName(){
         return mName;
     }
 
+    /**
+     * Sets name of status.
+     * @param aName name of status.
+     */
     public void setName(@NonNull String aName){
         mName = aName;
     }

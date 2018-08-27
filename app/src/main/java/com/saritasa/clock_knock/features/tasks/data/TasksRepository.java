@@ -1,5 +1,6 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.base.data.BaseRepository;
 import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
@@ -17,6 +18,7 @@ public interface TasksRepository extends BaseRepository{
      *
      * @return Observable with domain objects.
      */
+    @NonNull
     Observable<TasksDomain> loadTasks();
 
 }

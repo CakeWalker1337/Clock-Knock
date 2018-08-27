@@ -18,8 +18,6 @@ public class TasksPriorityEntity{
     private String mPriorityId;
 
     /**
-     * Constructs TasksPriorityEntity object with params.
-     *
      * @param aIconUrl - priority icon url
      * @param aPriorityId - priority id
      */
@@ -55,20 +53,37 @@ public class TasksPriorityEntity{
                 '}';
     }
 
+    /**
+     * Gets priority id.
+     *
+     * @return priority id.
+     */
     @NonNull
     public String getPriorityId(){
         return mPriorityId;
     }
 
+    /**
+     * Sets priority id.
+     * @param aPriorityId priority id.
+     */
     public void setPriorityId(@NonNull final String aPriorityId){
         mPriorityId = aPriorityId;
     }
 
+    /**
+     * Gets priority icon url.
+     * @return priority icon url.
+     */
     @NonNull
     public String getIconUrl(){
         return mIconUrl;
     }
 
+    /**
+     * Sets priority icon url.
+     * @param aIconUrl priority icon url.
+     */
     public void setIconUrl(@NonNull String aIconUrl){
         mIconUrl = aIconUrl;
     }

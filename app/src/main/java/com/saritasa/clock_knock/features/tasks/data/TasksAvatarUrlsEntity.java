@@ -15,8 +15,6 @@ public class TasksAvatarUrlsEntity{
     private String mLargeAvatarUrl;
 
     /**
-     * Constructs AvatarUrlEntity object with params.
-     *
      * @param aLargeAvatarUrl - avatar url for downloading.
      */
     public TasksAvatarUrlsEntity(@Nullable final String aLargeAvatarUrl){
@@ -47,11 +45,20 @@ public class TasksAvatarUrlsEntity{
                 '}';
     }
 
+    /**
+     * Gets url of project's avatar.
+     *
+     * @return Avatar's URL
+     */
     @Nullable
     public String getLargeAvatarUrl(){
         return mLargeAvatarUrl;
     }
 
+    /**
+     * Sets url of project's avatar.
+     * @param aLargeAvatarUrl - Avatar's URL.
+     */
     public void setLargeAvatarUrl(@Nullable final String aLargeAvatarUrl){
         mLargeAvatarUrl = aLargeAvatarUrl;
     }

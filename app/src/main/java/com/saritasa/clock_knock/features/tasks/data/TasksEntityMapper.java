@@ -7,7 +7,10 @@ import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 /**
  * Mapper class for mapping data between entity and domain layers.
  */
-public class TasksEntityMapper{
+public final class TasksEntityMapper{
+
+    private TasksEntityMapper(){
+    }
 
     /**
      * Maps single issue object into tasks domain object.

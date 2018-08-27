@@ -55,10 +55,12 @@ public class TasksPresenterImplTest{
      * Test loading tasks. Verifies called methods.
      */
     @Test
-    public void loadTasks_methodsCallCorrectly(){
+    public void onRequest_methodsCallCorrectly(){
         when(mInteractor.loadTasks()).thenReturn(Observable.empty());
-        mTasksPresenter.loadTasks();
-        verify(mTasksView).updateView(anyList());
+        mTasksPresenter.onRequest();
+        verify(mTasksView).updateTaskList(anyList());
+        verify(mTasksView).hideLoadingProgress();
+        verify(mTasksView).showLoadingProgress();
     }
 
 

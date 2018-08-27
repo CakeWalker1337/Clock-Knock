@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_standart">16dp</dimen>
+    <dimen name="project_avatar_edge_length">36dp</dimen>
+    <dimen name="task_name_text_size">30sp</dimen>
+    <dimen name="standart_margin">8dp</dimen>
+    <dimen name="priority_icon_edge_length">24dp</dimen>
+</resources>

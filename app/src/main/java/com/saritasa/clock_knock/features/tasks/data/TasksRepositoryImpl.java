@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import timber.log.Timber;
 
 /**
  * Repository object of tasks feature.
@@ -21,8 +20,6 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
     RestApi mRestApi;
 
     /**
-     * Constructs TasksRepositoryImpl object with params.
-     *
      * @param aResourceManager - resource manager object
      * @param aRestApi - object of rest api
      */
@@ -34,13 +31,17 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
     @NonNull
     @Override
     public Observable<TasksDomain> loadTasks(){
-        Timber.d("Loading tasks");
         return
-                //mRestApi.getTasks("assignee=maxim.kovalev")
-                getTestApiTask()
-                        .flatMapObservable(aTasksResponseEntity -> Observable.fromIterable(aTasksResponseEntity.getIssues()))
-                        .map(TasksEntityMapper::mapEntityObjectToDomainObject)
-                        .filter(aTasksDomain -> !aTasksDomain.getStatus().equals("Done"));
+                mRestApi.getTasks("assignee=maxim.kovalev")
+                        .map(aTasksResponseEntityResponse -> {
+                            if(!aTasksResponseEntityResponse.isSuccessful()){
+                                throw new Exception("Error while fetching task list.");
+                            }
+                            return aTasksResponseEntityResponse.body().getIssues();
+                        })
+                        // getTestApiTask()
+                        .flatMapObservable(Observable::fromIterable)
+                        .map(TasksEntityMapper::mapEntityObjectToDomainObject);
     }
 
     /**
@@ -49,6 +50,7 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
      *
      * @return Single object of imitated api response.
      */
+    //TODO: Delete this one when login feature will be ready to merging.
     @NonNull
     private Single<TasksResponseEntity> getTestApiTask(){
 

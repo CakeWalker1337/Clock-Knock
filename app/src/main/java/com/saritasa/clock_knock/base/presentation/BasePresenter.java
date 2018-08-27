@@ -1,21 +1,22 @@
 package com.saritasa.clock_knock.base.presentation;
 
-import com.arellomobile.mvp.MvpPresenter;
+import android.support.annotation.NonNull;
 
-/**
- * Base presenter class.
- *
- * @param <VIEW> View using in presenter. Must be inherit of BaseView.
- */
-public class BasePresenter<VIEW extends BaseView> extends MvpPresenter<VIEW>{
+import com.arellomobile.mvp.MvpView;
 
-    @Override
-    public void attachView(final VIEW view){
-        super.attachView(view);
-    }
+public interface BasePresenter<VIEW extends MvpView>{
 
-    @Override
-    public void detachView(final VIEW view){
-        super.detachView(view);
-    }
+    /**
+     * Attaches view to presenter.
+     *
+     * @param aView View to attach.
+     */
+    void attachView(@NonNull final VIEW aView);
+
+    /**
+     * Detaches view from presenter.
+     *
+     * @param aView View to detach.
+     */
+    void detachView(@NonNull final VIEW aView);
 }

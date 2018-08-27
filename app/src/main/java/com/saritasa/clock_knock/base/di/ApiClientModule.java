@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.di;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.BuildConfig;
 
 import java.util.concurrent.TimeUnit;
@@ -22,6 +24,7 @@ public class ApiClientModule{
      *
      * @return OkHttpClient object.
      */
+    @NonNull
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient(){

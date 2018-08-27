@@ -16,8 +16,6 @@ public class TasksProjectEntity{
     private TasksAvatarUrlsEntity mAvatarUrls;
 
     /**
-     * Constructs TasksProjectEntity object with params.
-     *
      * @param aAvatarUrls - project avatar url
      */
     public TasksProjectEntity(@NonNull TasksAvatarUrlsEntity aAvatarUrls){
@@ -49,11 +47,20 @@ public class TasksProjectEntity{
                 '}';
     }
 
+    /**
+     * Gets project avatar URL entity.
+     *
+     * @return project avatar URL entity
+     */
     @NonNull
     public TasksAvatarUrlsEntity getAvatarUrls(){
         return mAvatarUrls;
     }
 
+    /**
+     * Sets project avatar URL entity.
+     * @param aAvatarUrls project avatar URL entity.
+     */
     public void setAvatarUrls(@NonNull TasksAvatarUrlsEntity aAvatarUrls){
         mAvatarUrls = aAvatarUrls;
     }

@@ -18,7 +18,7 @@ public interface TasksComponent{
      *
      * @param aTasksFragment class for injecting dependencies.
      */
-    void inject(TasksFragment aTasksFragment);
+    void inject(@NonNull TasksFragment aTasksFragment);
 
     /**
      * Builder of tasks module.

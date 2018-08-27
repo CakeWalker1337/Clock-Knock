@@ -19,7 +19,7 @@ public class AppModule{
 
     Context mContext;
 
-    public AppModule(Context aContext){
+    public AppModule(@NonNull Context aContext){
         mContext = aContext;
     }
 
@@ -28,6 +28,7 @@ public class AppModule{
      *
      * @return provided context.
      */
+    @NonNull
     @Provides
     @Singleton
     Context provideContext(){

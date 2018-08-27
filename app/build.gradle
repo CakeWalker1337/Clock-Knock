@@ -20,6 +20,7 @@ android {
         buildConfigField "long", "CONNECT_TIMEOUT_MILLIS", "30_000"
         buildConfigField "int", "COUNT_RETRY_REQUEST", "3"
         buildConfigField "String", "BASE_URL", '"https://clock-knock.atlassian.net"'
+
     }
     buildTypes {
         release {
@@ -55,6 +56,7 @@ dependencies {
     implementation libraries.constraintLayout
     implementation libraries.glide
     annotationProcessor libraries.glideCompiler
+    implementation libraries.design
 
     //Network
     implementation libraries.retrofit
@@ -91,7 +93,4 @@ dependencies {
 
     implementation libraries.recyclerView
 
-//    implementation 'com.mikepenz:fastadapter:3.3.0-rc01'
-//    implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
-//    implementation 'androidx.recyclerview:recyclerview:1.0.0-rc01'
 }

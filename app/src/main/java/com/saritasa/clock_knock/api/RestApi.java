@@ -1,8 +1,9 @@
 package com.saritasa.clock_knock.api;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.features.tasks.data.TasksResponseEntity;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -17,17 +18,19 @@ public interface RestApi{
     /**
      * Gets tasks from JIRA API by username of REGISTERED AND AUTHORIZED user.
      *
-     * @param jqlQuery query on JQL query language.
+     * @param aJqlQuery query on JQL query language.
      * @return Single object with response entity.
      */
+    @NonNull
     @GET("/rest/api/2/search")
-    Single<TasksResponseEntity> getTasks(@Query("jql") String jqlQuery);
+    Single<Response<TasksResponseEntity>> getTasks(@NonNull @Query("jql") String aJqlQuery);
 
     /**
      * Gets worklogs of task.
      * @return Observable with worklogs of task.
      */
+    @NonNull
     @GET
-    Observable<Response<ResponseBody>> getTaskWorkLog();
+    Single<Response<ResponseBody>> getTaskWorkLog();
 
 }
