@@ -7,7 +7,7 @@ import android.util.Log;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
-import com.saritasa.clock_knock.features.authorization.presentation.AuthFragment;
+import com.saritasa.clock_knock.features.auth.presentation.AuthFragment;
 import com.saritasa.clock_knock.features.login.presentation.LoginFragment;
 
 import javax.inject.Inject;

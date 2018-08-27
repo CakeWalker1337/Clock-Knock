@@ -1,8 +1,8 @@
-package com.saritasa.clock_knock.features.authorization.di;
+package com.saritasa.clock_knock.features.auth.di;
 
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.features.authorization.presentation.AuthFragment;
+import com.saritasa.clock_knock.features.auth.presentation.AuthFragment;
 import com.saritasa.clock_knock.features.main.presentation.MainActivity;
 
 import dagger.Subcomponent;

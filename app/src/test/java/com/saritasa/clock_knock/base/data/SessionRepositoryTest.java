@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.data;
 
+import com.saritasa.clock_knock.features.session.data.SessionRepositoryImpl;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,18 +10,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.verify;
 
-
+/**
+ * Test class for SessionRepositoryImpl
+ */
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class GlobalRepositoryTest{
+public class SessionRepositoryTest{
 
-    private GlobalRepositoryImpl mGlobalRepository;
+    private SessionRepositoryImpl mGlobalRepository;
 
     @Mock
     private PreferenceManagerImpl mPreferenceManager;
 
     @Before
     public void setUp(){
-        mGlobalRepository = new GlobalRepositoryImpl(mPreferenceManager);
+        mGlobalRepository = new SessionRepositoryImpl(mPreferenceManager);
     }
 
     @Test

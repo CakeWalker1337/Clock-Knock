@@ -3,8 +3,8 @@ package com.saritasa.clock_knock.base.di;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.base.data.GlobalRepository;
-import com.saritasa.clock_knock.base.data.GlobalRepositoryImpl;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
+import com.saritasa.clock_knock.features.session.data.SessionRepositoryImpl;
 import com.saritasa.clock_knock.base.data.PreferenceManager;
 import com.saritasa.clock_knock.base.data.PreferenceManagerImpl;
 import com.saritasa.clock_knock.base.data.ResourceManager;
@@ -26,7 +26,7 @@ public class AppModule{
     /**
      * @param aContext Context
      */
-    public AppModule(Context aContext){
+    public AppModule(@NonNull Context aContext){
         mContext = aContext;
     }
 
@@ -35,6 +35,7 @@ public class AppModule{
      *
      * @return Context
      */
+    @NonNull
     @Provides
     @Singleton
     Context provideContext(){
@@ -67,16 +68,5 @@ public class AppModule{
         return new PreferenceManagerImpl(aContext);
     }
 
-    /**
-     * Provides the Global repository interface
-     *
-     * @param aPreferenceManager Preference manager
-     * @return Global repository object
-     */
-    @NonNull
-    @Provides
-    @Singleton
-    GlobalRepository provideGlobalRepository(@NonNull PreferenceManager aPreferenceManager){
-        return new GlobalRepositoryImpl(aPreferenceManager);
-    }
+
 }

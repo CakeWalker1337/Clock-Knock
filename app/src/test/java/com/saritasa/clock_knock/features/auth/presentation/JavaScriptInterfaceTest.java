@@ -1,7 +1,4 @@
-package com.saritasa.clock_knock.features.authentication.presentation;
-
-import com.saritasa.clock_knock.features.authorization.presentation.AuthPresenterImpl;
-import com.saritasa.clock_knock.features.authorization.presentation.JavaScriptInterface;
+package com.saritasa.clock_knock.features.auth.presentation;
 
 import org.junit.Before;
 import org.junit.Test;

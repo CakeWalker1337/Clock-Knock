@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.network.oauth;
 
+import android.support.annotation.NonNull;
+
 import com.google.api.client.auth.oauth.OAuthParameters;
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ public interface JiraOAuthClient{
      * @throws InvalidKeySpecException Invalid key
      * @throws IOException I/O error
      */
+    @NonNull
     String getTemporaryToken() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException;
 
     /**
@@ -30,7 +33,8 @@ public interface JiraOAuthClient{
      * @param aTemporaryToken Temporary token string
      * @return Authorization URL string
      */
-    String getAuthorizationUrl(String aTemporaryToken);
+    @NonNull
+    String getAuthorizationUrl(@NonNull String aTemporaryToken);
 
     /**
      * Gets the OAuth access token by secret token
@@ -41,7 +45,8 @@ public interface JiraOAuthClient{
      * @throws InvalidKeySpecException Invalid key
      * @throws IOException I/O error
      */
-    String getAccessToken(String aSecret) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException;
+    @NonNull
+    String getAccessToken(@NonNull String aSecret) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException;
 
     /**
      * Gets the authorization header to put it into each HTTP request
@@ -54,5 +59,10 @@ public interface JiraOAuthClient{
      * @return Authorization header to put it into each request
      * @throws GeneralSecurityException Security exception
      */
-    String getAuthorizationHeader(Request aRequest, String aAccessToken, String aSecret, String aConsumerKey, String aPrivateKey) throws GeneralSecurityException;
+    @NonNull
+    String getAuthorizationHeader(@NonNull Request aRequest,
+                                  @NonNull String aAccessToken,
+                                  @NonNull String aSecret,
+                                  @NonNull String aConsumerKey,
+                                  @NonNull String aPrivateKey) throws GeneralSecurityException;
 }

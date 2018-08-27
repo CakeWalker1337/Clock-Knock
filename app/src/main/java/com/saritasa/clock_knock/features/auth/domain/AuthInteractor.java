@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.features.authorization.domain;
+package com.saritasa.clock_knock.features.auth.domain;
 
 import com.saritasa.clock_knock.base.domain.BaseInteractor;
 import com.saritasa.clock_knock.util.Strings;

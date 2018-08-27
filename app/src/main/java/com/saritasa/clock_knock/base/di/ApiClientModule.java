@@ -1,8 +1,6 @@
 package com.saritasa.clock_knock.base.di;
 
-import android.util.Log;
-
-import com.saritasa.clock_knock.base.data.GlobalRepository;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClient;
 import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClientImpl;
 
@@ -27,23 +25,23 @@ public class ApiClientModule{
     /**
      * Provides the OkHttpClient class through Dagger
      *
-     * @param aGlobalRepository Global repository object
+     * @param aSessionRepository Global repository object
      * @param aJiraOAuthClient Jira OAuth client object
      * @return New OkHttp client for using it into Retrofit Api builder
      */
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient(GlobalRepository aGlobalRepository, JiraOAuthClient aJiraOAuthClient){
+    public OkHttpClient provideOkHttpClient(SessionRepository aSessionRepository, JiraOAuthClient aJiraOAuthClient){
 
         // An interceptor for authorized requests
         Interceptor headerInterceptor = aChain -> {
             Request original = aChain.request();
 
             // Get all necessary data from repository
-            String accessToken = aGlobalRepository.getAccessToken();
-            String secretToken = aGlobalRepository.getSecretToken();
-            String consumerKey = aGlobalRepository.getConsumerKey();
-            String privateKey = aGlobalRepository.getPrivateKey();
+            String accessToken = aSessionRepository.getAccessToken();
+            String secretToken = aSessionRepository.getSecretToken();
+            String consumerKey = aSessionRepository.getConsumerKey();
+            String privateKey = aSessionRepository.getPrivateKey();
 
             if(accessToken != null && secretToken != null && consumerKey != null && privateKey != null){
                 Request.Builder newRequest = original.newBuilder();
@@ -53,7 +51,7 @@ public class ApiClientModule{
                     // oauth_timestamp="", oauth_token="", oauth_verifier=""
 
                     String authHeader = aJiraOAuthClient.getAuthorizationHeader(original, accessToken, secretToken, consumerKey, privateKey);
-                    Log.w("Header", authHeader);
+
                     newRequest = newRequest.header("Accept", "application/json")
                             .header("Authorization", authHeader)
                             .method(original.method(), original.body());
@@ -72,9 +70,9 @@ public class ApiClientModule{
 
         // Build client with interceptors
         OkHttpClient.Builder mClientBuilder = new OkHttpClient.Builder()
-                .connectTimeout(aGlobalRepository.getConnectTimeout(), TimeUnit.MILLISECONDS)
-                .readTimeout(aGlobalRepository.getNetworkTimeout(), TimeUnit.MILLISECONDS)
-                .writeTimeout(aGlobalRepository.getNetworkTimeout(), TimeUnit.MILLISECONDS)
+                .connectTimeout(aSessionRepository.getConnectTimeout(), TimeUnit.MILLISECONDS)
+                .readTimeout(aSessionRepository.getNetworkTimeout(), TimeUnit.MILLISECONDS)
+                .writeTimeout(aSessionRepository.getNetworkTimeout(), TimeUnit.MILLISECONDS)
                 .addInterceptor(interceptor)
                 .addInterceptor(headerInterceptor);
 

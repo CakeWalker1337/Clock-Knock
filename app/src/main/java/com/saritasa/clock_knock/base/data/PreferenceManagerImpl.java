@@ -24,7 +24,7 @@ public class PreferenceManagerImpl implements PreferenceManager{
     }
 
     @Override
-    public void saveAccessToken(final String aAccessToken){
+    public void saveAccessToken(@NonNull final String aAccessToken){
         mSharedPreferences.edit().putString(Strings.PREFERENCE_ACCESS_TOKEN, aAccessToken).apply();
     }
 
@@ -35,7 +35,7 @@ public class PreferenceManagerImpl implements PreferenceManager{
     }
 
     @Override
-    public void saveUsername(final String aUsername){
+    public void saveUsername(@NonNull final String aUsername){
         mSharedPreferences.edit().putString(Strings.PREFERENCE_USERNAME, aUsername).apply();
     }
 
@@ -51,10 +51,11 @@ public class PreferenceManagerImpl implements PreferenceManager{
     }
 
     @Override
-    public void saveSecretToken(final String aSecretToken){
+    public void saveSecretToken(@NonNull final String aSecretToken){
         mSharedPreferences.edit().putString(Strings.PREFERENCE_SECRET_TOKEN, aSecretToken).apply();
     }
 
+    @Nullable
     @Override
     public String getSecretToken(){
         return mSharedPreferences.getString(Strings.PREFERENCE_SECRET_TOKEN, null);

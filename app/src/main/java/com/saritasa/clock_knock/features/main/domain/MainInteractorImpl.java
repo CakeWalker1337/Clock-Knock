@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.main.domain;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
 import com.saritasa.clock_knock.features.main.data.MainRepository;
 
@@ -13,7 +15,7 @@ public class MainInteractorImpl extends BaseInteractorImpl<MainRepository> imple
     /**
      * @param aMainRepository Main repository
      */
-    public MainInteractorImpl(final MainRepository aMainRepository){
+    public MainInteractorImpl(@NonNull final MainRepository aMainRepository){
         super(aMainRepository);
         mMainRepository = aMainRepository;
     }

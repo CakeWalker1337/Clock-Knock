@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.features.authorization.di;
+package com.saritasa.clock_knock.features.auth.di;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -1,8 +1,7 @@
-package com.saritasa.clock_knock.features.authentication.domain;
+package com.saritasa.clock_knock.features.auth.domain;
 
-import com.saritasa.clock_knock.features.authorization.data.AuthRepositoryImpl;
-import com.saritasa.clock_knock.features.authorization.domain.AuthInteractor;
-import com.saritasa.clock_knock.features.authorization.domain.AuthInteractorImpl;
+import com.saritasa.clock_knock.features.auth.data.AuthRepositoryImpl;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.util.RxSchedulerRule;
 
 import org.junit.Before;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Test {@link AuthInteractorImpl}
@@ -26,12 +24,15 @@ public class AuthInteractorTest{
     @Mock
     private AuthRepositoryImpl mAuthRepository;
 
+    @Mock
+    private SessionRepository mSessionRepository;
+
     @Rule
     public final RxSchedulerRule mOverrideSchedulersRule = new RxSchedulerRule();
 
     @Before
     public void setUp() {
-        mAuthInteractor = new AuthInteractorImpl(mAuthRepository);
+        mAuthInteractor = new AuthInteractorImpl(mAuthRepository, mSessionRepository);
     }
 
     @Test
@@ -50,7 +51,7 @@ public class AuthInteractorTest{
 
         mAuthInteractor.finishAuthentication(page);
 
-        verify(mAuthRepository).saveSecretToken(verificationToken);
+        verify(mSessionRepository).saveSecretToken(verificationToken);
         verify(mAuthRepository).getAccessToken(verificationToken);
     }
 
@@ -61,6 +62,6 @@ public class AuthInteractorTest{
 
         mAuthInteractor.saveAccessToken(token);
 
-        verify(mAuthRepository).saveAccessToken(token);
+        verify(mSessionRepository).saveAccessToken(token);
     }
 }

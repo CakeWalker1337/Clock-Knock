@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.main.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.MvpView;
 
 /**
@@ -14,12 +16,12 @@ public interface MainPresenter<VIEW extends MvpView>{
      *
      * @param aView View object
      */
-    void attachView(VIEW aView);
+    void attachView(@NonNull VIEW aView);
 
     /**
      * Detaches view to presenter
      *
      * @param aView View object
      */
-    void detachView(VIEW aView);
+    void detachView(@NonNull VIEW aView);
 }

@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.di;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.BuildConfig;
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.network.exception.RxErrorHandlingCallAdapterFactory;
@@ -27,16 +29,18 @@ public class ApiModule{
      * @param aOkHttpClient OkHttp client
      * @return Builder for creating the Retrofit API interface
      */
+    @NonNull
     @Provides
     @Singleton
-    public Retrofit.Builder provideRetrofitBuilder(OkHttpClient aOkHttpClient){
+    public Retrofit provideRetrofitBuilder(@NonNull OkHttpClient aOkHttpClient){
         Retrofit.Builder builder = new Retrofit.Builder();
 
         return builder.addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BuildConfig.BASE_URL)
-                .client(aOkHttpClient);
+                .client(aOkHttpClient)
+                .build();
     }
 
     /**
@@ -45,9 +49,10 @@ public class ApiModule{
      * @param aBuilder Retrofit builder
      * @return Retrofit API interface
      */
+    @NonNull
     @Provides
     @Singleton
-    public RestApi provideRestApi(Retrofit.Builder aBuilder){
-        return aBuilder.build().create(RestApi.class);
+    public RestApi provideRestApi(@NonNull Retrofit aBuilder){
+        return aBuilder.create(RestApi.class);
     }
 }

@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.domain;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.base.domain.BaseInteractor;
 import com.saritasa.clock_knock.features.login.presentation.Username;
 
@@ -15,6 +17,7 @@ public interface LoginInteractor extends BaseInteractor{
      *
      * @return Username object single
      */
+    @NonNull
     Single<Username> getUsername();
 
     /**
@@ -22,7 +25,7 @@ public interface LoginInteractor extends BaseInteractor{
      *
      * @param aUsername Username string
      */
-    void saveUsername(String aUsername);
+    void saveUsername(@NonNull String aUsername);
 
     /**
      * Requests repository to check the access token existence

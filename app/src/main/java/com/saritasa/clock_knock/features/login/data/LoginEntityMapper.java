@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.data;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.features.login.domain.UsernameDomain;
 
 /**
@@ -13,7 +15,8 @@ public final class LoginEntityMapper{
      * @param aUsernameEntity Entity username object
      * @return New domain username object
      */
-    public static UsernameDomain mapUsernameFromEntity(UsernameEntity aUsernameEntity) {
+    @NonNull
+    public static UsernameDomain mapUsernameFromEntity(@NonNull UsernameEntity aUsernameEntity) {
         return new UsernameDomain(aUsernameEntity.getKey());
     }
 
@@ -23,7 +26,8 @@ public final class LoginEntityMapper{
      * @param aUsernameDomain Domain username object
      * @return New entity username object
      */
-    public static UsernameEntity mapUsernameToEntity(UsernameDomain aUsernameDomain) {
+    @NonNull
+    public static UsernameEntity mapUsernameToEntity(@NonNull UsernameDomain aUsernameDomain) {
         return new UsernameEntity(aUsernameDomain.getUsername());
     }
 }

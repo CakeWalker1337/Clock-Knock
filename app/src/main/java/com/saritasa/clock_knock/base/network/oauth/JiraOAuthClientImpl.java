@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.network.oauth;
 
+import android.support.annotation.NonNull;
+
 import com.google.api.client.auth.oauth.OAuthAuthorizeTemporaryTokenUrl;
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthParameters;
@@ -29,6 +31,7 @@ public class JiraOAuthClientImpl implements JiraOAuthClient{
         mAuthorizationUrl = BuildConfig.BASE_URL + "/plugins/servlet/oauth/authorize";
     }
 
+    @NonNull
     @Override
     public String getTemporaryToken() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException{
         JiraOAuthTemporaryToken temporaryToken = mOAuthGetAccessTokenFactory.getTemporaryToken(Strings.CONSUMER_KEY, Strings.PRIVATE_KEY);
@@ -37,22 +40,29 @@ public class JiraOAuthClientImpl implements JiraOAuthClient{
         return response.token;
     }
 
+    @NonNull
     @Override
-    public String getAuthorizationUrl(String aTemporaryToken){
+    public String getAuthorizationUrl(@NonNull String aTemporaryToken){
         OAuthAuthorizeTemporaryTokenUrl authorizationTokenURL = new OAuthAuthorizeTemporaryTokenUrl(mAuthorizationUrl);
         authorizationTokenURL.temporaryToken = aTemporaryToken;
         return authorizationTokenURL.toString();
     }
 
+    @NonNull
     @Override
-    public String getAccessToken(String aSecret) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException{
+    public String getAccessToken(@NonNull String aSecret) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException{
         JiraOAuthAccessToken oAuthAccessToken = mOAuthGetAccessTokenFactory.getJiraOAuthGetAccessToken(mTemporaryTokenString, aSecret, Strings.CONSUMER_KEY, Strings.PRIVATE_KEY);
         OAuthCredentialsResponse response = oAuthAccessToken.execute();
         return response.token;
     }
 
+    @NonNull
     @Override
-    public String getAuthorizationHeader(Request aRequest, String aAccessToken, String aSecret, String aConsumerKey, String aPrivateKey) throws GeneralSecurityException{
+    public String getAuthorizationHeader(@NonNull Request aRequest,
+                                         @NonNull String aAccessToken,
+                                         @NonNull String aSecret,
+                                         @NonNull String aConsumerKey,
+                                         @NonNull String aPrivateKey) throws GeneralSecurityException{
         JiraOAuthAccessToken oAuthAccessToken = mOAuthGetAccessTokenFactory.getJiraOAuthGetAccessToken(aAccessToken, aSecret, aConsumerKey, aPrivateKey);
         oAuthAccessToken.verifier = aSecret;
         OAuthParameters oAuthParameters = oAuthAccessToken.createParameters();

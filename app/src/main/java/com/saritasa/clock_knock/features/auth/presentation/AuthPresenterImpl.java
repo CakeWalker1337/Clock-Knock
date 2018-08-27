@@ -1,10 +1,11 @@
-package com.saritasa.clock_knock.features.authorization.presentation;
+package com.saritasa.clock_knock.features.auth.presentation;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
-import com.saritasa.clock_knock.features.authorization.domain.AuthInteractor;
+import com.saritasa.clock_knock.features.auth.domain.AuthInteractor;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -22,27 +23,26 @@ public class AuthPresenterImpl extends BasePresenter<AuthView> implements AuthPr
     /**
      * @param aAuthInteractor Auth interactor
      */
-    public AuthPresenterImpl(AuthInteractor aAuthInteractor){
+    public AuthPresenterImpl(@NonNull AuthInteractor aAuthInteractor){
         mAuthInteractor = aAuthInteractor;
     }
 
     @Override
-    public void attachView(AuthView aAuthView){
+    public void attachView(@NonNull AuthView aAuthView){
         super.attachView(aAuthView);
     }
 
     @Override
-    public void detachView(AuthView aAuthView){
+    public void detachView(@NonNull AuthView aAuthView){
         super.detachView(aAuthView);
     }
 
     @Override
-    public void onAuthAllowed(String aPage){
+    public void onAuthAllowed(@NonNull String aPage){
         Disposable disposable = mAuthInteractor.finishAuthentication(aPage)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aAccessToken -> {
                                mAuthInteractor.saveAccessToken(aAccessToken);
-                               Timber.d("Access token: " + aAccessToken);
                                getViewState().completeAuthentication();
                            },
                            aThrowable -> getViewState().showError(aThrowable.getMessage()));

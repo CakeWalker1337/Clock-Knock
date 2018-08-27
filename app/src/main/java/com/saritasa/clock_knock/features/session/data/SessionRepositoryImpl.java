@@ -1,23 +1,23 @@
-package com.saritasa.clock_knock.base.data;
+package com.saritasa.clock_knock.features.session.data;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.saritasa.clock_knock.BuildConfig;
+import com.saritasa.clock_knock.base.data.PreferenceManager;
 import com.saritasa.clock_knock.util.Strings;
 
 /**
  * An implementation class with the global repository functionality
  */
-public class GlobalRepositoryImpl implements GlobalRepository{
+public class SessionRepositoryImpl implements SessionRepository{
 
     private PreferenceManager mPreferenceManager;
 
     /**
      * @param aPreferenceManager Preference manager
      */
-    public GlobalRepositoryImpl(PreferenceManager aPreferenceManager){
+    public SessionRepositoryImpl(PreferenceManager aPreferenceManager){
         mPreferenceManager = aPreferenceManager;
     }
 

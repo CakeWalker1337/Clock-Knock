@@ -2,8 +2,7 @@ package com.saritasa.clock_knock.features.main.di;
 
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.base.data.GlobalRepository;
-import com.saritasa.clock_knock.base.data.PreferenceManager;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.main.data.MainRepository;
 import com.saritasa.clock_knock.features.main.data.MainRepositoryImpl;
@@ -31,7 +30,7 @@ public class MainModule{
     @NonNull
     @MainScope
     @Provides
-    public MainPresenter providesPresenter(MainInteractor aMainInteractor){
+    public MainPresenter providesPresenter(@NonNull MainInteractor aMainInteractor){
         return new MainPresenterImpl(aMainInteractor);
     }
 
@@ -44,7 +43,7 @@ public class MainModule{
     @NonNull
     @MainScope
     @Provides
-    public MainInteractor providesInteractor(MainRepository aMainRepository) {
+    public MainInteractor providesInteractor(@NonNull MainRepository aMainRepository) {
         return new MainInteractorImpl(aMainRepository);
     }
 
@@ -52,13 +51,13 @@ public class MainModule{
      * Provides the Main repository
      *
      * @param aResourceManager Resource manager object
-     * @param aGlobalRepository Global repository object
+     * @param aSessionRepository Global repository object
      * @return Main repository object
      */
     @NonNull
     @MainScope
     @Provides
-    public MainRepository providesRepository(ResourceManager aResourceManager, GlobalRepository aGlobalRepository) {
-        return new MainRepositoryImpl(aResourceManager, aGlobalRepository);
+    public MainRepository providesRepository(@NonNull ResourceManager aResourceManager, @NonNull SessionRepository aSessionRepository) {
+        return new MainRepositoryImpl(aResourceManager, aSessionRepository);
     }
 }

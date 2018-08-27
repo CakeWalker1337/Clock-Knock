@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.features.authorization.data;
+package com.saritasa.clock_knock.features.auth.data;
 
 import com.saritasa.clock_knock.base.data.BaseRepository;
 
@@ -23,18 +23,4 @@ public interface AuthRepository extends BaseRepository{
      * @return Access token string
      */
     Single<String> getAccessToken(String verificationToken);
-
-    /**
-     * Saves the access token string to storage
-     *
-     * @param aAccessToken Access token string
-     */
-    void saveAccessToken(String aAccessToken);
-
-    /**
-     * Saves the secret token string to storage
-     *
-     * @param aSecretToken Secret token string
-     */
-    void saveSecretToken(String aSecretToken);
 }

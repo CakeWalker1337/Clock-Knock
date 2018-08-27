@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.api;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -8,6 +10,7 @@ import java.util.Objects;
  * Data class for holding the API error message and code
  */
 public class ApiError{
+
 
     @SerializedName("status")
     private Integer mStatus;
@@ -19,7 +22,7 @@ public class ApiError{
      * @param aStatus A status error code of request
      * @param aMessage An error message
      */
-    public ApiError(final Integer aStatus, final String aMessage){
+    public ApiError(@NonNull final Integer aStatus, final String aMessage){
         mStatus = aStatus;
         mMessage = aMessage;
     }
@@ -43,19 +46,41 @@ public class ApiError{
         return Objects.hash(getStatus(), getMessage());
     }
 
+    /**
+     * Gets error status
+     *
+     * @return Error status code
+     */
+    @NonNull
     public Integer getStatus(){
         return mStatus;
     }
 
-    public void setStatus(final Integer aStatus){
+    /**
+     * Sets error status code
+     *
+     * @param aStatus Error status code
+     */
+    public void setStatus(@NonNull final Integer aStatus){
         mStatus = aStatus;
     }
 
+    /**
+     * Gets error message
+     *
+     * @return Error message string
+     */
+    @NonNull
     public String getMessage(){
         return mMessage;
     }
 
-    public void setMessage(final String aMessage){
+    /**
+     * Sets error message
+     *
+     * @param aMessage Error message string
+     */
+    public void setMessage(@NonNull final String aMessage){
         mMessage = aMessage;
     }
 }

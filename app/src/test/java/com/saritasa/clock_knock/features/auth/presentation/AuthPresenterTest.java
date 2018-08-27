@@ -1,8 +1,6 @@
-package com.saritasa.clock_knock.features.authentication.presentation;
+package com.saritasa.clock_knock.features.auth.presentation;
 
-import com.saritasa.clock_knock.features.authorization.domain.AuthInteractorImpl;
-import com.saritasa.clock_knock.features.authorization.presentation.AuthFragment;
-import com.saritasa.clock_knock.features.authorization.presentation.AuthPresenterImpl;
+import com.saritasa.clock_knock.features.auth.domain.AuthInteractorImpl;
 import com.saritasa.clock_knock.util.RxSchedulerRule;
 
 import org.junit.After;

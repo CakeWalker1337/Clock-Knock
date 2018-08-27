@@ -1,7 +1,9 @@
 package com.saritasa.clock_knock.features.login.domain;
 
-import com.saritasa.clock_knock.features.authorization.domain.AuthInteractorImpl;
+import com.saritasa.clock_knock.features.auth.domain.AuthInteractorImpl;
 import com.saritasa.clock_knock.features.login.data.LoginRepositoryImpl;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
+import com.saritasa.clock_knock.features.session.data.SessionRepositoryImpl;
 import com.saritasa.clock_knock.util.RxSchedulerRule;
 
 import org.junit.Assert;
@@ -26,12 +28,15 @@ public class LoginInteractorTest{
     @Mock
     private LoginRepositoryImpl mLoginRepository;
 
+    @Mock
+    private SessionRepositoryImpl mSessionRepository;
+
     @Rule
     public final RxSchedulerRule mOverrideSchedulersRule = new RxSchedulerRule();
 
     @Before
     public void setUp() {
-        mLoginInteractor = new LoginInteractorImpl(mLoginRepository);
+        mLoginInteractor = new LoginInteractorImpl(mLoginRepository, mSessionRepository);
     }
 
     @Test
@@ -39,7 +44,7 @@ public class LoginInteractorTest{
         String username = "admin";
         mLoginInteractor.saveUsername(username);
 
-        verify(mLoginRepository).saveUsername(username);
+        verify(mSessionRepository).saveUsername(username);
     }
 
     @Test
@@ -47,6 +52,6 @@ public class LoginInteractorTest{
 
         mLoginInteractor.isAccessTokenExist();
 
-        verify(mLoginRepository).isAccessTokenExist();
+        verify(mSessionRepository).getAccessToken();
     }
 }

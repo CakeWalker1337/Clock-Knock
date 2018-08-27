@@ -3,7 +3,7 @@ package com.saritasa.clock_knock.features.main.data;
 import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
-import com.saritasa.clock_knock.base.data.GlobalRepository;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 
 /**
@@ -13,15 +13,15 @@ public class MainRepositoryImpl extends BaseRepositoryImpl implements MainReposi
 
     private ResourceManager mResourceManager;
 
-    private GlobalRepository mGlobalRepository;
+    private SessionRepository mSessionRepository;
 
     /**
      * @param aResourceManager Resource manager
-     * @param aGlobalRepository Global repository
+     * @param aSessionRepository Global repository
      */
-    public MainRepositoryImpl(@NonNull final ResourceManager aResourceManager, GlobalRepository aGlobalRepository){
+    public MainRepositoryImpl(@NonNull final ResourceManager aResourceManager, @NonNull SessionRepository aSessionRepository){
         super(aResourceManager);
         mResourceManager = aResourceManager;
-        mGlobalRepository = aGlobalRepository;
+        mSessionRepository = aSessionRepository;
     }
 }

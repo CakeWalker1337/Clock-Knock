@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.login.data;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
@@ -15,20 +18,31 @@ public class UsernameEntity{
     /**
      * @param aKey Username string
      */
-    public UsernameEntity(final String aKey){
+    public UsernameEntity(@NonNull final String aKey){
         mKey = aKey;
     }
 
+    /**
+     * Gets the key field
+     *
+     * @return Key field string
+     */
+    @NonNull
     public String getKey(){
         return mKey;
     }
 
-    public void setKey(String aKey){
+    /**
+     * Sets the key field
+     *
+     * @param aKey Key field string
+     */
+    public void setKey(@NonNull String aKey){
         mKey = aKey;
     }
 
     @Override
-    public boolean equals(final Object aObject){
+    public boolean equals(@Nullable final Object aObject){
         if(this == aObject){
             return true;
         }

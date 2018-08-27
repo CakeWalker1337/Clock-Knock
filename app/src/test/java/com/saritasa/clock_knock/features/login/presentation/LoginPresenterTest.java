@@ -1,6 +1,6 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
-import com.saritasa.clock_knock.features.authorization.presentation.AuthPresenterImpl;
+import com.saritasa.clock_knock.features.auth.presentation.AuthPresenterImpl;
 import com.saritasa.clock_knock.features.login.domain.LoginInteractorImpl;
 import com.saritasa.clock_knock.util.RxSchedulerRule;
 

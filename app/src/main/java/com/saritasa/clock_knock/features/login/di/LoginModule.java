@@ -3,8 +3,7 @@ package com.saritasa.clock_knock.features.login.di;
 import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.api.RestApi;
-import com.saritasa.clock_knock.base.data.GlobalRepository;
-import com.saritasa.clock_knock.base.data.PreferenceManager;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.login.data.LoginRepository;
 import com.saritasa.clock_knock.features.login.data.LoginRepositoryImpl;
@@ -32,7 +31,7 @@ public class LoginModule{
     @NonNull
     @LoginScope
     @Provides
-    public LoginPresenter providesPresenter(LoginInteractor aLoginInteractor){
+    public LoginPresenter providesPresenter(@NonNull LoginInteractor aLoginInteractor){
         return new LoginPresenterImpl(aLoginInteractor);
     }
 
@@ -45,22 +44,22 @@ public class LoginModule{
     @NonNull
     @LoginScope
     @Provides
-    public LoginInteractor providesInteractor(LoginRepository aLoginRepository) {
-        return new LoginInteractorImpl(aLoginRepository);
+    public LoginInteractor providesInteractor(@NonNull LoginRepository aLoginRepository, @NonNull SessionRepository aSessionRepository) {
+        return new LoginInteractorImpl(aLoginRepository, aSessionRepository);
     }
 
     /**
      * Provides the Login repository
      *
      * @param aResourceManager Resource manager object
-     * @param aGlobalRepository Global repository object
      * @param aRestApi Rest API interface
      * @return Login repository object
      */
     @NonNull
     @LoginScope
     @Provides
-    public LoginRepository providesRepository(ResourceManager aResourceManager, GlobalRepository aGlobalRepository, RestApi aRestApi) {
-        return new LoginRepositoryImpl(aResourceManager, aGlobalRepository, aRestApi);
+    public LoginRepository providesRepository(@NonNull ResourceManager aResourceManager,
+                                              @NonNull RestApi aRestApi) {
+        return new LoginRepositoryImpl(aResourceManager, aRestApi);
     }
 }

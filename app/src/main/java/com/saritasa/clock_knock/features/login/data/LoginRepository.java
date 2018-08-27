@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.data;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.base.data.BaseRepository;
 import com.saritasa.clock_knock.features.login.domain.UsernameDomain;
 
@@ -15,19 +17,6 @@ public interface LoginRepository extends BaseRepository{
      *
      * @return Domain username object single
      */
+    @NonNull
     Single<UsernameDomain> getUsername();
-
-    /**
-     * Saves the username
-     *
-     * @param aUsername Username string
-     */
-    void saveUsername(String aUsername);
-
-    /**
-     * Checks if access token exists in storage
-     *
-     * @return true if token exist, false otherwise
-     */
-    boolean isAccessTokenExist();
 }

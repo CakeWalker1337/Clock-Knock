@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.base.network.oauth.token;
 
+import android.support.annotation.NonNull;
+
 import com.google.api.client.auth.oauth.OAuthGetAccessToken;
 
 /**
@@ -10,7 +12,7 @@ public class JiraOAuthAccessToken extends OAuthGetAccessToken{
     /**
      * @param aAuthorizationServerUrl encoded authorization server URL
      */
-    public JiraOAuthAccessToken(String aAuthorizationServerUrl) {
+    public JiraOAuthAccessToken(@NonNull String aAuthorizationServerUrl) {
         super(aAuthorizationServerUrl);
         this.usePost = true;
     }

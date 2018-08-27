@@ -1,13 +1,10 @@
-package com.saritasa.clock_knock.features.authentication.data;
+package com.saritasa.clock_knock.features.auth.data;
 
-import com.saritasa.clock_knock.base.data.GlobalRepositoryImpl;
-import com.saritasa.clock_knock.base.data.PreferenceManagerImpl;
+import com.saritasa.clock_knock.features.session.data.SessionRepositoryImpl;
 import com.saritasa.clock_knock.base.data.ResourceManagerImpl;
 import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClientImpl;
-import com.saritasa.clock_knock.features.authorization.data.AuthRepositoryImpl;
 import com.saritasa.clock_knock.util.RxSchedulerRule;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,15 +31,12 @@ public class AuthRepositoryTest{
     @Mock
     private JiraOAuthClientImpl mJiraOAuthClient;
 
-    @Mock
-    private GlobalRepositoryImpl mGlobalRepository;
-
     @Rule
     public final RxSchedulerRule mOverrideSchedulersRule = new RxSchedulerRule();
 
     @Before
     public void setUp(){
-        mAuthRepository = new AuthRepositoryImpl(mResourceManager, mGlobalRepository, mJiraOAuthClient);
+        mAuthRepository = new AuthRepositoryImpl(mResourceManager, mJiraOAuthClient);
     }
 
     @Test
@@ -72,23 +66,5 @@ public class AuthRepositoryTest{
         } catch(Exception e){
             fail(e.getMessage());
         }
-    }
-
-    @Test
-    public void saveAccessTokenCorrect(){
-        String token = "token";
-
-        mAuthRepository.saveAccessToken(token);
-
-        verify(mGlobalRepository).saveAccessToken(token);
-    }
-
-    @Test
-    public void saveSecretTokenCorrect(){
-        String token = "token";
-
-        mAuthRepository.saveSecretToken(token);
-
-        verify(mGlobalRepository).saveSecretToken(token);
     }
 }

@@ -8,6 +8,7 @@ import com.saritasa.clock_knock.base.di.ApiModule;
 import com.saritasa.clock_knock.base.di.AppComponent;
 import com.saritasa.clock_knock.base.di.AppModule;
 import com.saritasa.clock_knock.base.di.DaggerAppComponent;
+import com.saritasa.clock_knock.features.session.di.SessionModule;
 
 import timber.log.Timber;
 
@@ -44,10 +45,12 @@ public class App extends Application{
      *
      * @return AppComponent interface
      */
+    @NonNull
     protected AppComponent buildAppComponent(){
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .apiModule(new ApiModule())
+                .sessionModule(new SessionModule())
                 .build();
     }
 
@@ -56,6 +59,7 @@ public class App extends Application{
      *
      * @return AppComponent interface instance
      */
+    @NonNull
     public AppComponent getAppComponent(){
         return mAppComponent;
     }

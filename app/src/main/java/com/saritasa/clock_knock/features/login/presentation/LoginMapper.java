@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.features.login.domain.UsernameDomain;
 
 /**
@@ -13,7 +15,8 @@ public final class LoginMapper{
      * @param aUsernameDomain Domain username object
      * @return New usual username object
      */
-    public static Username mapUsernameFromDomain(UsernameDomain aUsernameDomain){
+    @NonNull
+    public static Username mapUsernameFromDomain(@NonNull UsernameDomain aUsernameDomain){
         return new Username(aUsernameDomain.getUsername());
     }
 
@@ -23,7 +26,8 @@ public final class LoginMapper{
      * @param aUsername Usual username object
      * @return New domain username object
      */
-    public static UsernameDomain mapUsernameToDomain(Username aUsername){
+    @NonNull
+    public static UsernameDomain mapUsernameToDomain(@NonNull Username aUsername){
         return new UsernameDomain(aUsername.getUsername());
     }
 }

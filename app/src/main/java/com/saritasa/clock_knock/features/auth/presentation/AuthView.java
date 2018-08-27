@@ -1,5 +1,7 @@
-package com.saritasa.clock_knock.features.authorization.presentation;
+package com.saritasa.clock_knock.features.auth.presentation;
 
+
+import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.base.presentation.BaseView;
 
@@ -13,7 +15,7 @@ public interface AuthView extends BaseView{
      *
      * @param url
      */
-    void loadPageByUrl(String url);
+    void loadPageByUrl(@NonNull String url);
 
     /**
      * Invokes the screen changing to LoginFragment
@@ -30,5 +32,5 @@ public interface AuthView extends BaseView{
      *
      * @param aMessage Message string
      */
-    void showError(String aMessage);
+    void showError(@NonNull String aMessage);
 }

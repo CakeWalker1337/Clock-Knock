@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.features.authorization.presentation;
+package com.saritasa.clock_knock.features.auth.presentation;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -58,7 +58,7 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater aInflater, ViewGroup aContainer,
+    public View onCreateView(@NonNull LayoutInflater aInflater, @Nullable ViewGroup aContainer,
                              Bundle aSavedInstanceState){
         return aInflater.inflate(R.layout.fragment_auth, aContainer, false);
     }
@@ -66,12 +66,14 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         WebView webView = view.findViewById(R.id.webWindow);
-        setupWebView(webView);
+        if (webView != null){
+            setupWebView(webView);
+        }
         mAuthPresenter.getAuthPage();
     }
 
     @Override
-    public void loadPageByUrl(final String url){
+    public void loadPageByUrl(@NonNull final String url){
         WebView webView = getView().findViewById(R.id.webWindow);
         webView.loadUrl(url);
     }
@@ -87,7 +89,7 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     }
 
     @Override
-    public void showError(final String aMessage){
+    public void showError(@NonNull final String aMessage){
         View view = getView();
         if(view != null){
             Snackbar.make(view, aMessage, Snackbar.LENGTH_LONG).show();
@@ -101,7 +103,7 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
      * @param aWebView WebView object
      */
     @SuppressLint("SetJavaScriptEnabled")
-    private void setupWebView(WebView aWebView){
+    private void setupWebView(@NonNull WebView aWebView){
         aWebView.getSettings().setJavaScriptEnabled(true);
         aWebView.addJavascriptInterface(new JavaScriptInterface(mAuthPresenter), Strings.JS_INTERFACE_KEY);
         aWebView.setWebViewClient(new OAuthWebViewClient());
