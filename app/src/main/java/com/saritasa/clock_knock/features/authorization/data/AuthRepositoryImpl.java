@@ -37,6 +37,7 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
 
     }
 
+    @NonNull
     @Override
     public Single<String> getAuthPageUrl(){
 
@@ -48,20 +49,21 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
                 });
     }
 
+    @NonNull
     @Override
-    public Single<String> getAccessToken(String verificationToken){
+    public Single<String> getAccessToken(@NonNull String verificationToken){
         return Single.just("")
                 .subscribeOn(Schedulers.computation())
                 .map(aAccessToken -> mJiraOAuthClient.getAccessToken(verificationToken));
     }
 
     @Override
-    public void saveAccessToken(final String aAccessToken){
+    public void saveAccessToken(@NonNull final String aAccessToken){
         mGlobalRepository.saveAccessToken(aAccessToken);
     }
 
     @Override
-    public void saveSecretToken(final String aSecretToken){
+    public void saveSecretToken(@NonNull final String aSecretToken){
         mGlobalRepository.saveSecretToken(aSecretToken);
     }
 }

@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.base.presentation.BaseView;
 
 /**
@@ -17,7 +19,7 @@ public interface LoginView extends BaseView{
      *
      * @param aMessage Message string
      */
-    void showError(String aMessage);
+    void showError(@NonNull String aMessage);
 
     /**
      * Notices view when authorization is completed

@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.login.domain;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.Objects;
 
 /**
@@ -12,20 +15,21 @@ public class UsernameDomain{
     /**
      * @param aUsername Username string
      */
-    public UsernameDomain(final String aUsername){
+    public UsernameDomain(@NonNull final String aUsername){
         mUsername = aUsername;
     }
 
+    @NonNull
     public String getUsername(){
         return mUsername;
     }
 
-    public void setUsername(String aUsername){
+    public void setUsername(@NonNull String aUsername){
         mUsername = aUsername;
     }
 
     @Override
-    public boolean equals(final Object aObject){
+    public boolean equals(@Nullable final Object aObject){
         if(this == aObject){
             return true;
         }

@@ -1,5 +1,6 @@
 package com.saritasa.clock_knock.features.authorization.domain;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
@@ -18,19 +19,21 @@ public class AuthInteractorImpl extends BaseInteractorImpl<AuthRepository> imple
     /**
      * @param aAuthRepository Auth repository interface
      */
-    public AuthInteractorImpl(final AuthRepository aAuthRepository){
+    public AuthInteractorImpl(@NonNull final AuthRepository aAuthRepository){
         super(aAuthRepository);
         mAuthRepository = aAuthRepository;
     }
 
+    @NonNull
     @Override
     public Single<String> getAuthPage(){
 
         return mAuthRepository.getAuthPageUrl();
     }
 
+    @NonNull
     @Override
-    public Single<String> finishAuthentication(final String aPage){
+    public Single<String> finishAuthentication(@NonNull final String aPage){
         String[] pieces = aPage.split("\'");
 
         String verificationToken = pieces[0];
@@ -43,7 +46,7 @@ public class AuthInteractorImpl extends BaseInteractorImpl<AuthRepository> imple
     }
 
     @Override
-    public void saveAccessToken(final String aAccessToken){
+    public void saveAccessToken(@NonNull final String aAccessToken){
         mAuthRepository.saveAccessToken(aAccessToken);
     }
 

@@ -33,7 +33,7 @@ public class AuthModule{
     @NonNull
     @AuthScope
     @Provides
-    public AuthPresenter providesPresenter(AuthInteractor aAuthInteractor){
+    public AuthPresenter providesPresenter(@NonNull AuthInteractor aAuthInteractor){
         return new AuthPresenterImpl(aAuthInteractor);
     }
 
@@ -46,7 +46,7 @@ public class AuthModule{
     @NonNull
     @AuthScope
     @Provides
-    public AuthInteractor providesInteractor(AuthRepository aAuthRepository) {
+    public AuthInteractor providesInteractor(@NonNull AuthRepository aAuthRepository) {
         return new AuthInteractorImpl(aAuthRepository);
     }
 
@@ -61,7 +61,9 @@ public class AuthModule{
     @NonNull
     @AuthScope
     @Provides
-    public AuthRepository providesRepository(ResourceManager aResourceManager, GlobalRepository aGlobalRepository, JiraOAuthClient aJiraOAuthClient) {
+    public AuthRepository providesRepository(@NonNull ResourceManager aResourceManager,
+                                             @NonNull GlobalRepository aGlobalRepository,
+                                             @NonNull JiraOAuthClient aJiraOAuthClient) {
         return new AuthRepositoryImpl(aResourceManager, aGlobalRepository, aJiraOAuthClient);
     }
 }

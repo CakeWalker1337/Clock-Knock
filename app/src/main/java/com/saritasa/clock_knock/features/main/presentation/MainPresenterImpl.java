@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.main.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
 import com.saritasa.clock_knock.features.main.domain.MainInteractor;
@@ -17,7 +19,7 @@ public class MainPresenterImpl extends BasePresenter<MainView> implements MainPr
     /**
      * @param aMainInteractor Main interactor
      */
-    public MainPresenterImpl(MainInteractor aMainInteractor) {
+    public MainPresenterImpl(@NonNull MainInteractor aMainInteractor) {
         mMainInteractor = aMainInteractor;
     }
 }

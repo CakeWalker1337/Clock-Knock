@@ -26,20 +26,21 @@ public class LoginRepositoryImpl extends BaseRepositoryImpl implements LoginRepo
      * @param aGlobalRepository Global repository
      * @param aRestApi Rest API interface
      */
-    public LoginRepositoryImpl(@NonNull final ResourceManager aResourceManager, GlobalRepository aGlobalRepository, RestApi aRestApi){
+    public LoginRepositoryImpl(@NonNull final ResourceManager aResourceManager, @NonNull GlobalRepository aGlobalRepository, @NonNull RestApi aRestApi){
         super(aResourceManager);
         mResourceManager = aResourceManager;
         mGlobalRepository = aGlobalRepository;
         mRestApi = aRestApi;
     }
 
+    @NonNull
     @Override
     public Single<UsernameDomain> getUsername(){
         return mRestApi.getUsername().map(LoginEntityMapper::mapUsernameFromEntity);
     }
 
     @Override
-    public void saveUsername(final String aUsername){
+    public void saveUsername(@NonNull final String aUsername){
         mGlobalRepository.saveUsername(aUsername);
     }
 

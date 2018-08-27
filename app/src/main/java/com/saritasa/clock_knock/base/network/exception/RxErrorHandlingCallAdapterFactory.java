@@ -45,7 +45,7 @@ public final class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory
      * @param aScheduler Scheduler to start query with
      * @return new call adapter factory which starts queries on custom thread
      */
-    public static CallAdapter.Factory createWithScheduler(Scheduler aScheduler){
+    public static CallAdapter.Factory createWithScheduler(@NonNull Scheduler aScheduler){
         return new RxErrorHandlingCallAdapterFactory(aScheduler);
     }
 

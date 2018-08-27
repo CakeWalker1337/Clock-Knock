@@ -16,7 +16,7 @@ public class BaseInteractorImpl<REPOSITORY extends BaseRepository> implements Ba
     /**
      * @param aRepository Repository object
      */
-    public BaseInteractorImpl(REPOSITORY aRepository) {
+    public BaseInteractorImpl(@NonNull REPOSITORY aRepository) {
         mRepository = aRepository;
     }
 

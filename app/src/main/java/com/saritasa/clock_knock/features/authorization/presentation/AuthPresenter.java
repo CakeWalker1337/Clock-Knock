@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.authorization.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.MvpView;
 
 /**
@@ -14,21 +16,21 @@ public interface AuthPresenter<VIEW extends MvpView>{
      *
      * @param aView View object
      */
-    void attachView(VIEW aView);
+    void attachView(@NonNull VIEW aView);
 
     /**
      * Detaches view to presenter
      *
      * @param aView View object
      */
-    void detachView(VIEW aView);
+    void detachView(@NonNull VIEW aView);
 
     /**
      * Called when button "Allowed" was clicked on the OAuth page
      *
      * @param aPage Page body string
      */
-    void onAuthAllowed(String aPage);
+    void onAuthAllowed(@NonNull String aPage);
 
     /**
      * Called when button "Deny" was clicked on the OAuth page

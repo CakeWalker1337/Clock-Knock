@@ -1,5 +1,6 @@
 package com.saritasa.clock_knock.features.authorization.presentation;
 
+import android.support.annotation.NonNull;
 import android.webkit.JavascriptInterface;
 
 import com.saritasa.clock_knock.util.Strings;
@@ -14,7 +15,7 @@ public class JavaScriptInterface{
     /**
      * @param aAuthPresenter Auth presenter object
      */
-    public JavaScriptInterface(AuthPresenter aAuthPresenter){
+    public JavaScriptInterface(@NonNull AuthPresenter aAuthPresenter){
         mAuthPresenter = aAuthPresenter;
     }
 
@@ -24,7 +25,7 @@ public class JavaScriptInterface{
      * @param aData Page body string
      */
     @JavascriptInterface
-    public void printPage(String aData){
+    public void printPage(@NonNull String aData){
 
         int markerIndex = aData.indexOf(Strings.SEARCH_MARKER);
 

@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.MvpView;
 
 /**
@@ -14,14 +16,14 @@ public interface LoginPresenter<VIEW extends MvpView>{
      *
      * @param aView View object
      */
-    void attachView(VIEW aView);
+    void attachView(@NonNull VIEW aView);
 
     /**
      * Detaches view to presenter
      *
      * @param aView View object
      */
-    void detachView(VIEW aView);
+    void detachView(@NonNull VIEW aView);
 
     /**
      * Notices presenter when auth button was pressed

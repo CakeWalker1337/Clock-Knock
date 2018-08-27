@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
 import com.saritasa.clock_knock.features.authorization.presentation.AuthView;
@@ -19,17 +21,17 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
     /**
      * @param aLoginInteractor Login interactor
      */
-    public LoginPresenterImpl(LoginInteractor aLoginInteractor){
+    public LoginPresenterImpl(@NonNull LoginInteractor aLoginInteractor){
         mLoginInteractor = aLoginInteractor;
     }
 
     @Override
-    public void attachView(LoginView aAuthView){
+    public void attachView(@NonNull LoginView aAuthView){
         super.attachView(aAuthView);
     }
 
     @Override
-    public void detachView(LoginView aAuthView){
+    public void detachView(@NonNull LoginView aAuthView){
         super.detachView(aAuthView);
     }
 
@@ -43,7 +45,6 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
         Disposable disposable = mLoginInteractor.getUsername()
                 .subscribe(aUsername -> {
                                mLoginInteractor.saveUsername(aUsername.getUsername());
-                               Timber.d("Username: " + aUsername.getUsername());
                                getViewState().onAuthorizationComplete();
                            },
                            aThrowable -> getViewState().showError(aThrowable.getMessage()));

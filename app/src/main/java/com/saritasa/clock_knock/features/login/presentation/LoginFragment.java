@@ -91,7 +91,7 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
     }
 
     @Override
-    public void showError(final String aMessage){
+    public void showError(@NonNull final String aMessage){
         View view = getView();
         if(view != null){
             Snackbar.make(view, aMessage, Snackbar.LENGTH_LONG).show();

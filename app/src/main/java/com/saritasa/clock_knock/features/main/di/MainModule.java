@@ -31,7 +31,7 @@ public class MainModule{
     @NonNull
     @MainScope
     @Provides
-    public MainPresenter providesPresenter(MainInteractor aMainInteractor){
+    public MainPresenter providesPresenter(@NonNull MainInteractor aMainInteractor){
         return new MainPresenterImpl(aMainInteractor);
     }
 
@@ -44,7 +44,7 @@ public class MainModule{
     @NonNull
     @MainScope
     @Provides
-    public MainInteractor providesInteractor(MainRepository aMainRepository) {
+    public MainInteractor providesInteractor(@NonNull MainRepository aMainRepository) {
         return new MainInteractorImpl(aMainRepository);
     }
 
@@ -58,7 +58,7 @@ public class MainModule{
     @NonNull
     @MainScope
     @Provides
-    public MainRepository providesRepository(ResourceManager aResourceManager, GlobalRepository aGlobalRepository) {
+    public MainRepository providesRepository(@NonNull ResourceManager aResourceManager, @NonNull GlobalRepository aGlobalRepository) {
         return new MainRepositoryImpl(aResourceManager, aGlobalRepository);
     }
 }

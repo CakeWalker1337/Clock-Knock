@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.login.domain;
 
+import android.support.annotation.NonNull;
+
 import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
 import com.saritasa.clock_knock.features.login.data.LoginRepository;
 import com.saritasa.clock_knock.features.login.presentation.LoginMapper;
@@ -17,19 +19,20 @@ public class LoginInteractorImpl extends BaseInteractorImpl<LoginRepository> imp
     /**
      * @param aLoginRepository Login repository
      */
-    public LoginInteractorImpl(final LoginRepository aLoginRepository){
+    public LoginInteractorImpl(@NonNull final LoginRepository aLoginRepository){
         super(aLoginRepository);
 
         mLoginRepository = aLoginRepository;
     }
 
+    @NonNull
     @Override
     public Single<Username> getUsername(){
         return mLoginRepository.getUsername().map(LoginMapper::mapUsernameFromDomain);
     }
 
     @Override
-    public void saveUsername(final String aUsername){
+    public void saveUsername(@NonNull final String aUsername){
         mLoginRepository.saveUsername(aUsername);
     }
 

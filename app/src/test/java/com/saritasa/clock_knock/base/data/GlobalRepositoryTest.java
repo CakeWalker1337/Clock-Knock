@@ -8,7 +8,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.verify;
 
-
+/**
+ * Test class for GlobalRepositoryImpl
+ */
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class GlobalRepositoryTest{
 

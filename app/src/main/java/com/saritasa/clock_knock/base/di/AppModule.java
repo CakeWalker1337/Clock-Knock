@@ -26,7 +26,7 @@ public class AppModule{
     /**
      * @param aContext Context
      */
-    public AppModule(Context aContext){
+    public AppModule(@NonNull Context aContext){
         mContext = aContext;
     }
 
@@ -35,6 +35,7 @@ public class AppModule{
      *
      * @return Context
      */
+    @NonNull
     @Provides
     @Singleton
     Context provideContext(){

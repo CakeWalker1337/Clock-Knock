@@ -19,7 +19,7 @@ public class MainRepositoryImpl extends BaseRepositoryImpl implements MainReposi
      * @param aResourceManager Resource manager
      * @param aGlobalRepository Global repository
      */
-    public MainRepositoryImpl(@NonNull final ResourceManager aResourceManager, GlobalRepository aGlobalRepository){
+    public MainRepositoryImpl(@NonNull final ResourceManager aResourceManager, @NonNull GlobalRepository aGlobalRepository){
         super(aResourceManager);
         mResourceManager = aResourceManager;
         mGlobalRepository = aGlobalRepository;

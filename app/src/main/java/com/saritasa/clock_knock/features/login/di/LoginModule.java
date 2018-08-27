@@ -32,7 +32,7 @@ public class LoginModule{
     @NonNull
     @LoginScope
     @Provides
-    public LoginPresenter providesPresenter(LoginInteractor aLoginInteractor){
+    public LoginPresenter providesPresenter(@NonNull LoginInteractor aLoginInteractor){
         return new LoginPresenterImpl(aLoginInteractor);
     }
 
@@ -45,7 +45,7 @@ public class LoginModule{
     @NonNull
     @LoginScope
     @Provides
-    public LoginInteractor providesInteractor(LoginRepository aLoginRepository) {
+    public LoginInteractor providesInteractor(@NonNull LoginRepository aLoginRepository) {
         return new LoginInteractorImpl(aLoginRepository);
     }
 
@@ -60,7 +60,9 @@ public class LoginModule{
     @NonNull
     @LoginScope
     @Provides
-    public LoginRepository providesRepository(ResourceManager aResourceManager, GlobalRepository aGlobalRepository, RestApi aRestApi) {
+    public LoginRepository providesRepository(@NonNull ResourceManager aResourceManager,
+                                              @NonNull GlobalRepository aGlobalRepository,
+                                              @NonNull RestApi aRestApi) {
         return new LoginRepositoryImpl(aResourceManager, aGlobalRepository, aRestApi);
     }
 }

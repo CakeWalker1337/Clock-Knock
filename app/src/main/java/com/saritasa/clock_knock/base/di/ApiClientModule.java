@@ -53,7 +53,7 @@ public class ApiClientModule{
                     // oauth_timestamp="", oauth_token="", oauth_verifier=""
 
                     String authHeader = aJiraOAuthClient.getAuthorizationHeader(original, accessToken, secretToken, consumerKey, privateKey);
-                    Log.w("Header", authHeader);
+
                     newRequest = newRequest.header("Accept", "application/json")
                             .header("Authorization", authHeader)
                             .method(original.method(), original.body());
