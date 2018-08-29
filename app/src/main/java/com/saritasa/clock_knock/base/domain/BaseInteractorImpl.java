@@ -1,34 +1,34 @@
 package com.saritasa.clock_knock.base.domain;
 
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.base.data.BaseRepository;
 
 /**
- * Base interactor class working with repository, which has been inherited by BaseRepository.
+ * An implementation for BaseInteractor interface typed for repositories
  *
- * @param <REPOSITORY>
+ * @param <REPOSITORY> Any repository class which extends the BaseRepository class
  */
 public class BaseInteractorImpl<REPOSITORY extends BaseRepository> implements BaseInteractor{
 
     protected REPOSITORY mRepository;
 
     /**
-     * @param aRepository - Repository instance.
+     * @param aRepository Repository object
      */
-    public BaseInteractorImpl(@Nullable REPOSITORY aRepository){
+    public BaseInteractorImpl(@NonNull REPOSITORY aRepository) {
         mRepository = aRepository;
     }
 
     /**
-     * Gets string resource from resource manager.
-     * @param aId id of string resource
-     * @param aParams additive parameters
-     * @return String by resource id.
+     * Gets the string by its resource id
+     *
+     * @param aId Resource id
+     * @param aParams Parameters array
+     * @return String by resource id
      */
-    @Nullable
+    @NonNull
     public String getStringResource(int aId, Object... aParams){
         return mRepository.getStringResource(aId, aParams);
     }
-
 }

@@ -57,6 +57,7 @@ public class App extends Application{
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .apiModule(new ApiModule())
+                .sessionModule(new SessionModule())
                 .build();
     }
 

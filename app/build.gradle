@@ -19,8 +19,7 @@ android {
         buildConfigField "long", "NETWORK_TIMEOUT_MILLIS", "10_000"
         buildConfigField "long", "CONNECT_TIMEOUT_MILLIS", "30_000"
         buildConfigField "int", "COUNT_RETRY_REQUEST", "3"
-        buildConfigField "String", "BASE_URL", '"https://clock-knock.atlassian.net"'
-
+        buildConfigField "String", "BASE_URL", '"https://clock-knock.atlassian.net/rest/api/2/"'
     }
     buildTypes {
         release {
@@ -29,6 +28,16 @@ android {
         }
     }
 
+    packagingOptions{
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
 
     compileOptions{
         targetCompatibility 1.8
@@ -38,8 +47,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    //Tests
     testImplementation libraries.jUnit
     androidTestImplementation libraries.testRunner
     androidTestImplementation libraries.expressoCore
@@ -87,6 +94,13 @@ dependencies {
 
     implementation libraries.moxy
     implementation libraries.moxyAppCompat
+
+    implementation libraries.googleOauthClient
+    implementation libraries.googleHttpClient
+    implementation libraries.googleCollections
+
+    implementation libraries.mockito
+
     annotationProcessor libraries.moxyCompiler
 
     implementation libraries.fastAdapter

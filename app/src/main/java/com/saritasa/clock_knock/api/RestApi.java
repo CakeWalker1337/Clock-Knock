@@ -5,13 +5,18 @@ import android.support.annotation.NonNull;
 import com.saritasa.clock_knock.features.tasks.data.TasksResponseEntity;
 
 import io.reactivex.Single;
+import com.saritasa.clock_knock.features.login.data.UsernameEntity;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
- * Api interface interacts with JIRA API.
+ * The Retrofit API interface for throwing requests to a server
  */
 public interface RestApi{
 
@@ -33,4 +38,11 @@ public interface RestApi{
     @GET
     Single<Response<ResponseBody>> getTaskWorkLog();
 
+    /**
+     * Gets username of current user
+     *
+     * @return Parsed username of current user
+     */
+    @GET("rest/api/2/myself")
+    Single<UsernameEntity> getUsername();
 }

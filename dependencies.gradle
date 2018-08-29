@@ -15,7 +15,7 @@ ext.versions = [
 
         //UI
         constraintLayout   : '1.1.2',
-        glide              : '4.6.1',
+        glide              : '4.5.0',
 
         //Network
         retrofit           : '2.4.0',
@@ -38,7 +38,12 @@ ext.versions = [
 
         recyclerView       : "27.1.1",
         fastAdapter        : "3.2.8",
-        mock               : "2.10.0"
+        mock               : "2.10.0",
+
+        //OAuth
+        googleOauthClient  : '1.24.1',
+        googleHttpClient   : '1.11.0-beta',
+        googleCollections  : '1.0'
 ]
 
 ext.gradlePlugins = [
@@ -86,12 +91,10 @@ ext.libraries = [
 
         //Utils
         butterknife          : "com.jakewharton:butterknife:$versions.butterknife",
-
-
-
         butterknifeCompiler  : "com.jakewharton:butterknife-compiler:$versions.butterknife",
         timber               : "com.jakewharton.timber:timber:$versions.timber",
 
+        //Moxy
         moxy                 : "com.arello-mobile:moxy:$versions.moxy",
         moxyCompiler         : "com.arello-mobile:moxy-compiler:$versions.moxy",
         moxyAppCompat        : "com.arello-mobile:moxy-app-compat:$versions.moxy",
@@ -99,4 +102,11 @@ ext.libraries = [
         fastAdapter          : "com.mikepenz:fastadapter:$versions.fastAdapter",
 
         recyclerView         : "com.android.support:recyclerview-v7:$versions.recyclerView"
+        moxyAppCompat        : "com.arello-mobile:moxy-app-compat:$versions.moxy",
+
+        //OAuth
+        googleOauthClient    : "com.google.oauth-client:google-oauth-client:$versions.googleOauthClient",
+        googleHttpClient     : "com.google.http-client:google-http-client-jackson2:$versions.googleHttpClient",
+        googleCollections    : "com.google.collections:google-collections:$versions.googleCollections"
+
 ]
