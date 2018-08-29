@@ -2,17 +2,12 @@ package com.saritasa.clock_knock.api;
 
 import android.support.annotation.NonNull;
 
+import com.saritasa.clock_knock.features.login.data.UsernameEntity;
 import com.saritasa.clock_knock.features.tasks.data.TasksResponseEntity;
 
 import io.reactivex.Single;
-import com.saritasa.clock_knock.features.login.data.UsernameEntity;
-
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -29,14 +24,6 @@ public interface RestApi{
     @NonNull
     @GET("/rest/api/2/search")
     Single<Response<TasksResponseEntity>> getTasks(@NonNull @Query("jql") String aJqlQuery);
-
-    /**
-     * Gets worklogs of task.
-     * @return Observable with worklogs of task.
-     */
-    @NonNull
-    @GET
-    Single<Response<ResponseBody>> getTaskWorkLog();
 
     /**
      * Gets username of current user

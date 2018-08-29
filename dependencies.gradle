@@ -101,7 +101,7 @@ ext.libraries = [
 
         fastAdapter          : "com.mikepenz:fastadapter:$versions.fastAdapter",
 
-        recyclerView         : "com.android.support:recyclerview-v7:$versions.recyclerView"
+        recyclerView         : "com.android.support:recyclerview-v7:$versions.recyclerView",
         moxyAppCompat        : "com.arello-mobile:moxy-app-compat:$versions.moxy",
 
         //OAuth

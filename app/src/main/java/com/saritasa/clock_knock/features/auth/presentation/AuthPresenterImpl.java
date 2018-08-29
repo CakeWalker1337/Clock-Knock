@@ -1,22 +1,19 @@
 package com.saritasa.clock_knock.features.auth.presentation;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.saritasa.clock_knock.base.presentation.BasePresenter;
+import com.saritasa.clock_knock.base.presentation.BasePresenterImpl;
 import com.saritasa.clock_knock.features.auth.domain.AuthInteractor;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 /**
  * A class which implements methods from AuthPresenter interface
  */
 @InjectViewState
-public class AuthPresenterImpl extends BasePresenter<AuthView> implements AuthPresenter<AuthView>{
+public class AuthPresenterImpl extends BasePresenterImpl<AuthView> implements AuthPresenter<AuthView>{
 
     private AuthInteractor mAuthInteractor;
 

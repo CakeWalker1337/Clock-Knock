@@ -1,10 +1,9 @@
 package com.saritasa.clock_knock.features.auth.data;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
-import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClient;
 
@@ -36,7 +35,9 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
     @Override
     public Single<String> getAuthPageUrl(){
         return Single.fromCallable(() -> {
+            Log.d("AuthRepo", "Getting temp token");
             String temporaryToken = mJiraOAuthClient.getTemporaryToken();
+            Log.d("AuthRepo", "Temp token: " + temporaryToken);
             return mJiraOAuthClient.getAuthorizationUrl(temporaryToken);
         }).subscribeOn(Schedulers.computation());
     }

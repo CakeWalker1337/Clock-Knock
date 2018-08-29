@@ -1,18 +1,15 @@
 package com.saritasa.clock_knock.features.main.presentation;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
 import com.saritasa.clock_knock.features.auth.presentation.AuthFragment;
 import com.saritasa.clock_knock.features.login.presentation.LoginFragment;
+import com.saritasa.clock_knock.features.tasks.presentation.TasksFragment;
 
 import javax.inject.Inject;
-
-import timber.log.Timber;
 
 /**
  * The Main activity class
@@ -65,6 +62,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
 
     @Override
     public void goToTasks(){
-        // TODO: Show task fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new TasksFragment()).commit();
     }
 }

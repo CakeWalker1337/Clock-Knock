@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,6 +120,7 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
     @Override
     public void loadPageByUrl(@NonNull final String url){
+        Log.d("AuthFragment", "URL = " + url);
         mWebView.loadUrl(url);
     }
 
@@ -144,5 +146,6 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
         aWebView.setWebViewClient(new OAuthWebViewClient());
         settings.setUserAgentString(Strings.WEB_USER_AGENT);
         CookieManager.getInstance().setAcceptThirdPartyCookies(aWebView, true);
+
     }
 }

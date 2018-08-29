@@ -8,6 +8,7 @@ import com.saritasa.clock_knock.base.di.ApiModule;
 import com.saritasa.clock_knock.base.di.AppComponent;
 import com.saritasa.clock_knock.base.di.AppModule;
 import com.saritasa.clock_knock.base.di.DaggerAppComponent;
+import com.saritasa.clock_knock.features.session.di.SessionModule;
 
 import timber.log.Timber;
 
@@ -36,6 +37,7 @@ public class App extends Application{
             Timber.plant(new Timber.DebugTree());
         }
         mAppComponent = buildAppComponent();
+        mAppComponent.inject(this);
     }
 
     /**

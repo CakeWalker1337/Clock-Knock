@@ -99,7 +99,7 @@ dependencies {
     implementation libraries.googleHttpClient
     implementation libraries.googleCollections
 
-    implementation libraries.mockito
+    implementation libraries.mock
 
     annotationProcessor libraries.moxyCompiler
 

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
 import com.saritasa.clock_knock.base.data.ResourceManager;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
 import java.util.ArrayList;
@@ -17,35 +18,36 @@ import io.reactivex.Single;
  */
 public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepository{
 
+    SessionRepository mSessionRepository;
     RestApi mRestApi;
 
     /**
      * @param aResourceManager - resource manager object
      * @param aRestApi - object of rest api
      */
-    public TasksRepositoryImpl(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi){
+    public TasksRepositoryImpl(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi, SessionRepository aSessionRepository){
         super(aResourceManager);
         mRestApi = aRestApi;
+        mSessionRepository = aSessionRepository;
     }
 
     @NonNull
     @Override
     public Observable<TasksDomain> loadTasks(){
-        return
-//                mRestApi.getTasks("assignee=maxim.kovalev")
-//                        .map(aTasksResponseEntityResponse -> {
-//                            if(!aTasksResponseEntityResponse.isSuccessful()){
-//                                throw new Exception("Error while fetching task list.");
-//                            }
-//                            return aTasksResponseEntityResponse.body().getIssues();
-//                        })
-                getTestApiTask()
-                        .flatMapObservable(source -> Observable.fromIterable(source.getIssues()))
+        return mRestApi.getTasks("assignee=" + mSessionRepository.getUsername())
+                .map(aTasksResponseEntityResponse -> {
+                    if(!aTasksResponseEntityResponse.isSuccessful()){
+                        throw new Exception("Error while fetching task list.");
+                    }
+                    return aTasksResponseEntityResponse.body().getIssues();
+                })
+
+                .flatMapObservable(Observable::fromIterable)
                         .map(TasksEntityMapper::mapEntityObjectToDomainObject);
     }
 
     /**
-     * Test method. Hardcodes object to test feature without using api.
+     * Test method. Hardcodes object Йto test feature without using api.
      * This method will be deprecated soon.
      *
      * @return Single object of imitated api response.

@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.utils;
+package com.saritasa.clock_knock.util;
 
 import android.support.annotation.NonNull;
 

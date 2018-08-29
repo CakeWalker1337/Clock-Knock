@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.saritasa.clock_knock.R;
-import com.saritasa.clock_knock.utils.GlideRequestOptions;
+import com.saritasa.clock_knock.util.GlideRequestOptions;
 
 import java.util.List;
 import java.util.Objects;

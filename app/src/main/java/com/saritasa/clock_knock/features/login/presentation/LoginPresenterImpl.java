@@ -3,18 +3,16 @@ package com.saritasa.clock_knock.features.login.presentation;
 import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.saritasa.clock_knock.base.presentation.BasePresenter;
-import com.saritasa.clock_knock.features.auth.presentation.AuthView;
+import com.saritasa.clock_knock.base.presentation.BasePresenterImpl;
 import com.saritasa.clock_knock.features.login.domain.LoginInteractor;
 
 import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 /**
  * A class which implements methods from LoginPresenter interface
  */
 @InjectViewState
-public class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresenter<LoginView>{
+public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements LoginPresenter<LoginView>{
 
     private LoginInteractor mLoginInteractor;
 
