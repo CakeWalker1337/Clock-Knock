@@ -32,15 +32,15 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
     @Override
     public Observable<TasksDomain> loadTasks(){
         return
-                mRestApi.getTasks("assignee=maxim.kovalev")
-                        .map(aTasksResponseEntityResponse -> {
-                            if(!aTasksResponseEntityResponse.isSuccessful()){
-                                throw new Exception("Error while fetching task list.");
-                            }
-                            return aTasksResponseEntityResponse.body().getIssues();
-                        })
-                        // getTestApiTask()
-                        .flatMapObservable(Observable::fromIterable)
+//                mRestApi.getTasks("assignee=maxim.kovalev")
+//                        .map(aTasksResponseEntityResponse -> {
+//                            if(!aTasksResponseEntityResponse.isSuccessful()){
+//                                throw new Exception("Error while fetching task list.");
+//                            }
+//                            return aTasksResponseEntityResponse.body().getIssues();
+//                        })
+                getTestApiTask()
+                        .flatMapObservable(source -> Observable.fromIterable(source.getIssues()))
                         .map(TasksEntityMapper::mapEntityObjectToDomainObject);
     }
 

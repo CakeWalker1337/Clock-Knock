@@ -19,4 +19,5 @@ public interface BasePresenter<VIEW extends MvpView>{
      * @param aView View to detach.
      */
     void detachView(@NonNull final VIEW aView);
+
 }
