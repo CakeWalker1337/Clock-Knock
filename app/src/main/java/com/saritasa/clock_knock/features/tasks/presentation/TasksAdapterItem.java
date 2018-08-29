@@ -1,5 +1,6 @@
 package com.saritasa.clock_knock.features.tasks.presentation;
 
+import android.graphics.drawable.PictureDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -7,10 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.saritasa.clock_knock.R;
-import com.saritasa.clock_knock.util.GlideRequestOptions;
+import com.saritasa.clock_knock.util.GlideApp;
+import com.saritasa.clock_knock.util.SvgSoftwareLayerSetter;
 
 import java.util.List;
 import java.util.Objects;
@@ -232,12 +236,16 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
             tvStatus.setText(item.getStatus());
             tvSummary.setText(item.getSummary());
 
-            Glide.with(ivProjectIcon)
-                    .setDefaultRequestOptions(GlideRequestOptions.getTasksRequestOptions())
+            RequestBuilder<PictureDrawable> requestBuilder = GlideApp.with(ivPriorityIcon)
+                    .as(PictureDrawable.class)
+                    .error(R.drawable.ic_error_outline_24dp)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .listener(new SvgSoftwareLayerSetter());
+
+            requestBuilder
                     .load(item.getProjectAvatarUrl())
                     .into(ivProjectIcon);
-            Glide.with(ivPriorityIcon)
-                    .setDefaultRequestOptions(GlideRequestOptions.getTasksRequestOptions())
+            requestBuilder
                     .load(item.getPriorityIconUrl())
                     .into(ivPriorityIcon);
         }

@@ -8,6 +8,7 @@ ext.versions = [
         //Tests
         jUnit              : '4.12',
         testRunner         : '1.0.2',
+
         expresso           : '3.0.2',
 
         //Support

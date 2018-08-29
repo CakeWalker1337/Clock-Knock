@@ -12,8 +12,7 @@
         android:layout_width="@dimen/project_avatar_edge_length"
         android:layout_height="@dimen/project_avatar_edge_length"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@mipmap/ic_launcher" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -60,8 +59,7 @@
         android:layout_height="@dimen/priority_icon_edge_length"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:srcCompat="@android:drawable/ic_menu_upload" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

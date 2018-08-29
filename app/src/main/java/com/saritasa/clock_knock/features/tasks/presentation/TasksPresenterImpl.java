@@ -37,8 +37,8 @@ public class TasksPresenterImpl extends BasePresenterImpl<TasksView> implements 
         Disposable disposable = mTasksInteractor.loadTasks()
                 .map(TasksMapper::mapTasksDomainToTasksAdapterItem)
                 .toList()
-                .doFinally(() -> getViewState().hideLoadingProgress())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> getViewState().hideLoadingProgress())
                 .subscribe(this::handleSuccess,
                            this::handleError);
         unsubscribeOnDestroy(disposable);
@@ -52,6 +52,10 @@ public class TasksPresenterImpl extends BasePresenterImpl<TasksView> implements 
     private void handleSuccess(List<TasksAdapterItem> aTasksAdapterItems){
         if(aTasksAdapterItems.isEmpty()){
             getViewState().showNoTasksMessageView();
+            getViewState().hideTasksView();
+        } else{
+            getViewState().hideNoTasksMessageView();
+            getViewState().showTasksView();
         }
         Timber.d("Task was loaded");
         getViewState().updateTaskList(aTasksAdapterItems);
