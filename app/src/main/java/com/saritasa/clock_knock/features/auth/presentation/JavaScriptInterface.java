@@ -20,7 +20,12 @@ public class JavaScriptInterface{
     }
 
     /**
-     * Handles page body and checks when user allows or denies the OAUth authentication
+     * Handles page body and checks when user allows or denies the OAUth authentication.
+     * <p>
+     *     Firstly, if page contains the marker ({@value Strings#SEARCH_MARKER}) then this page is Allowed or Denied page.
+     *     Next it checks the first quote position and first /p tag position after the marker. If quote position less than paragraph position, this page is the Allow page.
+     *     If not, this page is the Deny page.
+     * </p>
      *
      * @param aData Page body string
      */

@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.auth.data;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
 import com.saritasa.clock_knock.features.session.data.SessionRepository;
@@ -19,7 +20,6 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
     private ResourceManager mResourceManager;
 
     /**
-     *
      * @param aResourceManager Resource manager
      * @param aJiraOAuthClient Jira OAuth client
      */
@@ -35,20 +35,16 @@ public class AuthRepositoryImpl extends BaseRepositoryImpl implements AuthReposi
     @NonNull
     @Override
     public Single<String> getAuthPageUrl(){
-
-        return Single.just("")
-                .observeOn(Schedulers.computation())
-                .map(aUrl -> {
-                    String temporaryToken = mJiraOAuthClient.getTemporaryToken();
-                    return mJiraOAuthClient.getAuthorizationUrl(temporaryToken);
-                });
+        return Single.fromCallable(() -> {
+            String temporaryToken = mJiraOAuthClient.getTemporaryToken();
+            return mJiraOAuthClient.getAuthorizationUrl(temporaryToken);
+        }).subscribeOn(Schedulers.computation());
     }
 
     @NonNull
     @Override
-    public Single<String> getAccessToken(@NonNull String verificationToken){
-        return Single.just("")
-                .subscribeOn(Schedulers.computation())
-                .map(aAccessToken -> mJiraOAuthClient.getAccessToken(verificationToken));
+    public Single<String> getAccessToken(@NonNull String aVerificationToken){
+        return Single.fromCallable(() -> mJiraOAuthClient.getAccessToken(aVerificationToken))
+                .subscribeOn(Schedulers.computation());
     }
 }

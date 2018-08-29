@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.auth.domain;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.saritasa.clock_knock.base.domain.BaseInteractor;
 import com.saritasa.clock_knock.util.Strings;
 
@@ -15,6 +18,7 @@ public interface AuthInteractor extends BaseInteractor {
      *
      * @return The auth page URL string single
      */
+    @NonNull
     Single<String> getAuthPage();
 
     /**
@@ -23,6 +27,7 @@ public interface AuthInteractor extends BaseInteractor {
      * @param aPage Page markup substring with the verification code
      * @return Access token string single
      */
+    @NonNull
     Single<String> finishAuthentication(String aPage);
 
     /**
@@ -30,5 +35,5 @@ public interface AuthInteractor extends BaseInteractor {
      *
      * @param aAccessToken Access token string
      */
-    void saveAccessToken(String aAccessToken);
+    void saveAccessToken(@NonNull String aAccessToken);
 }

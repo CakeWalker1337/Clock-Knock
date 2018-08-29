@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.session.data;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 /**
  * An interface to provide methods working with global data storages like BuildConfig, SharedPreferences, etc.
  */
@@ -10,13 +13,14 @@ public interface SessionRepository{
      *
      * @param aAccessToken Access token string
      */
-    void saveAccessToken(String aAccessToken);
+    void saveAccessToken(@NonNull String aAccessToken);
 
     /**
      * Gets the access token
      *
      * @return Access token string
      */
+    @Nullable
     String getAccessToken();
 
     /**
@@ -24,13 +28,14 @@ public interface SessionRepository{
      *
      * @param aUsername Username string
      */
-    void saveUsername(String aUsername);
+    void saveUsername(@NonNull String aUsername);
 
     /**
      * Gets the username
      *
      * @return Username string
      */
+    @Nullable
     String getUsername();
 
     /**
@@ -43,13 +48,14 @@ public interface SessionRepository{
      *
      * @param aSecretToken Secret token string
      */
-    void saveSecretToken(String aSecretToken);
+    void saveSecretToken(@NonNull String aSecretToken);
 
     /**
      * Gets the secret token
      *
      * @return Secret token string
      */
+    @Nullable
     String getSecretToken();
 
     /**
@@ -57,6 +63,7 @@ public interface SessionRepository{
      *
      * @return Base URL string
      */
+    @NonNull
     String getBaseUrl();
 
     /**
@@ -64,6 +71,7 @@ public interface SessionRepository{
      *
      * @return Private key string
      */
+    @NonNull
     String getPrivateKey();
 
     /**
@@ -71,6 +79,7 @@ public interface SessionRepository{
      *
      * @return Consumer key string
      */
+    @NonNull
     String getConsumerKey();
 
     /**
@@ -78,6 +87,7 @@ public interface SessionRepository{
      *
      * @return Network timeout
      */
+    @NonNull
     long getNetworkTimeout();
 
     /**
@@ -85,6 +95,7 @@ public interface SessionRepository{
      *
      * @return Connect timeout
      */
+    @NonNull
     long getConnectTimeout();
 
     /**
@@ -92,5 +103,6 @@ public interface SessionRepository{
      *
      * @return Count of request retries
      */
+    @NonNull
     int getRetryRequestCount();
 }

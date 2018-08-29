@@ -12,17 +12,16 @@ import com.saritasa.clock_knock.util.Strings;
 /**
  * A class for control the WebView actions
  */
-public class OAuthWebViewClient extends WebViewClient
-{
+public class OAuthWebViewClient extends WebViewClient{
+
     @Override
-    public boolean shouldOverrideUrlLoading(@NonNull WebView aWebView, @NonNull String aUrl)
-    {
+    public boolean shouldOverrideUrlLoading(@NonNull WebView aWebView, @NonNull String aUrl){
         aWebView.loadUrl(aUrl);
         return true;
     }
 
     @Override
-    public void onPageFinished(@NonNull WebView aWebView, @NonNull String aUrl) {
+    public void onPageFinished(@NonNull WebView aWebView, @NonNull String aUrl){
         super.onPageFinished(aWebView, aUrl);
         aWebView.loadUrl("javascript:window." + Strings.JS_INTERFACE_KEY + ".printPage(document.getElementsByTagName('html')[0].innerHTML);");
     }

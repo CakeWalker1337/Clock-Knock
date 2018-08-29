@@ -5,11 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -20,15 +22,26 @@ import com.saritasa.clock_knock.util.Strings;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * The Auth Fragment class
  */
 public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
+    @BindView(R.id.webWindow)
+    public WebView mWebView;
+
+    @BindView(R.id.coordinator)
+    public CoordinatorLayout mCoordinatorLayout;
+
     @Inject
     public AuthPresenter mAuthPresenter;
 
     private NavigationListener mNavigationListener;
+    private Unbinder mUnbinder;
 
     public AuthFragment(){
     }
@@ -36,20 +49,11 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     @Override
     public void onAttach(Context aContext){
         super.onAttach(aContext);
-        // Inject data
-        App.get(aContext)
-                .getAppComponent()
-                .authComponentBuilder()
-                .build()
-                .inject(this);
+    }
 
-        // Attach view to presenter
-        mAuthPresenter.attachView(this);
-
-        // Initialize the navigation interface
-        if(aContext instanceof NavigationListener){
-            mNavigationListener = (NavigationListener) aContext;
-        }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+        mUnbinder = ButterKnife.bind(this, view);
     }
 
     @Override
@@ -63,19 +67,44 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
         return aInflater.inflate(R.layout.fragment_auth, aContainer, false);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-        WebView webView = view.findViewById(R.id.webWindow);
-        if (webView != null){
-            setupWebView(webView);
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState){
+
+        if(getContext() != null){
+
+            App.get(getContext())
+                    .getAppComponent()
+                    .authComponentBuilder()
+                    .build()
+                    .inject(this);
+
+            mAuthPresenter.attachView(this);
+
+            if(getContext() instanceof NavigationListener){
+                mNavigationListener = (NavigationListener) getContext();
+            }
+
         }
-        mAuthPresenter.getAuthPage();
+
+        if(getView() != null){
+
+            if(mWebView != null){
+                setupWebView(mWebView);
+            }
+
+            mAuthPresenter.getAuthPage();
+        }
+
+        super.onActivityCreated(savedInstanceState);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void loadPageByUrl(@NonNull final String url){
-        WebView webView = getView().findViewById(R.id.webWindow);
-        webView.loadUrl(url);
+    public void onDetach(){
+        mAuthPresenter.detachView(this);
+        mUnbinder.unbind();
+        super.onDetach();
     }
 
     @Override
@@ -89,10 +118,15 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     }
 
     @Override
+    public void loadPageByUrl(@NonNull final String url){
+        mWebView.loadUrl(url);
+    }
+
+    @Override
     public void showError(@NonNull final String aMessage){
         View view = getView();
         if(view != null){
-            Snackbar.make(view, aMessage, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(mCoordinatorLayout, aMessage, Snackbar.LENGTH_LONG).show();
         }
         mNavigationListener.goToLogin();
     }
@@ -104,16 +138,11 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
      */
     @SuppressLint("SetJavaScriptEnabled")
     private void setupWebView(@NonNull WebView aWebView){
-        aWebView.getSettings().setJavaScriptEnabled(true);
+        WebSettings settings = aWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
         aWebView.addJavascriptInterface(new JavaScriptInterface(mAuthPresenter), Strings.JS_INTERFACE_KEY);
         aWebView.setWebViewClient(new OAuthWebViewClient());
-        aWebView.getSettings().setUserAgentString(Strings.WEB_USER_AGENT);
+        settings.setUserAgentString(Strings.WEB_USER_AGENT);
         CookieManager.getInstance().setAcceptThirdPartyCookies(aWebView, true);
-    }
-
-    @Override
-    public void onDetach(){
-        super.onDetach();
-        mAuthPresenter.detachView(this);
     }
 }

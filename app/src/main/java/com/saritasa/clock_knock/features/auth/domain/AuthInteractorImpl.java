@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.auth.domain;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
@@ -36,6 +37,11 @@ public class AuthInteractorImpl extends BaseInteractorImpl<AuthRepository> imple
     @NonNull
     @Override
     public Single<String> finishAuthentication(@NonNull final String aPage){
+
+        if(aPage.isEmpty()){
+            return Single.error(new Throwable("Page is empty"));
+        }
+
         String[] pieces = aPage.split("\'");
 
         String verificationToken = pieces[0];

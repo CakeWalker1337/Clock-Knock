@@ -13,6 +13,7 @@ import dagger.Provides;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import timber.log.Timber;
 
@@ -68,13 +69,36 @@ public class ApiClientModule{
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+        Interceptor retryInterceptor = aChain -> {
+
+            Request request = aChain.request();
+
+            // try the request
+            Response response = aChain.proceed(request);
+
+            int tryCount = 0;
+            while(!response.isSuccessful() && tryCount < aSessionRepository.getRetryRequestCount()){
+
+                Timber.d("Request is not successful - " + tryCount);
+
+                tryCount++;
+
+                // retry the request
+                response = aChain.proceed(request);
+            }
+
+            // otherwise just pass the original response on
+            return response;
+        };
+
         // Build client with interceptors
         OkHttpClient.Builder mClientBuilder = new OkHttpClient.Builder()
                 .connectTimeout(aSessionRepository.getConnectTimeout(), TimeUnit.MILLISECONDS)
                 .readTimeout(aSessionRepository.getNetworkTimeout(), TimeUnit.MILLISECONDS)
                 .writeTimeout(aSessionRepository.getNetworkTimeout(), TimeUnit.MILLISECONDS)
                 .addInterceptor(interceptor)
-                .addInterceptor(headerInterceptor);
+                .addInterceptor(headerInterceptor)
+                .addInterceptor(retryInterceptor);
 
         return mClientBuilder.build();
     }

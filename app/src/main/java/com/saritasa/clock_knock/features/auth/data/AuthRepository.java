@@ -1,5 +1,8 @@
 package com.saritasa.clock_knock.features.auth.data;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.saritasa.clock_knock.base.data.BaseRepository;
 
 import io.reactivex.Single;
@@ -14,13 +17,15 @@ public interface AuthRepository extends BaseRepository{
      *
      * @return Auth page URL string
      */
+    @NonNull
     Single<String> getAuthPageUrl();
 
     /**
      * Gets access token string by verification token
      *
-     * @param verificationToken Verification token string
+     * @param aVerificationToken Verification token string
      * @return Access token string
      */
-    Single<String> getAccessToken(String verificationToken);
+    @NonNull
+    Single<String> getAccessToken(@NonNull String aVerificationToken);
 }

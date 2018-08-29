@@ -25,29 +25,27 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     private AuthFragment mAuthFragment;
     private LoginFragment mLoginFragment;
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle aSavedInstanceState){
         super.onCreate(aSavedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inject the necessary variables
         App.get(this).getAppComponent()
                 .mainComponentBuilder()
                 .build()
                 .inject(this);
 
-        // Attach the presenter
         mMainPresenter.attachView(this);
-
-        mAuthFragment = new AuthFragment();
-        mLoginFragment = new LoginFragment();
 
         goToLogin();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void goToAuth(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mAuthFragment).commit();
+    public void onDestroy(){
+        mMainPresenter.detachView(this);
+        super.onDestroy();
     }
 
     @Override
@@ -56,19 +54,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     }
 
     @Override
-    public void goToTasks(){
-        // Show task fragment
-        Timber.d("Showing task fragment");
-    }
-
-    @Override
     public void goToLogin(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, mLoginFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new LoginFragment()).commit();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mMainPresenter.detachView(this);
+    public void goToAuth(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new AuthFragment()).commit();
+    }
+
+    @Override
+    public void goToTasks(){
+        // TODO: Show task fragment
     }
 }

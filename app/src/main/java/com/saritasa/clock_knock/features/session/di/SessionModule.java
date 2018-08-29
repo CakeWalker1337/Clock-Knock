@@ -26,7 +26,7 @@ public class SessionModule{
     @NonNull
     @Provides
     @Singleton
-    SessionRepository provideGlobalRepository(@NonNull PreferenceManager aPreferenceManager){
+    SessionRepository provideSessionRepository(@NonNull PreferenceManager aPreferenceManager){
         return new SessionRepositoryImpl(aPreferenceManager);
     }
 }

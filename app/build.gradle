@@ -88,5 +88,6 @@ dependencies{
     implementation libraries.mockito
 
     annotationProcessor libraries.moxyCompiler
+    annotationProcessor libraries.butterknifeCompiler
 
 }
