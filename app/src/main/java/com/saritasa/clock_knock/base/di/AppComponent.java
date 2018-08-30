@@ -7,9 +7,8 @@ import com.saritasa.clock_knock.features.auth.di.AuthComponent;
 import com.saritasa.clock_knock.features.login.di.LoginComponent;
 import com.saritasa.clock_knock.features.main.di.MainComponent;
 import com.saritasa.clock_knock.features.session.di.SessionModule;
-
-import javax.inject.Singleton;
 import com.saritasa.clock_knock.features.tasks.di.TasksComponent;
+import com.saritasa.clock_knock.features.worklog.di.WorklogComponent;
 
 import javax.inject.Singleton;
 
@@ -58,5 +57,13 @@ public interface AppComponent{
      */
     @NonNull
     TasksComponent.Builder tasksComponentBuilder();
+
+    /**
+     * Builder of worklog subcomponent module.
+     *
+     * @return worklog component builder.
+     */
+    @NonNull
+    WorklogComponent.Builder worklogComponentBuilder();
 
 }

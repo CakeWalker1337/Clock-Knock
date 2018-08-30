@@ -4,4 +4,8 @@
     <string name="no_tasks_message">You didnt have any task.</string>
     <string name="tasks_adapter_name">Tasks adapter</string>
     <string name="tasks_loading_error_message">Error while loading tasks occurred!</string>
+    <string name="no_logs_message">Logs not found.</string>
+    <string name="worklog_label">Worklog</string>
+    <string name="description_label">Description</string>
+    <string name="time_spent_label">Time spent</string>
 </resources>

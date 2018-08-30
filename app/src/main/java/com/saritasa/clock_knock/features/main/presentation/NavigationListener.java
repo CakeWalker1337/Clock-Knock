@@ -24,4 +24,6 @@ public interface NavigationListener{
      * Changes fragment to TaskFragment
      */
     void goToTasks();
+
+    void goToWorklog(String aTaskKey);
 }

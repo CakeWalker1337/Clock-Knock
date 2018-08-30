@@ -11,21 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
+import com.saritasa.clock_knock.base.presentation.BaseFragment;
 import com.saritasa.clock_knock.features.main.presentation.NavigationListener;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * The Login fragment class
  */
-public class LoginFragment extends MvpAppCompatFragment implements LoginView{
+public class LoginFragment extends BaseFragment implements LoginView{
 
     private NavigationListener mNavigationListener;
 
@@ -37,7 +35,6 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
 
     @Inject
     public LoginPresenter mLoginPresenter;
-    private Unbinder mUnbinder;
 
     public LoginFragment(){
     }
@@ -46,8 +43,6 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-
-        mUnbinder = ButterKnife.bind(this, view);
 
         return view;
     }
@@ -90,7 +85,7 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -103,7 +98,6 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
     @Override
     public void onDestroy(){
         mLoginPresenter.detachView(this);
-        mUnbinder.unbind();
         super.onDestroy();
     }
 

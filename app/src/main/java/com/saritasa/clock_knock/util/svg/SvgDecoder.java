@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.util;
+package com.saritasa.clock_knock.util.svg;
 
 import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.ResourceDecoder;
@@ -17,7 +17,6 @@ public class SvgDecoder implements ResourceDecoder<InputStream, SVG>{
 
     @Override
     public boolean handles(InputStream source, Options options){
-        // TODO: Can we tell?
         return true;
     }
 
