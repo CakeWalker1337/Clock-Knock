@@ -37,20 +37,39 @@ public interface RestApi{
      *
      * @return Observable with worklogs of task.
      */
+    @NonNull
     @GET("/rest/api/2/issue/{issue}/worklog")
-    Single<Response<WorklogResponseEntity>> getTaskWorkLog(@Path("issue") String aTaskKey);
+    Single<Response<WorklogResponseEntity>> getTaskWorkLog(@NonNull @Path("issue") String aTaskKey);
 
+    /**
+     * Creates worklog on JIRA server.
+     *
+     * @param aTaskKey task key (ex: MISC-303)
+     * @param aBody JSON string with params of worklog for create.
+     * @return Created worklog.
+     */
+    @NonNull
     @POST("/rest/api/2/issue/{issue}/worklog")
-    Single<Response<WorklogInputEntity>> addWorklog(@Path("issue") String aTaskKey, @Body String aBody);
+    Single<Response<WorklogInputEntity>> addWorklog(@NonNull @Path("issue") String aTaskKey, @NonNull @Body String aBody);
 
-    @PUT("/rest/api/2/issue/{issue}/worklog/{id}")
-    Single<Response<ResponseBody>> updateWorklog(@Path("issue") String aTaskKey, @Path("id") String worklogId, @Body String aBody);
+    /**
+     * Updates worklog on JIRA server.
+     *
+     * @param aTaskKey task key (ex: MISC-303)
+     * @param worklogId worklog id
+     * @param aBody JSON string with params of worklog for update.
+     * @return Response with info about request.
+     */
+    @NonNull
+    @PUT("/rest/api/secure/issue/{issue}/worklog/{id}")
+    Single<Response<ResponseBody>> updateWorklog(@NonNull @Path("issue") String aTaskKey, @NonNull @Path("id") String worklogId, @NonNull @Body String aBody);
 
     /**
      * Gets username of current user
      *
      * @return Parsed username of current user
      */
+    @NonNull
     @GET("rest/api/2/myself")
     Single<UsernameEntity> getUsername();
 }

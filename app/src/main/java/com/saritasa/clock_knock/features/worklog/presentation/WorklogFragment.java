@@ -25,6 +25,7 @@ import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
 import com.saritasa.clock_knock.base.presentation.BaseFragment;
 import com.saritasa.clock_knock.features.main.presentation.NavigationListener;
+import com.saritasa.clock_knock.features.worklog.di.WorklogModule;
 
 import java.util.List;
 
@@ -77,14 +78,15 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     @Override
     public void onActivityCreated(@Nullable final Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        if(getContext() != null){
-            if(getContext() instanceof NavigationListener){
-                mNavigationListener = (NavigationListener) getContext();
+        if(getActivity() != null){
+            if(getActivity() instanceof NavigationListener){
+                mNavigationListener = (NavigationListener) getActivity();
             }
 
-            App.get(getContext())
+            App.get(getActivity())
                     .getAppComponent()
                     .worklogComponentBuilder()
+                    .worklogModule(new WorklogModule())
                     .build()
                     .inject(this);
 
@@ -119,6 +121,12 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
             mWorklogRecyclerView.setAdapter(adapter);
             onDataRequest(mTaskKey);
         }
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        mNavigationListener = null;
     }
 
     @Override
@@ -202,7 +210,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     public void onTimerStop(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.worklog_dialog, null);
+        View view = layoutInflater.inflate(R.layout.dialog_worklog, null);
         TimePicker timePicker = view.findViewById(R.id.timePicker);
         EditText description = view.findViewById(R.id.etDescription);
         timePicker.setIs24HourView(true);
@@ -234,7 +242,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     public void onWorklogClicked(@NonNull WorklogAdapterItem aWorklogAdapterItem){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.worklog_dialog, null);
+        View view = layoutInflater.inflate(R.layout.dialog_worklog, null);
         TimePicker timePicker = view.findViewById(R.id.timePicker);
         EditText descriptionEditText = view.findViewById(R.id.etDescription);
         timePicker.setIs24HourView(true);

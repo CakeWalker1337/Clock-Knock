@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.ResourceManager;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.worklog.data.WorklogRepository;
 import com.saritasa.clock_knock.features.worklog.data.WorklogRepositoryImpl;
 import com.saritasa.clock_knock.features.worklog.domain.WorklogInteractor;
@@ -44,8 +45,8 @@ public class WorklogModule{
     @NonNull
     @Provides
     @WorklogScope
-    WorklogRepository provideWorklogRepository(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi){
-        return new WorklogRepositoryImpl(aResourceManager, aRestApi);
+    WorklogRepository provideWorklogRepository(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi, SessionRepository aSessionRepository){
+        return new WorklogRepositoryImpl(aResourceManager, aRestApi, aSessionRepository);
     }
 
     /**

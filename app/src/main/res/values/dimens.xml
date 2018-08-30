@@ -3,6 +3,12 @@
     <dimen name="padding_standart">16dp</dimen>
     <dimen name="project_avatar_edge_length">36dp</dimen>
     <dimen name="task_name_text_size">30sp</dimen>
-    <dimen name="standart_margin">8dp</dimen>
+    <dimen name="standard_margin">8dp</dimen>
     <dimen name="priority_icon_edge_length">24dp</dimen>
+    <dimen name="time_picker_height">146dp</dimen>
+    <dimen name="time_spent_textview_width">60dp</dimen>
+    <dimen name="description_textview_width">0dp</dimen>
+    <dimen name="timer_button_edge">72dp</dimen>
+    <dimen name="double_margin">16dp</dimen>
+    <dimen name="time_spent_label_width">60dp</dimen>
 </resources>

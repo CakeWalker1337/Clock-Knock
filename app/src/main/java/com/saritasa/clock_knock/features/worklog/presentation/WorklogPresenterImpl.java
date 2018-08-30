@@ -28,12 +28,12 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     }
 
     @Override
-    public void attachView(WorklogView aView){
+    public void attachView(@NonNull WorklogView aView){
         super.attachView(aView);
     }
 
     @Override
-    public void detachView(WorklogView aView){
+    public void detachView(@NonNull WorklogView aView){
         super.detachView(aView);
     }
 
@@ -53,6 +53,7 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
 
     @Override
     public void onTimerStopped(@NonNull String aTaskKey, @NonNull String aDescription, int aTimeSpentSeconds){
+        getViewState().showLoadingProgress();
         WorklogAdapterItem adapterItem = new WorklogAdapterItem();
         adapterItem.setDescription(aDescription);
         adapterItem.setTimeSpentSeconds(aTimeSpentSeconds);
@@ -68,9 +69,7 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
 
     @Override
     public void onWorklogClicked(@NonNull String aTaskKey, @NonNull WorklogAdapterItem aWorklogAdapterItem){
-
         mWorklogInteractor.saveWorklog(aTaskKey, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(aWorklogAdapterItem));
-
     }
 
     /**

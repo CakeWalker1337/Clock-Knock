@@ -1,8 +1,8 @@
 package com.saritasa.clock_knock.base.di;
 
-import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClient;
 import com.saritasa.clock_knock.base.network.oauth.JiraOAuthClientImpl;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +54,7 @@ public class ApiClientModule{
                     String authHeader = aJiraOAuthClient.getAuthorizationHeader(original, accessToken, secretToken, consumerKey, privateKey);
 
                     newRequest = newRequest.header("Accept", "application/json")
+                            .header("Content-Type", "application/json")
                             .header("Authorization", authHeader)
                             .method(original.method(), original.body());
 

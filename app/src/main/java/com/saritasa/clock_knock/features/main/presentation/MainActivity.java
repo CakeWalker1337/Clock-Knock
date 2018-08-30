@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.main.presentation;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.saritasa.clock_knock.App;
@@ -67,7 +68,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     }
 
     @Override
-    public void goToWorklog(final String aTaskKey){
+    public void goToWorklog(@NonNull final String aTaskKey){
         WorklogFragment worklogFragment = new WorklogFragment();
         worklogFragment.setTaskKey(aTaskKey);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, worklogFragment).commit();

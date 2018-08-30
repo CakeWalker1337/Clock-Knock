@@ -25,18 +25,21 @@ import butterknife.BindView;
  */
 public class LoginFragment extends BaseFragment implements LoginView{
 
-    private NavigationListener mNavigationListener;
-
+    @Inject
+    public LoginPresenter mLoginPresenter;
     @BindView(R.id.loginButton)
     Button mLoginButton;
 
     @BindView(R.id.coordinator)
     CoordinatorLayout mCoordinatorLayout;
-
-    @Inject
-    public LoginPresenter mLoginPresenter;
+    private NavigationListener mNavigationListener;
 
     public LoginFragment(){
+    }
+
+    @Override
+    public void onAttach(Context aContext){
+        super.onAttach(aContext);
     }
 
     @Override
@@ -47,27 +50,17 @@ public class LoginFragment extends BaseFragment implements LoginView{
         return view;
     }
 
-    @Override
-    public void onAttach(Context aContext){
-        super.onAttach(aContext);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public void onActivityCreated(@Nullable final Bundle aSavedInstanceState){
         super.onActivityCreated(aSavedInstanceState);
 
-        if(getContext() != null){
-            if(getContext() instanceof NavigationListener){
-                mNavigationListener = (NavigationListener) getContext();
+        if(getActivity() != null){
+            if(getActivity() instanceof NavigationListener){
+                mNavigationListener = (NavigationListener) getActivity();
             }
 
-            App.get(getContext()).getAppComponent()
+            App.get(getActivity()).getAppComponent()
                     .loginComponentBuilder()
                     .build()
                     .inject(this);
@@ -84,11 +77,6 @@ public class LoginFragment extends BaseFragment implements LoginView{
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
     public void onDetach(){
         super.onDetach();
         mNavigationListener = null;
@@ -96,9 +84,9 @@ public class LoginFragment extends BaseFragment implements LoginView{
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onDestroy(){
+    public void onDestroyView(){
         mLoginPresenter.detachView(this);
-        super.onDestroy();
+        super.onDestroyView();
     }
 
     @Override

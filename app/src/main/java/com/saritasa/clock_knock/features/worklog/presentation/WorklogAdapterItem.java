@@ -25,9 +25,6 @@ public class WorklogAdapterItem extends AbstractItem<WorklogAdapterItem, Worklog
     private String mTimeSpent;
     private int mTimeSpentSeconds;
 
-    public WorklogAdapterItem(){
-    }
-
     @Override
     public String toString(){
         return "WorklogAdapterItem{" +

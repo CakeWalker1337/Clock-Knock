@@ -4,6 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.MvpView;
 
+/**
+ * An interface to providing methods to presenter from View
+ *
+ * @param <VIEW> View class
+ */
 public interface BasePresenter<VIEW extends MvpView>{
 
     /**

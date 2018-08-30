@@ -1,7 +1,6 @@
 package com.saritasa.clock_knock.features.tasks.presentation;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -106,11 +105,11 @@ public class TasksFragment extends BaseFragment implements TasksView{
     @Override
     public void onActivityCreated(@Nullable final Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        if(getContext() != null){
-            if(getContext() instanceof NavigationListener){
-                mNavigationListener = (NavigationListener) getContext();
+        if(getActivity() != null){
+            if(getActivity() instanceof NavigationListener){
+                mNavigationListener = (NavigationListener) getActivity();
             }
-            App.get(getContext())
+            App.get(getActivity())
                     .getAppComponent()
                     .tasksComponentBuilder()
                     .tasksModule(new TasksModule())
@@ -136,14 +135,10 @@ public class TasksFragment extends BaseFragment implements TasksView{
 
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
-
-    }
 
     @Override
-    public void onDestroyView(){
-        super.onDestroyView();
+    public void onDetach(){
+        super.onDetach();
+        mNavigationListener = null;
     }
 }

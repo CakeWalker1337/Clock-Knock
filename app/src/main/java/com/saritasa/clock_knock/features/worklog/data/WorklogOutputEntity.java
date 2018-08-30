@@ -17,7 +17,7 @@ public class WorklogOutputEntity{
     private String mComment;
     @SerializedName("timeSpentSeconds")
     private int mTimeSpentSeconds;
-    @SerializedName("updated")
+    @SerializedName("started")
     private String mUpdated;
 
     @Override
@@ -27,14 +27,14 @@ public class WorklogOutputEntity{
     }
 
     @Override
-    public boolean equals(final Object aO){
-        if(this == aO){
+    public boolean equals(final Object aObject){
+        if(this == aObject){
             return true;
         }
-        if(aO == null || getClass() != aO.getClass()){
+        if(aObject == null || getClass() != aObject.getClass()){
             return false;
         }
-        WorklogOutputEntity that = (WorklogOutputEntity) aO;
+        WorklogOutputEntity that = (WorklogOutputEntity) aObject;
         return mTimeSpentSeconds == that.mTimeSpentSeconds &&
                 Objects.equals(mId, that.mId) &&
                 Objects.equals(mComment, that.mComment) &&

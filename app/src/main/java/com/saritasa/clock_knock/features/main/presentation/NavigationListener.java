@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.main.presentation;
 
+import android.support.annotation.NonNull;
+
 /**
  * An interface to providing methods from fragments to MainActivity
  */
@@ -25,5 +27,5 @@ public interface NavigationListener{
      */
     void goToTasks();
 
-    void goToWorklog(String aTaskKey);
+    void goToWorklog(@NonNull String aTaskKey);
 }

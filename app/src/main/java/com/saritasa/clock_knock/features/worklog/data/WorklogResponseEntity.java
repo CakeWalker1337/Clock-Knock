@@ -13,7 +13,7 @@ import java.util.Objects;
 public class WorklogResponseEntity{
 
     @SerializedName("worklogs")
-    private ArrayList<WorklogInputEntity> mWorklogs;
+    private ArrayList<WorklogInputEntity> mWorklogs = new ArrayList<>();
 
     @Override
     public int hashCode(){

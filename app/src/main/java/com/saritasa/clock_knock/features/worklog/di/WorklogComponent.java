@@ -40,6 +40,7 @@ public interface WorklogComponent{
          *
          * @return Worklog component object.
          */
+        @NonNull
         WorklogComponent build();
 
     }

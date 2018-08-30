@@ -20,7 +20,7 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
     /**
      * @param aRepository provided repository object.
      */
-    public WorklogInteractorImpl(final WorklogRepository aRepository){
+    public WorklogInteractorImpl(@NonNull final WorklogRepository aRepository){
         super(aRepository);
     }
 
@@ -28,7 +28,7 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
     @Override
     public Observable<WorklogDomain> loadWorklog(final String aTaskKey){
         return mRepository.loadWorklog(aTaskKey)
-                .filter(aWorklogDomain -> aWorklogDomain.getAuthorsKey().equals(USER_NAME))
+                .filter(aWorklogDomain -> aWorklogDomain.getAuthorsKey().equals(mRepository.getUsername()))
                 .filter(aWorklogDomain -> aWorklogDomain.getCreationDate() != null)
                 .sorted((aWorklogDomain1, aWorklogDomain2) -> {
                     if(aWorklogDomain1.getCreationDate().after(aWorklogDomain2.getCreationDate())){

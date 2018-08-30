@@ -7,6 +7,8 @@ import com.saritasa.clock_knock.base.presentation.BaseView;
 
 /**
  * Presenter interface provides worklog methods to presenter object.
+ *
+ * @param <VIEW> View class
  */
 public interface WorklogPresenter<VIEW extends BaseView> extends BasePresenter<VIEW>{
 

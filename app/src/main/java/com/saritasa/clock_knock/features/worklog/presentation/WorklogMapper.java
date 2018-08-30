@@ -7,7 +7,10 @@ import com.saritasa.clock_knock.features.worklog.domain.WorklogDomain;
 /**
  * Mapper class for transform objects between domain and presentation layer.
  */
-public class WorklogMapper{
+public final class WorklogMapper{
+
+    private WorklogMapper(){
+    }
 
     /**
      * Maps single domain object into presentation object.

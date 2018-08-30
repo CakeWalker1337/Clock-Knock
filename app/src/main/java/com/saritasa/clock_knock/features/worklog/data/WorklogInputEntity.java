@@ -23,7 +23,6 @@ public class WorklogInputEntity{
 
     @Override
     public int hashCode(){
-
         return Objects.hash(mId, mComment, mCreationDate, mTimeSpent, mTimeSpentSeconds, mAuthor);
     }
 

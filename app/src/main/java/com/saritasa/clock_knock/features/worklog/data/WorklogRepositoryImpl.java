@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
 import com.saritasa.clock_knock.base.data.ResourceManager;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.worklog.domain.WorklogDomain;
 
 import java.util.ArrayList;
@@ -21,14 +22,16 @@ import timber.log.Timber;
 public class WorklogRepositoryImpl extends BaseRepositoryImpl implements WorklogRepository{
 
     RestApi mRestApi;
+    SessionRepository mSessionRepository;
 
     /**
      * @param aResourceManager provided resource manager object.
      * @param aRestApi provided api object.
      */
-    public WorklogRepositoryImpl(ResourceManager aResourceManager, RestApi aRestApi){
+    public WorklogRepositoryImpl(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi, SessionRepository aSessionRepository){
         super(aResourceManager);
         mRestApi = aRestApi;
+        mSessionRepository = aSessionRepository;
     }
 
     @NonNull
@@ -77,6 +80,12 @@ public class WorklogRepositoryImpl extends BaseRepositoryImpl implements Worklog
                 Timber.d("Error " + aResponseBodyResponse.code());
             }
         }, Timber::e);
+    }
+
+    @NonNull
+    @Override
+    public String getUsername(){
+        return mSessionRepository.getUsername();
     }
 
     /**
