@@ -72,9 +72,9 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
     @Override
     public void onActivityCreated(@Nullable final Bundle savedInstanceState){
 
-        if(getContext() != null){
+        if(getActivity() != null){
 
-            App.get(getContext())
+            App.get(getActivity())
                     .getAppComponent()
                     .authComponentBuilder()
                     .build()
@@ -82,8 +82,8 @@ public class AuthFragment extends MvpAppCompatFragment implements AuthView{
 
             mAuthPresenter.attachView(this);
 
-            if(getContext() instanceof NavigationListener){
-                mNavigationListener = (NavigationListener) getContext();
+            if(getActivity() instanceof NavigationListener){
+                mNavigationListener = (NavigationListener) getActivity();
             }
 
         }

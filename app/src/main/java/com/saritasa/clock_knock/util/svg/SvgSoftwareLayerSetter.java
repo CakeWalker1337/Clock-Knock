@@ -1,6 +1,7 @@
-package com.saritasa.clock_knock.util;
+package com.saritasa.clock_knock.util.svg;
 
 import android.graphics.drawable.PictureDrawable;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.DataSource;
@@ -17,7 +18,7 @@ import com.bumptech.glide.request.target.Target;
 public class SvgSoftwareLayerSetter implements RequestListener<PictureDrawable>{
 
     @Override
-    public boolean onLoadFailed(GlideException e, Object model, Target<PictureDrawable> target,
+    public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model, @Nullable Target<PictureDrawable> target,
                                 boolean isFirstResource){
         ImageView view = ((ImageViewTarget<?>) target).getView();
         view.setLayerType(ImageView.LAYER_TYPE_NONE, null);
@@ -25,8 +26,8 @@ public class SvgSoftwareLayerSetter implements RequestListener<PictureDrawable>{
     }
 
     @Override
-    public boolean onResourceReady(PictureDrawable resource, Object model,
-                                   Target<PictureDrawable> target, DataSource dataSource, boolean isFirstResource){
+    public boolean onResourceReady(@Nullable PictureDrawable resource, @Nullable Object model,
+                                   @Nullable Target<PictureDrawable> target, @Nullable DataSource dataSource, boolean isFirstResource){
         ImageView view = ((ImageViewTarget<?>) target).getView();
         view.setLayerType(ImageView.LAYER_TYPE_SOFTWARE, null);
         return false;

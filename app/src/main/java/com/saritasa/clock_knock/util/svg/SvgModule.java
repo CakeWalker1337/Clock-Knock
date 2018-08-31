@@ -1,4 +1,4 @@
-package com.saritasa.clock_knock.util;
+package com.saritasa.clock_knock.util.svg;
 
 import android.content.Context;
 import android.graphics.drawable.PictureDrawable;

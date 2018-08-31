@@ -13,8 +13,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.saritasa.clock_knock.R;
-import com.saritasa.clock_knock.util.GlideApp;
-import com.saritasa.clock_knock.util.SvgSoftwareLayerSetter;
+import com.saritasa.clock_knock.util.svg.GlideApp;
+import com.saritasa.clock_knock.util.svg.SvgSoftwareLayerSetter;
 
 import java.util.List;
 import java.util.Objects;

@@ -11,45 +11,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
+import com.saritasa.clock_knock.base.presentation.BaseFragment;
 import com.saritasa.clock_knock.features.main.presentation.NavigationListener;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * The Login fragment class
  */
-public class LoginFragment extends MvpAppCompatFragment implements LoginView{
+public class LoginFragment extends BaseFragment implements LoginView{
 
-    private NavigationListener mNavigationListener;
-
+    @Inject
+    public LoginPresenter mLoginPresenter;
     @BindView(R.id.loginButton)
     Button mLoginButton;
 
     @BindView(R.id.coordinator)
     CoordinatorLayout mCoordinatorLayout;
-
-    @Inject
-    public LoginPresenter mLoginPresenter;
-    private Unbinder mUnbinder;
+    private NavigationListener mNavigationListener;
 
     public LoginFragment(){
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
-
-        mUnbinder = ButterKnife.bind(this, view);
-
-        return view;
     }
 
     @Override
@@ -58,8 +43,11 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        return view;
     }
 
     @SuppressWarnings("unchecked")
@@ -67,12 +55,12 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
     public void onActivityCreated(@Nullable final Bundle aSavedInstanceState){
         super.onActivityCreated(aSavedInstanceState);
 
-        if(getContext() != null){
-            if(getContext() instanceof NavigationListener){
-                mNavigationListener = (NavigationListener) getContext();
+        if(getActivity() != null){
+            if(getActivity() instanceof NavigationListener){
+                mNavigationListener = (NavigationListener) getActivity();
             }
 
-            App.get(getContext()).getAppComponent()
+            App.get(getActivity()).getAppComponent()
                     .loginComponentBuilder()
                     .build()
                     .inject(this);
@@ -89,11 +77,6 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-
-    }
-
-    @Override
     public void onDetach(){
         super.onDetach();
         mNavigationListener = null;
@@ -101,10 +84,9 @@ public class LoginFragment extends MvpAppCompatFragment implements LoginView{
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onDestroy(){
+    public void onDestroyView(){
         mLoginPresenter.detachView(this);
-        mUnbinder.unbind();
-        super.onDestroy();
+        super.onDestroyView();
     }
 
     @Override

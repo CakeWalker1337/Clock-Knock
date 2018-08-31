@@ -6,7 +6,6 @@ import com.google.api.client.auth.oauth.OAuthAuthorizeTemporaryTokenUrl;
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthParameters;
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpMethods;
 import com.saritasa.clock_knock.BuildConfig;
 import com.saritasa.clock_knock.base.network.oauth.token.JiraOAuthAccessToken;
 import com.saritasa.clock_knock.base.network.oauth.token.JiraOAuthTemporaryToken;
