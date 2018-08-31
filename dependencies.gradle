@@ -34,7 +34,7 @@ ext.versions = [
         //Utils
         timber             : '4.6.0',
         butterknife        : '8.8.1',
-
+        lang3              : '3.8',
         moxy               : '1.5.5',
 
         recyclerView       : "27.1.1",
@@ -94,6 +94,7 @@ ext.libraries = [
         butterknife          : "com.jakewharton:butterknife:$versions.butterknife",
         butterknifeCompiler  : "com.jakewharton:butterknife-compiler:$versions.butterknife",
         timber               : "com.jakewharton.timber:timber:$versions.timber",
+        lang3                : "org.apache.commons:commons-lang3:$versions.lang3",
 
         //Moxy
         moxy                 : "com.arello-mobile:moxy:$versions.moxy",

@@ -1,7 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.domain;
 
 import com.saritasa.clock_knock.features.tasks.data.TasksRepository;
-import com.saritasa.clock_knock.utils.RxSchedulerRule;
+import com.saritasa.clock_knock.util.RxSchedulerRule;
 
 import org.junit.Before;
 import org.junit.Rule;

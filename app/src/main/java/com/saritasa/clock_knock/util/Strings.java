@@ -44,4 +44,44 @@ public final class Strings{
      * Shared preferences key for username
      */
     public static final String PREFERENCE_USERNAME = "username";
+
+    /**
+     * Shared preferences key for timestamp
+     */
+    public static final String PREFERENCE_START_TIMESTAMP = "timer_timestamp";
+
+    /**
+     * Shared preferences key for task id
+     */
+    public static final String PREFERENCE_TASK_ID = "timer_task_id";
+
+    /**
+     * Action for starting service
+     */
+    public static final String START_SERVICE_ACTION = "StartService";
+
+    /**
+     * Action for ending service
+     */
+    public static final String END_SERVICE_ACTION = "EndService";
+
+    /**
+     * Action for stop timer in fragment
+     */
+    public static final String STOP_TIMER_ACTION = "Stop";
+
+    /**
+     * Action for show fragment without stopping timer
+     */
+    public static final String SHOW_ACTIVITY_ACTION = "Show";
+
+    /**
+     * String for creating an extra for holding the task id
+     */
+    public static final String TASK_ID_EXTRA = "task";
+
+    /**
+     * String for creating an extra for holding the timestamp
+     */
+    public static final String TIMESTAMP_EXTRA = "timestamp";
 }

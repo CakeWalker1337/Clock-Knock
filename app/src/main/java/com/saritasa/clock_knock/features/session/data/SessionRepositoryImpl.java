@@ -60,6 +60,27 @@ public class SessionRepositoryImpl implements SessionRepository{
         return mPreferenceManager.getSecretToken();
     }
 
+    @Override
+    public void saveStartTimestamp(final long aTimestamp){
+        mPreferenceManager.saveStartTimestamp(aTimestamp);
+    }
+
+    @Override
+    public long getStartTimestamp(){
+        return mPreferenceManager.getStartTimestamp();
+    }
+
+    @Override
+    public void saveTaskId(@NonNull final String aTaskId){
+        mPreferenceManager.saveTaskId(aTaskId);
+    }
+
+    @Nullable
+    @Override
+    public String getTaskId(){
+        return mPreferenceManager.getTaskId();
+    }
+
     @NonNull
     @Override
     public String getBaseUrl(){

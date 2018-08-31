@@ -1,5 +1,6 @@
-package com.saritasa.clock_knock.base.data;
+package com.saritasa.clock_knock.features.session.data;
 
+import com.saritasa.clock_knock.base.data.PreferenceManagerImpl;
 import com.saritasa.clock_knock.features.session.data.SessionRepositoryImpl;
 
 import org.junit.Before;

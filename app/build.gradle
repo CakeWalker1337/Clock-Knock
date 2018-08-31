@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
 
-android {
+android{
     compileSdkVersion 28
-    testOptions {
+    testOptions{
         unitTests.returnDefaultValues = true
     }
-    defaultConfig {
-
+    defaultConfig{
 
         applicationId "com.saritasa.clock_knock"
         minSdkVersion 23
@@ -21,8 +20,8 @@ android {
         buildConfigField "int", "COUNT_RETRY_REQUEST", "3"
         buildConfigField "String", "BASE_URL", '"https://clock-knock.atlassian.net"'
     }
-    buildTypes {
-        release {
+    buildTypes{
+        release{
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -45,7 +44,7 @@ android {
     }
 }
 
-dependencies {
+dependencies{
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation libraries.jUnit
     androidTestImplementation libraries.testRunner
@@ -53,8 +52,6 @@ dependencies {
     testImplementation libraries.mock
     // required if you want to use Mockito for Android tests
     androidTestImplementation libraries.mockCompiler
-
-
 
     //Support
     implementation libraries.appcompatV7
@@ -86,7 +83,7 @@ dependencies {
 
     annotationProcessor libraries.butterknifeCompiler
 
-    implementation (libraries.butterknife) {
+    implementation(libraries.butterknife){
         exclude module: 'support-compat'
     }
 
@@ -106,6 +103,7 @@ dependencies {
     implementation libraries.fastAdapter
 
     implementation libraries.recyclerView
+    implementation libraries.lang3
 
     implementation 'com.caverock:androidsvg:1.2.1'
 }
