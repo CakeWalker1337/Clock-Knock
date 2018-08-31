@@ -54,7 +54,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         }
     }
 
-    public static Intent newIntent(Context aContext, String aTaskId, String aAction) {
+    public static Intent newIntent(@NonNull Context aContext, @NonNull String aTaskId, @NonNull String aAction) {
         Intent intent = new Intent(aContext, MainActivity.class);
         intent.setAction(aAction);
         intent.putExtra(Strings.TASK_ID_EXTRA, aTaskId);

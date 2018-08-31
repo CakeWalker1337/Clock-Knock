@@ -94,7 +94,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         return aInflater.inflate(R.layout.fragment_worklog, aContainer, false);
     }
 
-    public static WorklogFragment newInstance(String aTaskId, String aAction){
+    public static WorklogFragment newInstance(@Nullable String aTaskId, @Nullable String aAction){
 
         Bundle args = new Bundle();
         args.putString(Strings.TASK_ID_EXTRA, aTaskId);

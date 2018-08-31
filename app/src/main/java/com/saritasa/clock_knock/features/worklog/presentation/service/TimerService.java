@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -93,7 +94,7 @@ public class TimerService extends Service{
     public void onCreate(){
     }
 
-    public static Intent newIntent(Context aContext, String aAction, String aTaskId, long aTimestamp){
+    public static Intent newIntent(@NonNull Context aContext, @NonNull String aAction, @NonNull String aTaskId, long aTimestamp){
         Intent intent = new Intent(aContext, TimerService.class);
         intent.setAction(aAction);
         intent.putExtra(Strings.TASK_ID_EXTRA, aTaskId);
@@ -195,7 +196,7 @@ public class TimerService extends Service{
                     if(mTimerServiceListener != null){
                         mTimerServiceListener.timerTicked(interval);
                     }
-                }, Timber::d);
+                }, Timber::e);
     }
 
     @Override
