@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.main.domain;
 
+import android.support.annotation.Nullable;
+
 import com.saritasa.clock_knock.base.domain.BaseInteractor;
 import com.saritasa.clock_knock.features.main.presentation.MainPresenter;
 import com.saritasa.clock_knock.features.main.presentation.MainPresenterImpl;
@@ -28,5 +30,6 @@ public interface MainInteractor extends BaseInteractor{
      *
      * @return Task id string
      */
+    @Nullable
     String getTaskId();
 }

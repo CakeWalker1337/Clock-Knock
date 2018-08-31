@@ -1,11 +1,11 @@
 package com.saritasa.clock_knock.features.worklog.domain;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
 import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.worklog.data.WorklogRepository;
+import com.saritasa.clock_knock.util.Constants;
 import com.saritasa.clock_knock.util.Strings;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -60,9 +60,10 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
 
     @Override
     public boolean isTimerActive(){
-        return mSessionRepository.getStartTimestamp() != -1;
+        return mSessionRepository.getStartTimestamp() != Constants.UNDEFINED_VALUE;
     }
 
+    @NonNull
     @Override
     public String getFormattedTime(final long aTime){
         return DurationFormatUtils.formatDuration(aTime, Strings.TIME_PATTERN);
@@ -72,18 +73,18 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
     public int getHours(){
         long startTime = mSessionRepository.getStartTimestamp();
         long interval = System.currentTimeMillis() - startTime;
-        return (int) interval / 3600000;
+        return (int) interval / Constants.ONE_HOUR_MILLIS;
     }
 
     @Override
     public int getMinutes(){
         long startTime = mSessionRepository.getStartTimestamp();
         long interval = System.currentTimeMillis() - startTime;
-        return (int) interval % 3600000 / 60000;
+        return (int) interval % Constants.ONE_HOUR_MILLIS / Constants.ONE_MINUTE_MILLIS;
     }
 
     @Override
-    public long saveTimerData(final String aTaskKey){
+    public long saveTimerData(@NonNull final String aTaskKey){
         long timestamp = System.currentTimeMillis();
         mSessionRepository.saveStartTimestamp(timestamp);
         mSessionRepository.saveTaskId(aTaskKey);

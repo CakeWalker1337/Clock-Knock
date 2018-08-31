@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.worklog.presentation;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenterImpl;
@@ -98,7 +99,7 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     }
 
     @Override
-    public void onStartButtonClicked(String aTaskKey){
+    public void onStartButtonClicked(@NonNull String aTaskKey){
         long timestamp = mWorklogInteractor.saveTimerData(aTaskKey);
         getViewState().startTimer(timestamp);
     }
@@ -109,12 +110,13 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     }
 
     @Override
-    public void onActionGot(final String aAction){
+    public void onActionGot(@NonNull final String aAction){
         if (aAction.equals(Strings.STOP_TIMER_ACTION)) {
             getViewState().tryToStopTimer();
         }
     }
 
+    @Nullable
     @Override
     public String getTimerTask(){
         return mWorklogInteractor.getTimerTask();

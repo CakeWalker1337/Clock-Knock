@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.worklog.domain;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.saritasa.clock_knock.base.domain.BaseInteractor;
 import com.saritasa.clock_knock.util.Strings;
@@ -53,6 +54,7 @@ public interface WorklogInteractor extends BaseInteractor{
      * @param aTime time in milliseconds
      * @return Formatted time string
      */
+    @NonNull
     String getFormattedTime(long aTime);
 
     /**
@@ -75,7 +77,7 @@ public interface WorklogInteractor extends BaseInteractor{
      * @param aTaskKey Taks id string
      * @return Start timestamp long value
      */
-    long saveTimerData(String aTaskKey);
+    long saveTimerData(@NonNull String aTaskKey);
 
     /**
      *  Clears timer data in storage
@@ -85,8 +87,9 @@ public interface WorklogInteractor extends BaseInteractor{
     /**
      * Gets task id of current timer
      *
-     * @return Taks id string
+     * @return Task id string
      */
+    @Nullable
     String getTimerTask();
 }
 

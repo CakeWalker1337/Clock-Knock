@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.worklog.presentation;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
 import com.saritasa.clock_knock.base.presentation.BaseView;
@@ -67,7 +68,7 @@ public interface WorklogPresenter<VIEW extends BaseView> extends BasePresenter<V
      *
      * @param aTaskKey Task id string
      */
-    void onStartButtonClicked(String aTaskKey);
+    void onStartButtonClicked(@NonNull String aTaskKey);
 
     /**
      * Calls when stop button is clicked
@@ -79,12 +80,13 @@ public interface WorklogPresenter<VIEW extends BaseView> extends BasePresenter<V
      *
      * @param aAction Action string value
      */
-    void onActionGot(String aAction);
+    void onActionGot(@NonNull String aAction);
 
     /**
      * Gets task id of current timer
      *
      * @return Taks id string
      */
+    @Nullable
     String getTimerTask();
 }

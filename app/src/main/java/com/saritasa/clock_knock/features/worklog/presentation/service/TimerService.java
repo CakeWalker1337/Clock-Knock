@@ -3,6 +3,7 @@ package com.saritasa.clock_knock.features.worklog.presentation.service;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -22,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
+import static com.saritasa.clock_knock.util.Strings.SHOW_TASK_ACTION;
 
 /**
  * A class for implement the service logic
@@ -89,6 +93,14 @@ public class TimerService extends Service{
     public void onCreate(){
     }
 
+    public static Intent newIntent(Context aContext, String aAction, String aTaskId, long aTimestamp){
+        Intent intent = new Intent(aContext, TimerService.class);
+        intent.setAction(aAction);
+        intent.putExtra(Strings.TASK_ID_EXTRA, aTaskId);
+        intent.putExtra(Strings.TIMESTAMP_EXTRA, aTimestamp);
+        return intent;
+    }
+
     /**
      * Creates a new notification with a specific time
      *
@@ -97,9 +109,7 @@ public class TimerService extends Service{
      */
     public Notification createNotification(long aTime){
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        notificationIntent.setAction(Strings.SHOW_TASK_ACTION);
-        notificationIntent.putExtra(Strings.TASK_ID_EXTRA, mTaskId);
+        Intent notificationIntent = MainActivity.newIntent(this, mTaskId, SHOW_TASK_ACTION);
         PendingIntent contentIntent = PendingIntent.getActivity(this,
                                                                 REQUEST_CODE, notificationIntent,
                                                                 PendingIntent.FLAG_CANCEL_CURRENT);
@@ -145,25 +155,24 @@ public class TimerService extends Service{
     @Override
     public int onStartCommand(Intent aIntent, int aFlags, int aStartId){
 
-        if(aIntent.getAction() != null){
+        String action = aIntent.getAction();
 
-            switch(aIntent.getAction()){
-                case Strings.END_SERVICE_ACTION:
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.setAction(Strings.STOP_TIMER_ACTION);
-                    intent.putExtra(Strings.TIMESTAMP_EXTRA, System.currentTimeMillis());
-                    intent.putExtra(Strings.TASK_ID_EXTRA, mTaskId);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    onDestroy();
-                    break;
-                case Strings.START_SERVICE_ACTION:
-                    if(mDisposable == null || mDisposable.isDisposed()){
-                        long startTimestamp = aIntent.getLongExtra(Strings.TIMESTAMP_EXTRA, DEFAULT_TIMESTAMP);
-                        mTaskId = aIntent.getStringExtra(Strings.TASK_ID_EXTRA);
-                        startTimer(startTimestamp);
-                    }
-                    break;
+        if(action != null){
+
+            if(action.equals(Strings.END_SERVICE_ACTION)){
+
+                Intent intent = MainActivity.newIntent(this, mTaskId, SHOW_TASK_ACTION);
+                startActivity(intent);
+                onDestroy();
+
+            } else if(action.equals(Strings.START_SERVICE_ACTION)){
+
+                if(mDisposable == null || mDisposable.isDisposed()){
+                    long startTimestamp = aIntent.getLongExtra(Strings.TIMESTAMP_EXTRA, DEFAULT_TIMESTAMP);
+                    mTaskId = aIntent.getStringExtra(Strings.TASK_ID_EXTRA);
+                    startTimer(startTimestamp);
+                }
+
             }
         }
         return START_STICKY;
@@ -182,12 +191,11 @@ public class TimerService extends Service{
                 .subscribeOn(Schedulers.computation())
                 .subscribe(aTime -> {
                     long interval = System.currentTimeMillis() - aStartTimestamp;
-                    Log.w("Service", "Interval: " + interval);
                     updateNotification(interval);
                     if(mTimerServiceListener != null){
                         mTimerServiceListener.timerTicked(interval);
                     }
-                });
+                }, Timber::d);
     }
 
     @Override

@@ -33,6 +33,7 @@ import com.saritasa.clock_knock.features.main.presentation.NavigationListener;
 import com.saritasa.clock_knock.features.worklog.di.WorklogModule;
 import com.saritasa.clock_knock.features.worklog.presentation.service.TimerService;
 import com.saritasa.clock_knock.features.worklog.presentation.service.TimerServiceBinder;
+import com.saritasa.clock_knock.util.Constants;
 import com.saritasa.clock_knock.util.Strings;
 
 import java.util.List;
@@ -94,12 +95,13 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     }
 
     public static WorklogFragment newInstance(String aTaskId, String aAction){
-        WorklogFragment worklogFragmentatFragment = new WorklogFragment();
+
         Bundle args = new Bundle();
         args.putString(Strings.TASK_ID_EXTRA, aTaskId);
         args.putString(Strings.ACTION_EXTRA, aAction);
-        worklogFragmentatFragment.setArguments(args);
 
+        WorklogFragment worklogFragmentatFragment = new WorklogFragment();
+        worklogFragmentatFragment.setArguments(args);
         return worklogFragmentatFragment;
     }
 
@@ -291,10 +293,10 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
                 (dialog, id) -> {
                     mWorklogPresenter.onTimerStopped(mTaskKey,
                                                      description.getText().toString(),
-                                                     timePicker.getHour() * 3600 + timePicker.getMinute() * 60);
+                                                     timePicker.getHour() * Constants.ONE_HOUR_SEC + timePicker.getMinute() * Constants.ONE_MINUTE_SEC);
                     isTimerStarted = false;
                     mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_play_circle_24dp));
-                    setTimeToTimer("00:00:00");
+                    setTimeToTimer(getString(R.string.default_time_string));
                     stopService();
                     dialog.cancel();
                 });
@@ -356,13 +358,8 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
      * @param aTimestamp Timestamp value
      */
     public void startService(String aTaskKey, long aTimestamp){
-        mServiceIntent = new Intent(getActivity(), TimerService.class);
-        mServiceIntent.setAction(Strings.START_SERVICE_ACTION);
-        mServiceIntent.putExtra(Strings.TASK_ID_EXTRA, aTaskKey);
-        mServiceIntent.putExtra(Strings.TIMESTAMP_EXTRA, aTimestamp);
-        Log.w("Test", "Start Service");
+        mServiceIntent = TimerService.newIntent(getContext(), Strings.START_SERVICE_ACTION, aTaskKey, aTimestamp);
         getActivity().startService(mServiceIntent);
-        Log.w("Test", "ServiceStarted");
     }
 
     /**
@@ -398,6 +395,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
      *
      * @return Action string
      */
+    @Nullable
     public String getExtraValues(){
         mTaskKey = getArguments().getString(Strings.TASK_ID_EXTRA);
         String action = getArguments().getString(Strings.ACTION_EXTRA);

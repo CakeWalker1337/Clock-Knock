@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.main.presentation;
 
+import android.support.annotation.Nullable;
+
 import com.saritasa.clock_knock.base.presentation.BaseView;
 
 /**
@@ -13,5 +15,5 @@ public interface MainView extends BaseView{
      * @param aTaskId Task id string
      * @param aTimestamp Timestamp value
      */
-    void startTimer(String aTaskId, long aTimestamp);
+    void startTimer(@Nullable String aTaskId, long aTimestamp);
 }

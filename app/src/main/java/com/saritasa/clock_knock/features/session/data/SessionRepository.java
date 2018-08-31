@@ -135,5 +135,8 @@ public interface SessionRepository{
     @NonNull
     int getRetryRequestCount();
 
+    /**
+     * Clears timer data from storage
+     */
     void clearTimerData();
 }

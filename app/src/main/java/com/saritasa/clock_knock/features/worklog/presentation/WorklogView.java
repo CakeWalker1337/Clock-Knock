@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.worklog.presentation;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.saritasa.clock_knock.base.presentation.BaseView;
 
@@ -71,7 +72,7 @@ public interface WorklogView extends BaseView{
      *
      * @param aTime formatted time string
      */
-    void setTimeToTimer(String aTime);
+    void setTimeToTimer(@Nullable String aTime);
 
     /**
      * Starts timer

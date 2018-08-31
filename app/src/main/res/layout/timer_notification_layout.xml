@@ -7,33 +7,32 @@
 
     <ImageView
         android:id="@+id/playButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"
+        android:layout_margin="@dimen/one_margin"
         android:layout_gravity="center_vertical"
         android:background="@drawable/ic_pause_circle_outline_black_24dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:contentDescription="blabla" />
+        android:backgroundTint="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="02:00:00"
+        tools:text="02:00:00"
         android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:textSize="@dimen/font_standard" />
 
     <TextView
         android:id="@+id/task"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:gravity="end"
-        android:layout_marginEnd="8dp"
-        android:text="MISC-309"
+        android:layout_marginEnd="@dimen/one_margin"
+        tools:text="MISC-309"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:textSize="@dimen/font_standard" />
 
 </LinearLayout>

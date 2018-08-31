@@ -58,37 +58,37 @@ public final class Strings{
     /**
      * Action for starting service
      */
-    public static final String START_SERVICE_ACTION = "StartService";
+    public static final String START_SERVICE_ACTION = "com.saritasa.clock_knock.StartService";
 
     /**
      * Action for ending service
      */
-    public static final String END_SERVICE_ACTION = "EndService";
+    public static final String END_SERVICE_ACTION = "com.saritasa.clock_knock.EndService";
 
     /**
      * Action for stop timer in fragment
      */
-    public static final String STOP_TIMER_ACTION = "Stop";
+    public static final String STOP_TIMER_ACTION = "com.saritasa.clock_knock.Stop";
 
     /**
      * Action for show fragment without stopping timer
      */
-    public static final String SHOW_TASK_ACTION = "Show";
+    public static final String SHOW_TASK_ACTION = "com.saritasa.clock_knock.Show";
 
     /**
      * String for creating an extra for holding the task id
      */
-    public static final String TASK_ID_EXTRA = "task";
+    public static final String TASK_ID_EXTRA = "com.saritasa.clock_knock.task";
 
     /**
      * String for creating an extra for holding the timestamp
      */
-    public static final String TIMESTAMP_EXTRA = "timestamp";
+    public static final String TIMESTAMP_EXTRA = "com.saritasa.clock_knock.timestamp";
 
     /**
      * String for creating an extra for action
      */
-    public static final String ACTION_EXTRA = "action";
+    public static final String ACTION_EXTRA = "com.saritasa.clock_knock.action";
 
     /**
      * Time pattern

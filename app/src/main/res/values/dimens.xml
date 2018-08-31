@@ -11,4 +11,7 @@
     <dimen name="timer_button_edge">72dp</dimen>
     <dimen name="double_margin">16dp</dimen>
     <dimen name="time_spent_label_width">60dp</dimen>
+    <dimen name="image_size">48dp</dimen>
+    <dimen name="one_margin">8dp</dimen>
+    <dimen name="font_standard">16sp</dimen>
 </resources>

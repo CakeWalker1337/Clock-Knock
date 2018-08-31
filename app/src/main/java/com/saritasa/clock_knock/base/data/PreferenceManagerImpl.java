@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.saritasa.clock_knock.R;
+import com.saritasa.clock_knock.util.Constants;
 import com.saritasa.clock_knock.util.Strings;
 
 /**
@@ -63,7 +64,7 @@ public class PreferenceManagerImpl implements PreferenceManager{
 
     @Override
     public long getStartTimestamp(){
-        return mSharedPreferences.getLong(Strings.PREFERENCE_START_TIMESTAMP, -1);
+        return mSharedPreferences.getLong(Strings.PREFERENCE_START_TIMESTAMP, Constants.UNDEFINED_VALUE);
     }
 
     @Override

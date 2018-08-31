@@ -1,8 +1,10 @@
 package com.saritasa.clock_knock.features.main.presentation;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -41,8 +43,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         String taskId = getIntent().getStringExtra(Strings.TASK_ID_EXTRA);
         String action = getIntent().getAction();
 
-        Log.w("Activity", "Task: " + taskId + " Action: " + action);
-
         if (mMainPresenter.isTimerActive()) {
             mMainPresenter.onTimerActivityChecked();
         }
@@ -52,6 +52,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         } else{
             goToLogin();
         }
+    }
+
+    public static Intent newIntent(Context aContext, String aTaskId, String aAction) {
+        Intent intent = new Intent(aContext, MainActivity.class);
+        intent.setAction(aAction);
+        intent.putExtra(Strings.TASK_ID_EXTRA, aTaskId);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
     }
 
     @SuppressWarnings("unchecked")
@@ -88,11 +96,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     }
 
     @Override
-    public void startTimer(String aTaskId, long aTimestamp){
-        Intent intent = new Intent(this, TimerService.class);
-        intent.setAction(Strings.START_SERVICE_ACTION);
-        intent.putExtra(Strings.TASK_ID_EXTRA, aTaskId);
-        intent.putExtra(Strings.TIMESTAMP_EXTRA, aTimestamp);
+    public void startTimer(@Nullable String aTaskId, long aTimestamp){
+        Intent intent = TimerService.newIntent(this, Strings.START_SERVICE_ACTION, aTaskId, aTimestamp);
         startService(intent);
     }
 }
