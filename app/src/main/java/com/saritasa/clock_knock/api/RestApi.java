@@ -56,13 +56,13 @@ public interface RestApi{
      * Updates worklog on JIRA server.
      *
      * @param aTaskKey task key (ex: MISC-303)
-     * @param worklogId worklog id
+     * @param aWorklogId worklog id
      * @param aBody JSON string with params of worklog for update.
      * @return Response with info about request.
      */
     @NonNull
     @PUT("/rest/api/secure/issue/{issue}/worklog/{id}")
-    Single<Response<ResponseBody>> updateWorklog(@NonNull @Path("issue") String aTaskKey, @NonNull @Path("id") String worklogId, @NonNull @Body String aBody);
+    Single<Response<ResponseBody>> updateWorklog(@NonNull @Path("issue") String aTaskKey, @NonNull @Path("id") String aWorklogId, @NonNull @Body String aBody);
 
     /**
      * Gets username of current user

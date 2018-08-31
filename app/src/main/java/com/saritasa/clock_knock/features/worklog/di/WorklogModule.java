@@ -31,8 +31,8 @@ public class WorklogModule{
     @NonNull
     @Provides
     @WorklogScope
-    WorklogInteractor provideWorklogInteractor(@NonNull WorklogRepository aWorklogRepository){
-        return new WorklogInteractorImpl(aWorklogRepository);
+    WorklogInteractor provideWorklogInteractor(@NonNull WorklogRepository aWorklogRepository, SessionRepository aSessionRepository){
+        return new WorklogInteractorImpl(aWorklogRepository, aSessionRepository);
     }
 
     /**

@@ -43,7 +43,6 @@ public class SessionRepositoryImpl implements SessionRepository{
         return mPreferenceManager.getUsername();
     }
 
-
     @Override
     public void clearAllData(){
         mPreferenceManager.clearAllData();
@@ -115,5 +114,11 @@ public class SessionRepositoryImpl implements SessionRepository{
     @Override
     public int getRetryRequestCount(){
         return BuildConfig.COUNT_RETRY_REQUEST;
+    }
+
+    @Override
+    public void clearTimerData(){
+        mPreferenceManager.removeStartTimestamp();
+        mPreferenceManager.removeTaskId();
     }
 }

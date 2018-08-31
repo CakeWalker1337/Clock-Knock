@@ -65,4 +65,23 @@ public interface WorklogView extends BaseView{
      * @param aWorklogAdapterItem worklog adapter item object.
      */
     void addWorklogToList(@NonNull WorklogAdapterItem aWorklogAdapterItem);
+
+    /**
+     * Sets time string to timer
+     *
+     * @param aTime formatted time string
+     */
+    void setTimeToTimer(String aTime);
+
+    /**
+     * Starts timer
+     *
+     * @param aTimestamp timestamp value
+     */
+    void startTimer(long aTimestamp);
+
+    /**
+     * Attempts to stop timer
+     */
+    void tryToStopTimer();
 }

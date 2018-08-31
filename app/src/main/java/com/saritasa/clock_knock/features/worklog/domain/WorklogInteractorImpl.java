@@ -1,9 +1,14 @@
 package com.saritasa.clock_knock.features.worklog.domain;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
+import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.worklog.data.WorklogRepository;
+import com.saritasa.clock_knock.util.Strings;
+
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -17,11 +22,14 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
     public static final int MORE = 1;
     public static final String USER_NAME = "maxim.kovalev";
 
+    private SessionRepository mSessionRepository;
+
     /**
      * @param aRepository provided repository object.
      */
-    public WorklogInteractorImpl(@NonNull final WorklogRepository aRepository){
+    public WorklogInteractorImpl(@NonNull final WorklogRepository aRepository, SessionRepository aSessionRepository){
         super(aRepository);
+        mSessionRepository = aSessionRepository;
     }
 
     @NonNull
@@ -50,4 +58,45 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
         mRepository.saveWorklog(aTaskKey, aWorklogDomain);
     }
 
+    @Override
+    public boolean isTimerActive(){
+        return mSessionRepository.getStartTimestamp() != -1;
+    }
+
+    @Override
+    public String getFormattedTime(final long aTime){
+        return DurationFormatUtils.formatDuration(aTime, Strings.TIME_PATTERN);
+    }
+
+    @Override
+    public int getHours(){
+        long startTime = mSessionRepository.getStartTimestamp();
+        long interval = System.currentTimeMillis() - startTime;
+        return (int) interval / 3600000;
+    }
+
+    @Override
+    public int getMinutes(){
+        long startTime = mSessionRepository.getStartTimestamp();
+        long interval = System.currentTimeMillis() - startTime;
+        return (int) interval % 3600000 / 60000;
+    }
+
+    @Override
+    public long saveTimerData(final String aTaskKey){
+        long timestamp = System.currentTimeMillis();
+        mSessionRepository.saveStartTimestamp(timestamp);
+        mSessionRepository.saveTaskId(aTaskKey);
+        return timestamp;
+    }
+
+    @Override
+    public void clearTimerData(){
+        mSessionRepository.clearTimerData();
+    }
+
+    @Override
+    public String getTimerTask(){
+        return mSessionRepository.getTaskId();
+    }
 }

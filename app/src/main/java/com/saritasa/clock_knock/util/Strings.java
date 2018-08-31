@@ -73,7 +73,7 @@ public final class Strings{
     /**
      * Action for show fragment without stopping timer
      */
-    public static final String SHOW_ACTIVITY_ACTION = "Show";
+    public static final String SHOW_TASK_ACTION = "Show";
 
     /**
      * String for creating an extra for holding the task id
@@ -84,4 +84,14 @@ public final class Strings{
      * String for creating an extra for holding the timestamp
      */
     public static final String TIMESTAMP_EXTRA = "timestamp";
+
+    /**
+     * String for creating an extra for action
+     */
+    public static final String ACTION_EXTRA = "action";
+
+    /**
+     * Time pattern
+     */
+    public static final String TIME_PATTERN = "HH:mm:ss";
 }

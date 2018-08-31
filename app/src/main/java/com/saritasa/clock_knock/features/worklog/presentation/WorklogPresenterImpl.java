@@ -5,11 +5,13 @@ import android.support.annotation.NonNull;
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenterImpl;
 import com.saritasa.clock_knock.features.worklog.domain.WorklogInteractor;
+import com.saritasa.clock_knock.util.Strings;
 
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import okhttp3.Interceptor;
 import timber.log.Timber;
 
 /**
@@ -65,11 +67,57 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
                     throw new Exception("Worklog fetching error.");
                 });
         unsubscribeOnDestroy(disposable);
+
+        mWorklogInteractor.clearTimerData();
     }
 
     @Override
     public void onWorklogClicked(@NonNull String aTaskKey, @NonNull WorklogAdapterItem aWorklogAdapterItem){
         mWorklogInteractor.saveWorklog(aTaskKey, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(aWorklogAdapterItem));
+    }
+
+    @Override
+    public boolean isTimerActive(){
+        return mWorklogInteractor.isTimerActive();
+    }
+
+    @Override
+    public void onTimerTicked(final long aTime){
+        String timeString = mWorklogInteractor.getFormattedTime(aTime);
+        getViewState().setTimeToTimer(timeString);
+    }
+
+    @Override
+    public int getHours(){
+        return mWorklogInteractor.getHours();
+    }
+
+    @Override
+    public int getMinutes(){
+        return mWorklogInteractor.getMinutes();
+    }
+
+    @Override
+    public void onStartButtonClicked(String aTaskKey){
+        long timestamp = mWorklogInteractor.saveTimerData(aTaskKey);
+        getViewState().startTimer(timestamp);
+    }
+
+    @Override
+    public void onStopButtonClicked(){
+        getViewState().tryToStopTimer();
+    }
+
+    @Override
+    public void onActionGot(final String aAction){
+        if (aAction.equals(Strings.STOP_TIMER_ACTION)) {
+            getViewState().tryToStopTimer();
+        }
+    }
+
+    @Override
+    public String getTimerTask(){
+        return mWorklogInteractor.getTimerTask();
     }
 
     /**

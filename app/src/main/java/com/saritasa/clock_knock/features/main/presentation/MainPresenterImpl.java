@@ -20,4 +20,16 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     public MainPresenterImpl(@NonNull MainInteractor aMainInteractor) {
         mMainInteractor = aMainInteractor;
     }
+
+    @Override
+    public boolean isTimerActive(){
+        return mMainInteractor.isTimerActive();
+    }
+
+    @Override
+    public void onTimerActivityChecked(){
+        String taskId = mMainInteractor.getTaskId();
+        long timestamp = mMainInteractor.getStartTimestamp();
+        getViewState().startTimer(taskId, timestamp);
+    }
 }

@@ -7,4 +7,11 @@ import com.saritasa.clock_knock.base.presentation.BaseView;
  */
 public interface MainView extends BaseView{
 
+    /**
+     * Starts timer service
+     *
+     * @param aTaskId Task id string
+     * @param aTimestamp Timestamp value
+     */
+    void startTimer(String aTaskId, long aTimestamp);
 }

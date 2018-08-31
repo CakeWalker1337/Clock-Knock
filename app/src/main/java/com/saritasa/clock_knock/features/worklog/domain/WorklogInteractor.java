@@ -3,6 +3,7 @@ package com.saritasa.clock_knock.features.worklog.domain;
 import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.base.domain.BaseInteractor;
+import com.saritasa.clock_knock.util.Strings;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -38,5 +39,54 @@ public interface WorklogInteractor extends BaseInteractor{
      * @param aWorklogDomain domain object of worklog.
      */
     void saveWorklog(@NonNull String aTaskKey, @NonNull WorklogDomain aWorklogDomain);
+
+    /**
+     * Checks timer activity
+     *
+     * @return true if timer is active, false otherwise
+     */
+    boolean isTimerActive();
+
+    /**
+     * Gets time string formatted by pattern {@value Strings#TIME_PATTERN}
+     *
+     * @param aTime time in milliseconds
+     * @return Formatted time string
+     */
+    String getFormattedTime(long aTime);
+
+    /**
+     * Gets hours of timer interval
+     *
+     * @return hours value
+     */
+    int getHours();
+
+    /**
+     * Gets minutes of timer interval
+     *
+     * @return minutes value
+     */
+    int getMinutes();
+
+    /**
+     * Saves task id and start timestamp to storage
+     *
+     * @param aTaskKey Taks id string
+     * @return Start timestamp long value
+     */
+    long saveTimerData(String aTaskKey);
+
+    /**
+     *  Clears timer data in storage
+     */
+    void clearTimerData();
+
+    /**
+     * Gets task id of current timer
+     *
+     * @return Taks id string
+     */
+    String getTimerTask();
 }
 

@@ -43,8 +43,8 @@ public class MainModule{
     @NonNull
     @MainScope
     @Provides
-    public MainInteractor providesInteractor(@NonNull MainRepository aMainRepository) {
-        return new MainInteractorImpl(aMainRepository);
+    public MainInteractor providesInteractor(@NonNull MainRepository aMainRepository, @NonNull SessionRepository aSessionRepository) {
+        return new MainInteractorImpl(aMainRepository, aSessionRepository);
     }
 
     /**

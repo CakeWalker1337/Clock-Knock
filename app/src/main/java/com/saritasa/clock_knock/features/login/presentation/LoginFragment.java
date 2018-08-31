@@ -43,11 +43,10 @@ public class LoginFragment extends BaseFragment implements LoginView{
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+    public View onCreateView(@NonNull LayoutInflater aLayoutInflater, ViewGroup aContainer,
+                             Bundle aSavedInstanceState){
 
-        return view;
+        return aLayoutInflater.inflate(R.layout.fragment_login, aContainer, false);
     }
 
     @SuppressWarnings("unchecked")

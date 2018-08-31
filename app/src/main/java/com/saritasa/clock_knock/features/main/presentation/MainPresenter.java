@@ -24,4 +24,16 @@ public interface MainPresenter<VIEW extends MvpView>{
      * @param aView View object
      */
     void detachView(@NonNull VIEW aView);
+
+    /**
+     * Checks timer activity
+     *
+     * @return true if timer is active, false otherwise
+     */
+    boolean isTimerActive();
+
+    /**
+     * Calls when timer is checked on existence
+     */
+    void onTimerActivityChecked();
 }

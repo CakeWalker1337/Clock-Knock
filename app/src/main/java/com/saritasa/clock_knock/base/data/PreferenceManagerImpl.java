@@ -63,18 +63,28 @@ public class PreferenceManagerImpl implements PreferenceManager{
 
     @Override
     public long getStartTimestamp(){
-        return mSharedPreferences.getLong(Strings.PREFERENCE_START_TIMESTAMP, 0);
+        return mSharedPreferences.getLong(Strings.PREFERENCE_START_TIMESTAMP, -1);
     }
 
     @Override
     public void saveStartTimestamp(long aTimestamp){
-        mSharedPreferences.edit().putLong(Strings.PREFERENCE_SECRET_TOKEN, aTimestamp).apply();
+        mSharedPreferences.edit().putLong(Strings.PREFERENCE_START_TIMESTAMP, aTimestamp).apply();
     }
 
     @Nullable
     @Override
     public String getTaskId(){
         return mSharedPreferences.getString(Strings.PREFERENCE_TASK_ID, null);
+    }
+
+    @Override
+    public void removeStartTimestamp(){
+        mSharedPreferences.edit().remove(Strings.PREFERENCE_START_TIMESTAMP).apply();
+    }
+
+    @Override
+    public void removeTaskId(){
+        mSharedPreferences.edit().remove(Strings.PREFERENCE_TASK_ID).apply();
     }
 
     @Override

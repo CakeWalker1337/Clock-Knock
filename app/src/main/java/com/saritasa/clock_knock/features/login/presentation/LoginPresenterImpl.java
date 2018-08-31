@@ -1,6 +1,7 @@
 package com.saritasa.clock_knock.features.login.presentation;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenterImpl;
@@ -42,6 +43,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
     public void completeAuthorization(){
         Disposable disposable = mLoginInteractor.getUsername()
                 .subscribe(aUsername -> {
+                               Log.w("Login", "Username: " + aUsername);
                                mLoginInteractor.saveUsername(aUsername.getUsername());
                                getViewState().onAuthorizationComplete();
                            },

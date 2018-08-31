@@ -34,4 +34,57 @@ public interface WorklogPresenter<VIEW extends BaseView> extends BasePresenter<V
      */
     void onWorklogClicked(@NonNull String aTaskKey, @NonNull WorklogAdapterItem aWorklogAdapterItem);
 
+    /**
+     * Checks timer activity
+     *
+     * @return true if timer is active, false otherwise
+     */
+    boolean isTimerActive();
+
+    /**
+     * Calls when timer ticked
+     *
+     * @param aTime current time on timer in seconds
+     */
+    void onTimerTicked(long aTime);
+
+    /**
+     * Gets hours of timer interval
+     *
+     * @return hours value
+     */
+    int getHours();
+
+    /**
+     * Gets minutes of timer interval
+     *
+     * @return minutes value
+     */
+    int getMinutes();
+
+    /**
+     * Calls when start button is clicked
+     *
+     * @param aTaskKey Task id string
+     */
+    void onStartButtonClicked(String aTaskKey);
+
+    /**
+     * Calls when stop button is clicked
+     */
+    void onStopButtonClicked();
+
+    /**
+     * Calls when action is got from extra values
+     *
+     * @param aAction Action string value
+     */
+    void onActionGot(String aAction);
+
+    /**
+     * Gets task id of current timer
+     *
+     * @return Taks id string
+     */
+    String getTimerTask();
 }

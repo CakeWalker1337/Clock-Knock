@@ -44,7 +44,7 @@ public class ApiClientModule{
             String consumerKey = aSessionRepository.getConsumerKey();
             String privateKey = aSessionRepository.getPrivateKey();
 
-            if(accessToken != null && secretToken != null && consumerKey != null && privateKey != null){
+            if(accessToken != null && secretToken != null){
                 Request.Builder newRequest = original.newBuilder();
                 try{
                     // If all is ok, add special OAuth header by the following sample:

@@ -86,4 +86,14 @@ public interface PreferenceManager{
      */
     @Nullable
     String getTaskId();
+
+    /**
+     * Removes timestamp value from SharedPrefs
+     */
+    void removeStartTimestamp();
+
+    /**
+     * Removes task id value from SharedPrefs
+     */
+    void removeTaskId();
 }

@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.saritasa.clock_knock.R;
+import com.saritasa.clock_knock.features.main.presentation.MainActivity;
 import com.saritasa.clock_knock.features.tasks.presentation.TasksFragment;
 import com.saritasa.clock_knock.util.Strings;
 
@@ -95,8 +97,8 @@ public class TimerService extends Service{
      */
     public Notification createNotification(long aTime){
 
-        Intent notificationIntent = new Intent(this, TasksFragment.class);
-        notificationIntent.setAction(Strings.SHOW_ACTIVITY_ACTION);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.setAction(Strings.SHOW_TASK_ACTION);
         notificationIntent.putExtra(Strings.TASK_ID_EXTRA, mTaskId);
         PendingIntent contentIntent = PendingIntent.getActivity(this,
                                                                 REQUEST_CODE, notificationIntent,
@@ -109,6 +111,7 @@ public class TimerService extends Service{
         RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.timer_notification_layout);
         contentView.setOnClickPendingIntent(R.id.playButton, playButtonIntent);
         contentView.setTextViewText(R.id.time, longTimeToFormat(aTime));
+        contentView.setTextViewText(R.id.task, mTaskId);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_pause_circle_outline_black_24dp)
@@ -136,7 +139,7 @@ public class TimerService extends Service{
      * @return Formatted time string
      */
     public String longTimeToFormat(long aTime){
-        return DurationFormatUtils.formatDuration(aTime/1000, TIME_PATTERN);
+        return DurationFormatUtils.formatDuration(aTime, TIME_PATTERN);
     }
 
     @Override
@@ -146,7 +149,7 @@ public class TimerService extends Service{
 
             switch(aIntent.getAction()){
                 case Strings.END_SERVICE_ACTION:
-                    Intent intent = new Intent(this, TasksFragment.class);
+                    Intent intent = new Intent(this, MainActivity.class);
                     intent.setAction(Strings.STOP_TIMER_ACTION);
                     intent.putExtra(Strings.TIMESTAMP_EXTRA, System.currentTimeMillis());
                     intent.putExtra(Strings.TASK_ID_EXTRA, mTaskId);
@@ -155,9 +158,11 @@ public class TimerService extends Service{
                     onDestroy();
                     break;
                 case Strings.START_SERVICE_ACTION:
-                    long startTimestamp = aIntent.getLongExtra(Strings.TIMESTAMP_EXTRA, DEFAULT_TIMESTAMP);
-                    mTaskId = aIntent.getStringExtra(Strings.TASK_ID_EXTRA);
-                    startTimer(startTimestamp);
+                    if(mDisposable == null || mDisposable.isDisposed()){
+                        long startTimestamp = aIntent.getLongExtra(Strings.TIMESTAMP_EXTRA, DEFAULT_TIMESTAMP);
+                        mTaskId = aIntent.getStringExtra(Strings.TASK_ID_EXTRA);
+                        startTimer(startTimestamp);
+                    }
                     break;
             }
         }
@@ -177,6 +182,7 @@ public class TimerService extends Service{
                 .subscribeOn(Schedulers.computation())
                 .subscribe(aTime -> {
                     long interval = System.currentTimeMillis() - aStartTimestamp;
+                    Log.w("Service", "Interval: " + interval);
                     updateNotification(interval);
                     if(mTimerServiceListener != null){
                         mTimerServiceListener.timerTicked(interval);

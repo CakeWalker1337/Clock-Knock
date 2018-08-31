@@ -18,6 +18,7 @@ import com.saritasa.clock_knock.R;
 import com.saritasa.clock_knock.base.presentation.BaseFragment;
 import com.saritasa.clock_knock.features.main.presentation.NavigationListener;
 import com.saritasa.clock_knock.features.tasks.di.TasksModule;
+import com.saritasa.clock_knock.util.Strings;
 
 import java.util.List;
 
@@ -122,7 +123,7 @@ public class TasksFragment extends BaseFragment implements TasksView{
             FastAdapter<TasksAdapterItem> adapter = FastAdapter.with(mItemAdapter);
 
             adapter.withOnClickListener((v, adapter1, item, position) -> {
-                mNavigationListener.goToWorklog(item.getName());
+                mNavigationListener.goToWorklog(item.getName(), Strings.SHOW_TASK_ACTION);
                 return false;
             });
 

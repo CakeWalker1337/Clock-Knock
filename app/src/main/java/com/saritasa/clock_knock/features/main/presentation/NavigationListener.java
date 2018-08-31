@@ -27,5 +27,11 @@ public interface NavigationListener{
      */
     void goToTasks();
 
-    void goToWorklog(@NonNull String aTaskKey);
+    /**
+     * Changes fragment to WorklogFragment
+     *
+     * @param aTaskKey Task id string
+     * @param aAction Action value string
+     */
+    void goToWorklog(@NonNull String aTaskKey, @NonNull String aAction);
 }
