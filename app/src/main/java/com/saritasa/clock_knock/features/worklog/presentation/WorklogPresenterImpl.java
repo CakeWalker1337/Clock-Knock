@@ -41,11 +41,17 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     public void onDataRequest(@NonNull final String aTaskKey){
         getViewState().showLoadingProgress();
         getViewState().updateActivityTitle(aTaskKey);
+        getViewState().hideWorklogView();
+        getViewState().hideNoWorklogMessageView();
         Disposable disposable = mWorklogInteractor.loadWorklog(aTaskKey)
                 .map(WorklogMapper::mapWorklogDomainToWorklogAdapterItem)
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> getViewState().hideLoadingProgress())
+                .doFinally(() -> {
+                    Timber.d("finally");
+                    getViewState().setTasksRefreshing(false);
+                    getViewState().hideLoadingProgress();
+                })
                 .subscribe(this::handleLoadWorklogsSuccess,
                            this::handleLoadWorklogsError);
         unsubscribeOnDestroy(disposable);
@@ -54,13 +60,18 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     @Override
     public void onTimerStopped(@NonNull String aTaskKey, @NonNull String aDescription, int aTimeSpentSeconds){
         getViewState().showLoadingProgress();
+        getViewState().hideWorklogView();
+        getViewState().hideNoWorklogMessageView();
         WorklogAdapterItem adapterItem = new WorklogAdapterItem();
         adapterItem.setDescription(aDescription);
         adapterItem.setTimeSpentSeconds(aTimeSpentSeconds);
         Disposable disposable = mWorklogInteractor.createWorklog(aTaskKey, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(adapterItem))
                 .map(WorklogMapper::mapWorklogDomainToWorklogAdapterItem)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> getViewState().hideLoadingProgress())
+                .doFinally(() -> {
+                    Timber.d("finally");
+                    getViewState().hideLoadingProgress();
+                })
                 .subscribe(this::handleCreateWorklogSuccess, this::handleCreateWorklogError, () -> {
                     throw new Exception("Worklog fetching error.");
                 });

@@ -65,4 +65,11 @@ public interface WorklogView extends BaseView{
      * @param aWorklogAdapterItem worklog adapter item object.
      */
     void addWorklogToList(@NonNull WorklogAdapterItem aWorklogAdapterItem);
+
+    /**
+     * Sets refreshing value of swipe refresh layout.
+     *
+     * @param aValue value
+     */
+    void setTasksRefreshing(boolean aValue);
 }

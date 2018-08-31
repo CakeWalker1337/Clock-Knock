@@ -2,6 +2,8 @@ package com.saritasa.clock_knock.features.main.presentation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.view.MenuItem;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.saritasa.clock_knock.App;
@@ -16,13 +18,11 @@ import javax.inject.Inject;
 /**
  * The Main activity class
  */
-public class MainActivity extends MvpAppCompatActivity implements MainView, NavigationListener{
+public class MainActivity extends MvpAppCompatActivity implements MainView, NavigationListener, FragmentManager.OnBackStackChangedListener{
 
     @Inject
     public MainPresenter mMainPresenter;
 
-    private AuthFragment mAuthFragment;
-    private LoginFragment mLoginFragment;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -36,7 +36,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
                 .inject(this);
 
         mMainPresenter.attachView(this);
-
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
         goToLogin();
     }
 
@@ -64,13 +64,30 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
 
     @Override
     public void goToTasks(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new TasksFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new TasksFragment()).addToBackStack(null).commit();
     }
 
     @Override
     public void goToWorklog(@NonNull final String aTaskKey){
         WorklogFragment worklogFragment = new WorklogFragment();
         worklogFragment.setTaskKey(aTaskKey);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, worklogFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, worklogFragment, "worklog_fragment").addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onBackStackChanged(){
+        boolean canback = getSupportFragmentManager().getBackStackEntryCount() > 1;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(canback);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case android.R.id.home:
+                getSupportFragmentManager().popBackStack();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

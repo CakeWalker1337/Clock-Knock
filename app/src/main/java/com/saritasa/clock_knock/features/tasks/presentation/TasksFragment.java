@@ -3,6 +3,9 @@ package com.saritasa.clock_knock.features.tasks.presentation;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.saritasa.clock_knock.App;
@@ -40,6 +44,10 @@ public class TasksFragment extends BaseFragment implements TasksView{
     TextView mTvNoTasksMessage;
     @BindView(R.id.rvTasks)
     RecyclerView mTasksRecyclerView;
+
+    @BindView(R.id.swipeTasks)
+    SwipeRefreshLayout mTasksSwipeRefreshLayout;
+
     private ItemAdapter<TasksAdapterItem> mItemAdapter;
 
     @Override
@@ -90,9 +98,13 @@ public class TasksFragment extends BaseFragment implements TasksView{
             return;
         }
         showTasksView();
-        mItemAdapter.add(aTasksDomains);
+        mItemAdapter.set(aTasksDomains);
         mItemAdapter.getFastAdapter().notifyAdapterDataSetChanged();
+    }
 
+    @Override
+    public void setTasksRefreshing(final boolean aValue){
+        mTasksSwipeRefreshLayout.setRefreshing(aValue);
     }
 
     @Nullable
@@ -130,11 +142,20 @@ public class TasksFragment extends BaseFragment implements TasksView{
 
             mTasksRecyclerView.setAdapter(adapter);
 
+            mTasksSwipeRefreshLayout.setOnRefreshListener(() -> mTasksPresenter.onRequest());
+
+            mTasksRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+
+            ActionBar actionBar = ((MvpAppCompatActivity) getActivity()).getSupportActionBar();
+            if(actionBar == null){
+                return;
+            }
+            actionBar.setTitle(R.string.app_name);
+
             mTasksPresenter.onRequest();
         }
 
     }
-
 
     @Override
     public void onDetach(){

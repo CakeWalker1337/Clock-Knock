@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,6 +53,8 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     TextView mTvNoWorklogMessage;
     @BindView(R.id.rvWorklog)
     RecyclerView mWorklogRecyclerView;
+    @BindView(R.id.swipeWorklog)
+    SwipeRefreshLayout mWorklogSwipeRefreshLayout;
 
     @BindView(R.id.ibTimerButton)
     ImageButton mTimerButton;
@@ -100,26 +104,32 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
                 return false;
             });
 
-            mTimerButton.setOnClickListener(new View.OnClickListener(){
+            mTimerButton.setOnClickListener(aView -> {
 
-                @Override
-                public void onClick(final View aView){
-
-                    if(!isTimerStarted){
-                        isTimerStarted = true;
-                        mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_pause_circle_24dp));
-                    } else{
-                        isTimerStarted = false;
-                        onTimerStop();
-                        mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_play_circle_24dp));
-                    }
+                if(!isTimerStarted){
+                    isTimerStarted = true;
+                    mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_pause_circle_24dp));
+                } else{
+                    isTimerStarted = false;
+                    onTimerStop();
+                    mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_play_circle_24dp));
                 }
             });
 
             mWorklogRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+            mWorklogRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
             mWorklogRecyclerView.setAdapter(adapter);
-            onDataRequest(mTaskKey);
+
+            mWorklogSwipeRefreshLayout.setOnRefreshListener(() -> onDataRequest());
+
+            ActionBar actionBar = ((MvpAppCompatActivity) getActivity()).getSupportActionBar();
+            if(actionBar == null){
+                return;
+            }
+            actionBar.setTitle(mTaskKey);
+
+            onDataRequest();
         }
     }
 
@@ -179,7 +189,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
 
     @Override
     public void updateWorklogList(@NonNull final List<WorklogAdapterItem> aTasksDomains){
-        mItemAdapter.add(aTasksDomains);
+        mItemAdapter.set(aTasksDomains);
         mItemAdapter.getFastAdapter().notifyAdapterDataSetChanged();
     }
 
@@ -188,16 +198,17 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         if(getActivity() == null){
             return;
         }
-        ActionBar actionBar = ((MvpAppCompatActivity) getActivity()).getSupportActionBar();
-        if(actionBar == null){
-            return;
-        }
-        actionBar.setTitle(aNewTitle);
+
     }
 
     @Override
     public void addWorklogToList(@NonNull final WorklogAdapterItem aWorklogAdapterItem){
         mItemAdapter.add(0, aWorklogAdapterItem);
+    }
+
+    @Override
+    public void setTasksRefreshing(final boolean aValue){
+        mWorklogSwipeRefreshLayout.setRefreshing(aValue);
     }
 
     public void setTaskKey(@NonNull String aTaskKey){
@@ -267,7 +278,10 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         alertDialog.show();
     }
 
-    public void onDataRequest(@NonNull String aTaskKey){
-        mWorklogPresenter.onDataRequest(aTaskKey);
+    /**
+     * Calls when fragment is ready to loading worklog data.
+     */
+    public void onDataRequest(){
+        mWorklogPresenter.onDataRequest(mTaskKey);
     }
 }

@@ -8,11 +8,11 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/shape_circle"
+        android:layout_width="207dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
         android:text="Authorize"
-        android:textColor="@color/colorPrimary"
-        android:layout_gravity="center" />
+        android:textColor="@android:color/black" />
 
 </android.support.design.widget.CoordinatorLayout>

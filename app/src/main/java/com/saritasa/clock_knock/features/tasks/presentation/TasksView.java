@@ -54,4 +54,12 @@ public interface TasksView extends BaseView{
      * @param aTasksDomains New list of data.
      */
     void updateTaskList(@NonNull List<TasksAdapterItem> aTasksDomains);
+
+    /**
+     * Sets refreshing value of swipe refresh layout.
+     *
+     * @param aValue value
+     */
+    void setTasksRefreshing(boolean aValue);
+
 }

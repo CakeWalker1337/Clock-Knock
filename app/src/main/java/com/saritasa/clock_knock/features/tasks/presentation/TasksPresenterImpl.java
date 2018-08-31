@@ -31,14 +31,19 @@ public class TasksPresenterImpl extends BasePresenterImpl<TasksView> implements 
     public void onRequest(){
 
         Timber.d("Loading tasks");
-
+        getViewState().setTasksRefreshing(true);
         getViewState().showLoadingProgress();
+        getViewState().hideTasksView();
+        getViewState().hideNoTasksMessageView();
 
         Disposable disposable = mTasksInteractor.loadTasks()
                 .map(TasksMapper::mapTasksDomainToTasksAdapterItem)
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> getViewState().hideLoadingProgress())
+                .doFinally(() -> {
+                    getViewState().setTasksRefreshing(false);
+                    getViewState().hideLoadingProgress();
+                })
                 .subscribe(this::handleSuccess,
                            this::handleError);
         unsubscribeOnDestroy(disposable);
