@@ -4,10 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.base.di.ApiModule;
 import com.saritasa.clock_knock.base.di.AppComponent;
 import com.saritasa.clock_knock.base.di.AppModule;
 import com.saritasa.clock_knock.base.di.DaggerAppComponent;
+import com.saritasa.clock_knock.base.di.DatabaseModule;
 import com.saritasa.clock_knock.features.session.di.SessionModule;
 
 import timber.log.Timber;
@@ -58,7 +58,7 @@ public class App extends Application{
     protected AppComponent buildAppComponent(){
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .apiModule(new ApiModule())
+                .databaseModule(new DatabaseModule(this))
                 .sessionModule(new SessionModule())
                 .build();
     }

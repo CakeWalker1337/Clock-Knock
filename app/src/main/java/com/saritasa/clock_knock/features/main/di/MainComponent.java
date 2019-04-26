@@ -2,7 +2,6 @@ package com.saritasa.clock_knock.features.main.di;
 
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.features.auth.di.AuthComponent;
 import com.saritasa.clock_knock.features.main.presentation.MainActivity;
 
 import dagger.Subcomponent;

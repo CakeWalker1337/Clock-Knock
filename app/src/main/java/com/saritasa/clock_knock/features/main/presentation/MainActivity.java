@@ -10,8 +10,6 @@ import android.util.Log;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.saritasa.clock_knock.App;
 import com.saritasa.clock_knock.R;
-import com.saritasa.clock_knock.features.auth.presentation.AuthFragment;
-import com.saritasa.clock_knock.features.login.presentation.LoginFragment;
 import com.saritasa.clock_knock.features.tasks.presentation.TasksFragment;
 import com.saritasa.clock_knock.features.worklog.presentation.WorklogFragment;
 import com.saritasa.clock_knock.features.worklog.presentation.service.TimerService;
@@ -49,8 +47,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
 
         if (taskId != null && action != null) {
             goToWorklog(taskId, action);
-        } else{
-            goToLogin();
+        } else {
+            goToTasks();
         }
     }
 
@@ -67,21 +65,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     public void onDestroy(){
         mMainPresenter.detachView(this);
         super.onDestroy();
-    }
-
-    @Override
-    public void onAuthenticationComplete(){
-        goToLogin();
-    }
-
-    @Override
-    public void goToLogin(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new LoginFragment()).commit();
-    }
-
-    @Override
-    public void goToAuth(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new AuthFragment()).commit();
     }
 
     @Override

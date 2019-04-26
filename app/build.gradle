@@ -81,29 +81,32 @@ dependencies{
     annotationProcessor libraries.daggerProcessor
 
 
+    // ButterKnife
     annotationProcessor libraries.butterknifeCompiler
-
     implementation(libraries.butterknife){
         exclude module: 'support-compat'
     }
 
+    // Timber
     implementation libraries.timber
 
+    // Moxy
     implementation libraries.moxy
     implementation libraries.moxyAppCompat
-
-    implementation libraries.googleOauthClient
-    implementation libraries.googleHttpClient
-    implementation libraries.googleCollections
-
-    implementation libraries.mock
-
     annotationProcessor libraries.moxyCompiler
 
+    // Mock
+    implementation libraries.mock
+
+    // Fast Adapter
     implementation libraries.fastAdapter
 
     implementation libraries.recyclerView
     implementation libraries.lang3
 
     implementation 'com.caverock:androidsvg:1.2.1'
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 }
