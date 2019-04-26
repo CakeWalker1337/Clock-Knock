@@ -41,13 +41,4 @@ public interface WorklogRepository extends BaseRepository{
      * @param aWorklogDomain domain object of worklog.
      */
     void saveWorklog(@NonNull String aTaskKey, @NonNull WorklogDomain aWorklogDomain);
-
-    /**
-     * Gets username of logged user.
-     *
-     * @return username.
-     */
-    @NonNull
-    String getUsername();
-
 }

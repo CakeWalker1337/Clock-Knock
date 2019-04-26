@@ -29,6 +29,13 @@ public final class Constants{
      */
     public static final int ONE_MINUTE_SEC = 60;
 
+
+    public static final int PRIORITY_HIGH = 2;
+
+    public static final int PRIORITY_MEDIUM = 1;
+
+    public static final int PRIORITY_LOW = 0;
+
     private Constants(){
     }
 }

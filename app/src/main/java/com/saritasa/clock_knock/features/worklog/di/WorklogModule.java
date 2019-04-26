@@ -2,7 +2,6 @@ package com.saritasa.clock_knock.features.worklog.di;
 
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.api.RestApi;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.worklog.data.WorklogRepository;
@@ -39,14 +38,13 @@ public class WorklogModule{
      * Provides repository of Worklog module through DI. Singleton.
      *
      * @param aResourceManager Provided resource manager object using in repository.
-     * @param aRestApi Provided API object using in repository.
      * @return Repository of Worklog module.
      */
     @NonNull
     @Provides
     @WorklogScope
-    WorklogRepository provideWorklogRepository(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi, SessionRepository aSessionRepository){
-        return new WorklogRepositoryImpl(aResourceManager, aRestApi, aSessionRepository);
+    WorklogRepository provideWorklogRepository(@NonNull ResourceManager aResourceManager, SessionRepository aSessionRepository){
+        return new WorklogRepositoryImpl(aResourceManager, aSessionRepository);
     }
 
     /**

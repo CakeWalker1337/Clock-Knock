@@ -2,7 +2,7 @@ package com.saritasa.clock_knock.features.tasks.di;
 
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.api.RestApi;
+import com.saritasa.clock_knock.api.local.AppDatabase;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.tasks.data.TasksRepository;
@@ -38,15 +38,15 @@ public class TasksModule{
     /**
      * Provides repository of tasks module through DI. Singleton.
      * @param aResourceManager Provided resource manager object using in repository.
-     * @param aRestApi Provided API object using in repository.
+     * @param aAppDatabase Provided API object using in repository.
      * @param aSessionRepository Provided SessionRepository object using in this repository.
      * @return Repository of tasks module.
      */
     @NonNull
     @Provides
     @TasksScope
-    TasksRepository provideTasksRepository(@NonNull ResourceManager aResourceManager, RestApi aRestApi, SessionRepository aSessionRepository){
-        return new TasksRepositoryImpl(aResourceManager, aRestApi, aSessionRepository);
+    TasksRepository provideTasksRepository(@NonNull ResourceManager aResourceManager, AppDatabase aAppDatabase, SessionRepository aSessionRepository){
+        return new TasksRepositoryImpl(aResourceManager, aAppDatabase, aSessionRepository);
     }
 
     /**

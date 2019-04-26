@@ -2,7 +2,7 @@ package com.saritasa.clock_knock.features.tasks.data;
 
 import android.support.annotation.NonNull;
 
-import com.saritasa.clock_knock.api.RestApi;
+import com.saritasa.clock_knock.api.local.AppDatabase;
 import com.saritasa.clock_knock.base.data.BaseRepositoryImpl;
 import com.saritasa.clock_knock.base.data.ResourceManager;
 import com.saritasa.clock_knock.features.session.data.SessionRepository;
@@ -19,31 +19,23 @@ import io.reactivex.Single;
 public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepository{
 
     SessionRepository mSessionRepository;
-    RestApi mRestApi;
+    AppDatabase mAppDatabase;
 
     /**
      * @param aResourceManager - resource manager object
-     * @param aRestApi - object of rest api
+     * @param aAppDatabase - object of rest api
      */
-    public TasksRepositoryImpl(@NonNull ResourceManager aResourceManager, @NonNull RestApi aRestApi, SessionRepository aSessionRepository){
+    public TasksRepositoryImpl(@NonNull ResourceManager aResourceManager, @NonNull AppDatabase aAppDatabase, SessionRepository aSessionRepository){
         super(aResourceManager);
-        mRestApi = aRestApi;
+        mAppDatabase = aAppDatabase;
         mSessionRepository = aSessionRepository;
     }
 
     @NonNull
     @Override
     public Observable<TasksDomain> loadTasks(){
-        return mRestApi.getTasks("assignee=" + mSessionRepository.getUsername())
-                .map(aTasksResponseEntityResponse -> {
-                    if(!aTasksResponseEntityResponse.isSuccessful()){
-                        throw new Exception("Error while fetching task list.");
-                    }
-                    return aTasksResponseEntityResponse.body().getIssues();
-                })
-
-                .flatMapObservable(Observable::fromIterable)
-                        .map(TasksEntityMapper::mapEntityObjectToDomainObject);
+        return mAppDatabase.getTaskDao().getAllTasks()
+                .map(TasksEntityMapper::mapEntityObjectToDomainObject);
     }
 
     /**

@@ -9,54 +9,9 @@ import android.support.annotation.Nullable;
 public interface PreferenceManager{
 
     /**
-     * Saves the access token into SharedPreferences storage
-     *
-     * @param aAccessToken Access token string
-     */
-    void saveAccessToken(@NonNull String aAccessToken);
-
-    /**
-     * Gets the access token
-     *
-     * @return Access token string
-     */
-    @Nullable
-    String getAccessToken();
-
-    /**
-     * Saves the username
-     *
-     * @param aUsername Username string
-     */
-    void saveUsername(@NonNull String aUsername);
-
-    /**
-     * Gets the username
-     *
-     * @return Username string
-     */
-    @Nullable
-    String getUsername();
-
-    /**
      * Clears all data in the storage
      */
     void clearAllData();
-
-    /**
-     * Saves the secret token
-     *
-     * @param aSecretToken Secret token string
-     */
-    void saveSecretToken(@NonNull String aSecretToken);
-
-    /**
-     * Gets the secret token
-     *
-     * @return Secret token string
-     */
-    @Nullable
-    String getSecretToken();
 
     /**
      * Saves the start timestamp

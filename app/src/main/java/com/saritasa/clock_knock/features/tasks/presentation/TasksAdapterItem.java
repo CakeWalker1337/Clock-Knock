@@ -1,5 +1,6 @@
 package com.saritasa.clock_knock.features.tasks.presentation;
 
+import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,22 +31,11 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
 
     private String mName;
     private String mId;
-    private String mPriorityIconUrl;
-    private String mProjectAvatarUrl;
+    private int mPriority;
     private String mStatus;
     private String mSummary;
 
-    @Override
-    public String toString(){
-        return "TasksDomain{" +
-                "mName='" + mName + '\'' +
-                ", mId='" + mId + '\'' +
-                ", mPriorityIconUrl='" + mPriorityIconUrl + '\'' +
-                ", mProjectAvatarUrl='" + mProjectAvatarUrl + '\'' +
-                ", mStatus='" + mStatus + '\'' +
-                ", mSummary='" + mSummary + '\'' +
-                '}';
-    }
+
 
     @NonNull
     @Override
@@ -54,28 +44,6 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
         return new ViewHolder(v);
     }
 
-    @Override
-    public boolean equals(@Nullable final Object aObject){
-        if(this == aObject){
-            return true;
-        }
-        if(aObject == null || getClass() != aObject.getClass()){
-            return false;
-        }
-        TasksAdapterItem that = (TasksAdapterItem) aObject;
-        return Objects.equals(mName, that.mName) &&
-                Objects.equals(mId, that.mId) &&
-                Objects.equals(mPriorityIconUrl, that.mPriorityIconUrl) &&
-                Objects.equals(mProjectAvatarUrl, that.mProjectAvatarUrl) &&
-                Objects.equals(mStatus, that.mStatus) &&
-                Objects.equals(mSummary, that.mSummary);
-    }
-
-    @Override
-    public int hashCode(){
-
-        return Objects.hash(mName, mId, mPriorityIconUrl, mProjectAvatarUrl, mStatus, mSummary);
-    }
 
     @Override
     public int getType(){
@@ -90,6 +58,24 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
     @Override
     public long getIdentifier(){
         return super.getIdentifier();
+    }
+
+    /**
+     * Gets the priority value
+     *
+     * @return Priority value
+     */
+    public int getPriority(){
+        return mPriority;
+    }
+
+    /**
+     * Sets the priority value
+     *
+     * @param aPriority Priority value
+     */
+    public void setPriority(final int aPriority){
+        mPriority = aPriority;
     }
 
     /**
@@ -128,44 +114,6 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
      */
     public void setId(@NonNull final String aId){
         mId = aId;
-    }
-
-    /**
-     * Gets priority icon url of item.
-     *
-     * @return priority icon url.
-     */
-    @NonNull
-    public String getPriorityIconUrl(){
-        return mPriorityIconUrl;
-    }
-
-    /**
-     * Sets priority icon url of item.
-     *
-     * @param aPriorityIconUrl priority icon url.
-     */
-    public void setPriorityIconUrl(@NonNull final String aPriorityIconUrl){
-        mPriorityIconUrl = aPriorityIconUrl;
-    }
-
-    /**
-     * Gets project avatar url of item.
-     *
-     * @return project avatar url.
-     */
-    @NonNull
-    public String getProjectAvatarUrl(){
-        return mProjectAvatarUrl;
-    }
-
-    /**
-     * Sets project avatar url of item.
-     *
-     * @param aProjectAvatarUrl project avatar url.
-     */
-    public void setProjectAvatarUrl(@NonNull final String aProjectAvatarUrl){
-        mProjectAvatarUrl = aProjectAvatarUrl;
     }
 
     /**
@@ -236,18 +184,25 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
             tvStatus.setText(item.getStatus());
             tvSummary.setText(item.getSummary());
 
-            RequestBuilder<PictureDrawable> requestBuilder = GlideApp.with(ivPriorityIcon)
-                    .as(PictureDrawable.class)
-                    .error(R.drawable.ic_error_outline_24dp)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .listener(new SvgSoftwareLayerSetter());
+            ivProjectIcon.setImageResource(R.mipmap.ic_launcher_round);
+            ivPriorityIcon.setImageResource(R.drawable.ic_arrow_upward_black_24dp);
 
-            requestBuilder
-                    .load(item.getProjectAvatarUrl())
-                    .into(ivProjectIcon);
-            requestBuilder
-                    .load(item.getPriorityIconUrl())
-                    .into(ivPriorityIcon);
+            int priorityColor;
+            switch(item.getPriority()) {
+                case 0:
+                    priorityColor = Color.GREEN;
+                    break;
+                case 1:
+                    priorityColor = Color.rgb(255, 160, 0);
+                    break;
+                case 2:
+                    priorityColor = Color.RED;
+                    break;
+                default:
+                    priorityColor = Color.BLACK;
+            }
+            ivPriorityIcon.setBackgroundColor(priorityColor);
+
         }
 
         @Override
@@ -255,8 +210,8 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
             tvTitle.setText(null);
             tvStatus.setText(null);
             tvSummary.setText(null);
-            Glide.with(ivPriorityIcon).clear(ivPriorityIcon);
-            Glide.with(ivProjectIcon).clear(ivProjectIcon);
+            ivPriorityIcon.setImageResource(android.R.color.transparent);
+            ivProjectIcon.setImageResource(android.R.color.transparent);
         }
 
     }

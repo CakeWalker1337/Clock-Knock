@@ -20,23 +20,23 @@ public class WorklogEntityMapper{
     /**
      * Maps worklog entity object to worklog domain object.
      *
-     * @param aWorklogInputEntity entity object for mapping.
+     * @param aWorklogEntity entity object for mapping.
      * @return domain object.
      */
     @NonNull
-    public static WorklogDomain mapWorklogEntityToWorklogDomain(@NonNull WorklogInputEntity aWorklogInputEntity){
+    public static WorklogDomain mapWorklogEntityToWorklogDomain(@NonNull WorklogEntity aWorklogEntity){
         WorklogDomain worklogDomain = new WorklogDomain();
-        worklogDomain.setId(aWorklogInputEntity.getId());
-        worklogDomain.setComment(aWorklogInputEntity.getComment());
-        worklogDomain.setAuthorsKey(aWorklogInputEntity.getAuthor().getKey());
+        worklogDomain.setId(aWorklogEntity.getId());
+        worklogDomain.setComment(aWorklogEntity.getComment());
+        worklogDomain.setAuthorsKey(aWorklogEntity.getAuthor().getKey());
         try{
             Timber.d(DateFormatter.getInstance().format(Calendar.getInstance().getTime()));
-            worklogDomain.setCreationDate(DateFormatter.getInstance().parse(aWorklogInputEntity.getCreationDate()));
+            worklogDomain.setCreationDate(DateFormatter.getInstance().parse(aWorklogEntity.getCreationDate()));
         } catch(ParseException aE){
             aE.printStackTrace();
         }
-        worklogDomain.setTimeSpentSeconds(Integer.parseInt(aWorklogInputEntity.getTimeSpentSeconds()));
-        worklogDomain.setTimeSpent(aWorklogInputEntity.getTimeSpent());
+        worklogDomain.setTimeSpentSeconds(Integer.parseInt(aWorklogEntity.getTimeSpentSeconds()));
+        worklogDomain.setTimeSpent(aWorklogEntity.getTimeSpent());
         return worklogDomain;
     }
 

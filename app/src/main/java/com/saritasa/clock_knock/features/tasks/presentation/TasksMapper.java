@@ -20,10 +20,9 @@ public class TasksMapper{
         TasksAdapterItem tasksAdapterItem = new TasksAdapterItem();
         tasksAdapterItem.setId(aTasksDomain.getId());
         tasksAdapterItem.setName(aTasksDomain.getName());
-        tasksAdapterItem.setPriorityIconUrl(aTasksDomain.getPriorityIconUrl());
-        tasksAdapterItem.setProjectAvatarUrl(aTasksDomain.getProjectAvatarUrl());
         tasksAdapterItem.setStatus(aTasksDomain.getStatus());
         tasksAdapterItem.setSummary(aTasksDomain.getSummary());
+        tasksAdapterItem.setPriority(aTasksDomain.getPriorityId());
         return tasksAdapterItem;
     }
 

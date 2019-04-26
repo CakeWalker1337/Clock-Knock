@@ -136,7 +136,6 @@ public class TasksFragment extends BaseFragment implements TasksView{
 
     }
 
-
     @Override
     public void onDetach(){
         super.onDetach();

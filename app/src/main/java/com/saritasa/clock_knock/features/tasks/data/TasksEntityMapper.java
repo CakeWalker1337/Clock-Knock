@@ -15,19 +15,17 @@ public final class TasksEntityMapper{
     /**
      * Maps single issue object into tasks domain object.
      *
-     * @param aTasksIssueEntity issue object to map.
+     * @param aTaskEntity issue object to map.
      * @return mapped TaskDomain object.
      */
     @NonNull
-    public static TasksDomain mapEntityObjectToDomainObject(@NonNull TasksIssueEntity aTasksIssueEntity){
+    public static TasksDomain mapEntityObjectToDomainObject(@NonNull TaskEntity aTaskEntity){
         TasksDomain tasksDomain = new TasksDomain();
-        tasksDomain.setId(aTasksIssueEntity.getId());
-        tasksDomain.setName(aTasksIssueEntity.getName());
-        tasksDomain.setPriorityIconUrl(aTasksIssueEntity.getFields().getPriority().getIconUrl());
-        tasksDomain.setProjectAvatarUrl(aTasksIssueEntity.getFields().getProject().getAvatarUrls().getLargeAvatarUrl());
-        tasksDomain.setStatus(aTasksIssueEntity.getFields().getStatus().getName());
-        tasksDomain.setSummary(aTasksIssueEntity.getFields().getSummary());
-        tasksDomain.setPriorityId(Integer.parseInt(aTasksIssueEntity.getFields().getPriority().getPriorityId()));
+        tasksDomain.setId(aTaskEntity.getId());
+        tasksDomain.setName(aTaskEntity.getTitle());
+        tasksDomain.setStatus(aTaskEntity.getStatus());
+        tasksDomain.setSummary(aTaskEntity.getDescription());
+        tasksDomain.setPriorityId(aTaskEntity.getPriority());
         return tasksDomain;
     }
 
