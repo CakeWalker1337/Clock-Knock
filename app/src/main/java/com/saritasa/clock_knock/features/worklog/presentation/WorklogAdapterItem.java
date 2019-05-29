@@ -8,6 +8,7 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.saritasa.clock_knock.R;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,51 +21,18 @@ import timber.log.Timber;
  */
 public class WorklogAdapterItem extends AbstractItem<WorklogAdapterItem, WorklogAdapterItem.ViewHolder>{
 
-    private String mId;
+    private long mId;
     private String mDescription;
     private String mTimeSpent;
     private int mTimeSpentSeconds;
-
-    @Override
-    public String toString(){
-        return "WorklogAdapterItem{" +
-                "mId='" + mId + '\'' +
-                ", mDescription='" + mDescription + '\'' +
-                ", mTimeSpent='" + mTimeSpent + '\'' +
-                ", mTimeSpentSeconds=" + mTimeSpentSeconds +
-                '}';
-    }
+    private Date mCreationDate;
 
     @NonNull
     @Override
     public ViewHolder getViewHolder(final View aView){
-        Timber.d("Getting viewHolder");
         return new ViewHolder(aView);
     }
 
-    @Override
-    public boolean equals(final Object aObject){
-        if(this == aObject){
-            return true;
-        }
-        if(aObject == null || getClass() != aObject.getClass()){
-            return false;
-        }
-        if(!super.equals(aObject)){
-            return false;
-        }
-        WorklogAdapterItem that = (WorklogAdapterItem) aObject;
-        return mTimeSpentSeconds == that.mTimeSpentSeconds &&
-                Objects.equals(mId, that.mId) &&
-                Objects.equals(mDescription, that.mDescription) &&
-                Objects.equals(mTimeSpent, that.mTimeSpent);
-    }
-
-    @Override
-    public int hashCode(){
-
-        return Objects.hash(super.hashCode(), mId, mDescription, mTimeSpent, mTimeSpentSeconds);
-    }
 
     @Override
     public int getType(){
@@ -81,8 +49,7 @@ public class WorklogAdapterItem extends AbstractItem<WorklogAdapterItem, Worklog
      *
      * @return id of worklog.
      */
-    @NonNull
-    public String getId(){
+    public long getId(){
         return mId;
     }
 
@@ -91,7 +58,7 @@ public class WorklogAdapterItem extends AbstractItem<WorklogAdapterItem, Worklog
      *
      * @param aId id of worklog.
      */
-    public void setId(@NonNull final String aId){
+    public void setId(final long aId){
         mId = aId;
     }
 
@@ -150,6 +117,48 @@ public class WorklogAdapterItem extends AbstractItem<WorklogAdapterItem, Worklog
     public void setTimeSpentSeconds(final int aTimeSpentSeconds){
         mTimeSpentSeconds = aTimeSpentSeconds;
     }
+
+    public Date getCreationDate(){
+        return mCreationDate;
+    }
+
+    public void setCreationDate(final Date aCreationDate){
+        mCreationDate = aCreationDate;
+    }
+
+    @Override
+    public boolean equals(final Object aObject){
+        if(this == aObject){
+            return true;
+        }
+        if(!(aObject instanceof WorklogAdapterItem)){
+            return false;
+        }
+        if(!super.equals(aObject)){
+            return false;
+        }
+        WorklogAdapterItem that = (WorklogAdapterItem) aObject;
+        return getId() == that.getId() &&
+                getTimeSpentSeconds() == that.getTimeSpentSeconds() &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getTimeSpent(), that.getTimeSpent());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(super.hashCode(), getId(), getDescription(), getTimeSpent(), getTimeSpentSeconds());
+    }
+
+    @Override
+    public String toString(){
+        return "WorklogAdapterItem{" +
+                "mId=" + mId +
+                ", mDescription='" + mDescription + '\'' +
+                ", mTimeSpent='" + mTimeSpent + '\'' +
+                ", mTimeSpentSeconds=" + mTimeSpentSeconds +
+                '}';
+    }
+
 
     /**
      * ViewHolder class for FastAdapter

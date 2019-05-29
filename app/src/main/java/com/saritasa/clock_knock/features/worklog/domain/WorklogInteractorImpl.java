@@ -6,12 +6,19 @@ import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
 import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.worklog.data.WorklogRepository;
 import com.saritasa.clock_knock.util.Constants;
+import com.saritasa.clock_knock.util.DateTimeFormatter;
 import com.saritasa.clock_knock.util.Strings;
 
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+
+import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Interactor class of worklog module. Processes data which comes from the data layer.
@@ -20,7 +27,6 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
 
     public static final int LESS = -1;
     public static final int MORE = 1;
-    public static final String USER_NAME = "maxim.kovalev";
 
     private SessionRepository mSessionRepository;
 
@@ -34,28 +40,32 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
 
     @NonNull
     @Override
-    public Observable<WorklogDomain> loadWorklog(final String aTaskKey){
-        return mRepository.loadWorklog(aTaskKey)
-                .filter(aWorklogDomain -> aWorklogDomain.getAuthorsKey().equals(mRepository.getUsername()))
-                .filter(aWorklogDomain -> aWorklogDomain.getCreationDate() != null)
-                .sorted((aWorklogDomain1, aWorklogDomain2) -> {
-                    if(aWorklogDomain1.getCreationDate().after(aWorklogDomain2.getCreationDate())){
-                        return LESS;
-                    }
-                    return MORE;
-                });
-    }
+    public ArrayList<WorklogDomain> loadWorklog(final long aTaskId){
+        ArrayList<WorklogDomain> worklogDomains = mRepository.loadWorklog(aTaskId);
 
-    @NonNull
-    @Override
-    public Maybe<WorklogDomain> createWorklog(@NonNull String aTaskKey, @NonNull final WorklogDomain aWorklogDomain){
-        return mRepository.createWorklog(aTaskKey, aWorklogDomain)
-                .filter(aDomain -> aDomain.getCreationDate() != null);
+        Collections.sort(worklogDomains, (aWorklogDomain1, aWorklogDomain2) -> {
+            if(aWorklogDomain1.getCreationDate().after(aWorklogDomain2.getCreationDate())){
+                return LESS;
+            }
+            return MORE;
+        });
+        return worklogDomains;
     }
 
     @Override
-    public void saveWorklog(@NonNull String aTaskKey, @NonNull final WorklogDomain aWorklogDomain){
-        mRepository.saveWorklog(aTaskKey, aWorklogDomain);
+    public long createWorklog(long aTaskId, @NonNull final WorklogDomain aWorklogDomain){
+        return mRepository.createWorklog(aTaskId, aWorklogDomain);
+    }
+
+    @Override
+    public int updateWorklog(long aTaskId, @NonNull final WorklogDomain aWorklogDomain){
+
+        return mRepository.updateWorklog(aTaskId, aWorklogDomain);
+    }
+
+    @Override
+    public int deleteWorklog(long aTaskId, @NonNull final WorklogDomain aWorklogDomain){
+        return mRepository.deleteWorklog(aTaskId, aWorklogDomain);
     }
 
     @Override
@@ -84,10 +94,11 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
     }
 
     @Override
-    public long saveTimerData(@NonNull final String aTaskKey){
+    public long saveTimerData(long aTaskId, @NonNull final String aTaskKey){
         long timestamp = System.currentTimeMillis();
         mSessionRepository.saveStartTimestamp(timestamp);
-        mSessionRepository.saveTaskId(aTaskKey);
+        mSessionRepository.saveTaskId(aTaskId);
+        mSessionRepository.saveTaskKey(aTaskKey);
         return timestamp;
     }
 
@@ -97,7 +108,7 @@ public class WorklogInteractorImpl extends BaseInteractorImpl<WorklogRepository>
     }
 
     @Override
-    public String getTimerTask(){
+    public long getTimerTask(){
         return mSessionRepository.getTaskId();
     }
 }

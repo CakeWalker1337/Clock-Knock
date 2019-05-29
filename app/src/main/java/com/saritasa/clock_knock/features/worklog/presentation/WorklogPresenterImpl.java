@@ -1,18 +1,21 @@
 package com.saritasa.clock_knock.features.worklog.presentation;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.saritasa.clock_knock.base.presentation.BasePresenterImpl;
+import com.saritasa.clock_knock.features.worklog.domain.WorklogDomain;
 import com.saritasa.clock_knock.features.worklog.domain.WorklogInteractor;
+import com.saritasa.clock_knock.util.DateTimeFormatter;
 import com.saritasa.clock_knock.util.Strings;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import okhttp3.Interceptor;
 import timber.log.Timber;
 
 /**
@@ -41,40 +44,77 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     }
 
     @Override
-    public void onDataRequest(@NonNull final String aTaskKey){
-        getViewState().showLoadingProgress();
+    public void onDataRequest(long aTaskId, @NonNull final String aTaskKey){
         getViewState().updateActivityTitle(aTaskKey);
-        Disposable disposable = mWorklogInteractor.loadWorklog(aTaskKey)
-                .map(WorklogMapper::mapWorklogDomainToWorklogAdapterItem)
-                .toList()
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> getViewState().hideLoadingProgress())
-                .subscribe(this::handleLoadWorklogsSuccess,
-                           this::handleLoadWorklogsError);
-        unsubscribeOnDestroy(disposable);
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            ArrayList<WorklogDomain> worklogDomains = mWorklogInteractor.loadWorklog(aTaskId);
+            ArrayList<WorklogAdapterItem> worklogAdapterItems = new ArrayList<>();
+            for(WorklogDomain worklogDomain : worklogDomains){
+                WorklogAdapterItem item = WorklogMapper.mapWorklogDomainToWorklogAdapterItem(worklogDomain);
+                item.setTimeSpent(DateTimeFormatter.longTimeSecondsToText(item.getTimeSpentSeconds()));
+                worklogAdapterItems.add(item);
+            }
+            worklogDomains.clear();
+
+            getViewState().runTaskOnUiThread(() -> handleLoadWorklogsSuccess(worklogAdapterItems));
+        });
     }
 
     @Override
-    public void onTimerStopped(@NonNull String aTaskKey, @NonNull String aDescription, int aTimeSpentSeconds){
-        getViewState().showLoadingProgress();
-        WorklogAdapterItem adapterItem = new WorklogAdapterItem();
-        adapterItem.setDescription(aDescription);
-        adapterItem.setTimeSpentSeconds(aTimeSpentSeconds);
-        Disposable disposable = mWorklogInteractor.createWorklog(aTaskKey, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(adapterItem))
-                .map(WorklogMapper::mapWorklogDomainToWorklogAdapterItem)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> getViewState().hideLoadingProgress())
-                .subscribe(this::handleCreateWorklogSuccess, this::handleCreateWorklogError, () -> {
-                    throw new Exception("Worklog fetching error.");
-                });
-        unsubscribeOnDestroy(disposable);
+    public void onWorklogAdd(long aTaskId, @NonNull String aDescription, int aTimeSpentSeconds){
+        WorklogAdapterItem worklogAdapterItem = new WorklogAdapterItem();
+        worklogAdapterItem.setDescription(aDescription);
+        worklogAdapterItem.setTimeSpentSeconds(aTimeSpentSeconds);
+        worklogAdapterItem.setTimeSpent(DateTimeFormatter.longTimeSecondsToText(aTimeSpentSeconds));
+        worklogAdapterItem.setCreationDate(Calendar.getInstance().getTime());
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            long id = mWorklogInteractor.createWorklog(aTaskId, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(worklogAdapterItem));
 
-        mWorklogInteractor.clearTimerData();
+            getViewState().runTaskOnUiThread(() -> {
+                worklogAdapterItem.setId(id);
+                mWorklogInteractor.clearTimerData();
+                getViewState().addWorklogToList(worklogAdapterItem);
+            });
+        });
     }
 
     @Override
-    public void onWorklogClicked(@NonNull String aTaskKey, @NonNull WorklogAdapterItem aWorklogAdapterItem){
-        mWorklogInteractor.saveWorklog(aTaskKey, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(aWorklogAdapterItem));
+    public void onWorklogEdit(int aPosition, WorklogAdapterItem aOldItem, long aTaskId, @NonNull String aDescription, int aTimeSpentSeconds){
+        aOldItem.setDescription(aDescription);
+        aOldItem.setTimeSpentSeconds(aTimeSpentSeconds);
+        aOldItem.setTimeSpent(DateTimeFormatter.longTimeSecondsToText(aTimeSpentSeconds));
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            int result = mWorklogInteractor.updateWorklog(aTaskId, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(aOldItem));
+
+            getViewState().runTaskOnUiThread(() -> {
+                if(result == 0){
+                    getViewState().showErrorMessage("Error in worklog editing!");
+                    return;
+                }
+                getViewState().editWorklogInList(aPosition, aOldItem);
+            });
+
+        });
+    }
+
+    @Override
+    public void onWorklogDelete(final int aPosition, long aTaskId, @NonNull final WorklogAdapterItem aWorklogItem){
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            int result = mWorklogInteractor.deleteWorklog(aTaskId, WorklogMapper.mapWorklogDomainFromWorklogAdapterItem(aWorklogItem));
+            getViewState().runTaskOnUiThread(() -> {
+                if(result == 0){
+                    getViewState().showErrorMessage("Error in worklog deleting!");
+                    return;
+                }
+                getViewState().removeWorklogFromList(aPosition);
+            });
+        });
     }
 
     @Override
@@ -99,8 +139,8 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     }
 
     @Override
-    public void onStartButtonClicked(@NonNull String aTaskKey){
-        long timestamp = mWorklogInteractor.saveTimerData(aTaskKey);
+    public void onStartButtonClicked(long aTaskId, @NonNull String aTaskKey){
+        long timestamp = mWorklogInteractor.saveTimerData(aTaskId, aTaskKey);
         getViewState().startTimer(timestamp);
     }
 
@@ -111,14 +151,13 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
 
     @Override
     public void onActionGot(@NonNull final String aAction){
-        if (aAction.equals(Strings.STOP_TIMER_ACTION)) {
+        if(aAction.equals(Strings.STOP_TIMER_ACTION)){
             getViewState().tryToStopTimer();
         }
     }
 
-    @Nullable
     @Override
-    public String getTimerTask(){
+    public long getTimerTask(){
         return mWorklogInteractor.getTimerTask();
     }
 
@@ -129,16 +168,13 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
      */
     private void handleLoadWorklogsSuccess(@NonNull List<WorklogAdapterItem> aWorklogAdapterItems){
         if(aWorklogAdapterItems.isEmpty()){
-
-            Timber.d("Array is empty");
             getViewState().showNoWorklogMessageView();
             getViewState().hideWorklogView();
         } else{
             getViewState().showWorklogView();
             getViewState().hideNoWorklogMessageView();
         }
-        Timber.d("Worklog was loaded");
-        getViewState().updateWorklogList(aWorklogAdapterItems);
+        getViewState().setWorklogList(aWorklogAdapterItems);
     }
 
     /**
@@ -146,29 +182,7 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
      *
      * @param aThrowable exception.
      */
-    private void handleLoadWorklogsError(@NonNull Throwable aThrowable){
-        Timber.e(aThrowable);
-        getViewState().showErrorMessage(aThrowable.getMessage());
-    }
-
-    /**
-     * Updates recyclerview items. Calls only on success.
-     *
-     * @param aWorklogAdapterItem new list of data
-     */
-    private void handleCreateWorklogSuccess(@NonNull WorklogAdapterItem aWorklogAdapterItem){
-        getViewState().showWorklogView();
-        getViewState().hideNoWorklogMessageView();
-        Timber.d("Worklog was loaded");
-        getViewState().addWorklogToList(aWorklogAdapterItem);
-    }
-
-    /**
-     * Shows information about error. Calls only on failure.
-     *
-     * @param aThrowable exception.
-     */
-    private void handleCreateWorklogError(@NonNull Throwable aThrowable){
+    private void handleError(@NonNull Throwable aThrowable){
         Timber.e(aThrowable);
         getViewState().showErrorMessage(aThrowable.getMessage());
     }

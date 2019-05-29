@@ -1,7 +1,6 @@
 package com.saritasa.clock_knock.features.worklog.domain;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.util.Date;
 import java.util.Objects;
@@ -11,44 +10,38 @@ import java.util.Objects;
  */
 public class WorklogDomain{
 
-    private String mId;
-    private String mComment;
+    private long mId;
+    private String mDescription;
     private Date mCreationDate;
-    private String mTimeSpent;
     private int mTimeSpentSeconds;
-    private String mAuthorsKey;
 
     @Override
-    public int hashCode(){
-        return Objects.hash(mId, mComment, mCreationDate, mTimeSpent, mTimeSpentSeconds, mAuthorsKey);
-    }
-
-    @Override
-    public boolean equals(@Nullable final Object aObject){
+    public boolean equals(final Object aObject){
         if(this == aObject){
             return true;
         }
-        if(aObject == null || getClass() != aObject.getClass()){
+        if(!(aObject instanceof WorklogDomain)){
             return false;
         }
         WorklogDomain that = (WorklogDomain) aObject;
-        return Objects.equals(mId, that.mId) &&
-                Objects.equals(mComment, that.mComment) &&
-                Objects.equals(mCreationDate, that.mCreationDate) &&
-                Objects.equals(mTimeSpent, that.mTimeSpent) &&
-                Objects.equals(mTimeSpentSeconds, that.mTimeSpentSeconds) &&
-                Objects.equals(mAuthorsKey, that.mAuthorsKey);
+        return getId() == that.getId() &&
+                getTimeSpentSeconds() == that.getTimeSpentSeconds() &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getCreationDate(), that.getCreationDate());
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(getId(), getDescription(), getCreationDate(), getTimeSpentSeconds());
     }
 
     @Override
     public String toString(){
         return "WorklogDomain{" +
-                "mId='" + mId + '\'' +
-                ", mComment='" + mComment + '\'' +
-                ", mCreationDate='" + mCreationDate + '\'' +
-                ", mTimeSpent='" + mTimeSpent + '\'' +
-                ", mTimeSpentSeconds='" + mTimeSpentSeconds + '\'' +
-                ", mAuthorsKey='" + mAuthorsKey + '\'' +
+                "mId=" + mId +
+                ", mDescription='" + mDescription + '\'' +
+                ", mCreationDate=" + mCreationDate +
+                ", mTimeSpentSeconds=" + mTimeSpentSeconds +
                 '}';
     }
 
@@ -57,8 +50,7 @@ public class WorklogDomain{
      *
      * @return id of worklog.
      */
-    @NonNull
-    public String getId(){
+    public long getId(){
         return mId;
     }
 
@@ -67,7 +59,7 @@ public class WorklogDomain{
      *
      * @param aId id of worklog.
      */
-    public void setId(@NonNull final String aId){
+    public void setId(final long aId){
         mId = aId;
     }
 
@@ -77,8 +69,8 @@ public class WorklogDomain{
      * @return description (comment) of worklog.
      */
     @NonNull
-    public String getComment(){
-        return mComment;
+    public String getDescription(){
+        return mDescription;
     }
 
     /**
@@ -86,8 +78,8 @@ public class WorklogDomain{
      *
      * @param aComment description (comment) of worklog.
      */
-    public void setComment(@NonNull final String aComment){
-        mComment = aComment;
+    public void setDescription(@NonNull final String aComment){
+        mDescription = aComment;
     }
 
     /**
@@ -110,25 +102,6 @@ public class WorklogDomain{
     }
 
     /**
-     * Gets time spent on work in the worklog object.
-     *
-     * @return time spent on work in the worklog object.
-     */
-    @NonNull
-    public String getTimeSpent(){
-        return mTimeSpent;
-    }
-
-    /**
-     * Gets time spent on work in the worklog object.
-     *
-     * @param aTimeSpent time spent on work in the worklog object.
-     */
-    public void setTimeSpent(@NonNull final String aTimeSpent){
-        mTimeSpent = aTimeSpent;
-    }
-
-    /**
      * Gets time spent on work in the worklog object in seconds.
      *
      * @return time spent on work in the worklog object in seconds.
@@ -144,24 +117,5 @@ public class WorklogDomain{
      */
     public void setTimeSpentSeconds(final int aTimeSpentSeconds){
         mTimeSpentSeconds = aTimeSpentSeconds;
-    }
-
-    /**
-     * Gets author's key of worklog object.
-     *
-     * @return author's key.
-     */
-    @NonNull
-    public String getAuthorsKey(){
-        return mAuthorsKey;
-    }
-
-    /**
-     * Sets author's key of worklog object.
-     *
-     * @param aAuthor author's key of worklog object.
-     */
-    public void setAuthorsKey(@NonNull final String aAuthor){
-        mAuthorsKey = aAuthor;
     }
 }

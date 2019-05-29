@@ -9,7 +9,9 @@ import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.worklog.domain.WorklogDomain;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
@@ -36,41 +38,35 @@ public class WorklogRepositoryImpl extends BaseRepositoryImpl implements Worklog
 
     @NonNull
     @Override
-    public Observable<WorklogDomain> loadWorklog(@NonNull final String aTaskKey){
-        return mAppDatabase.getWorklogDao().getAllWorklogsByTaskId(aTaskKey)
-                .map(WorklogEntityMapper::mapWorklogEntityToWorklogDomain);
+    public ArrayList<WorklogDomain> loadWorklog(long aTaskId){
+        List<WorklogEntity> worklogEntities = mAppDatabase.getWorklogDao().getAllWorklogsByTaskId(aTaskId);
+
+        ArrayList<WorklogDomain> worklogDomains = new ArrayList<>();
+        for(WorklogEntity worklogEntity : worklogEntities){
+            worklogDomains.add(WorklogEntityMapper.mapWorklogEntityToWorklogDomain(worklogEntity));
+        }
+        worklogEntities.clear();
+        return worklogDomains;
     }
 
-    @NonNull
     @Override
-    public Single<WorklogDomain> createWorklog(@NonNull String aTaskKey, @NonNull final WorklogDomain aWorklogDomain){
-        WorklogOutputEntity worklogOutputEntity = WorklogEntityMapper.mapWorklogEntityFromWorklogDomain(aWorklogDomain);
-        String jsonObject = WorklogEntityMapper.mapWorklogEntityToJsonObject(worklogOutputEntity);
-        return
-                mAppDatabase.addWorklog(aTaskKey, jsonObject)
-                        //getTestApiWorklogInput(worklogOutputEntity)
-                        .map(aResponseEntityResponse -> {
-                            if(!aResponseEntityResponse.isSuccessful()){
-                                throw new Exception("Error while fetching worklog list.");
-                            }
-                            return aResponseEntityResponse.body();
-                        }).map(WorklogEntityMapper::mapWorklogEntityToWorklogDomain);
-
+    public long createWorklog(long aTaskId, @NonNull final WorklogDomain aWorklogDomain){
+        WorklogEntity worklogEntity = WorklogEntityMapper.mapWorklogEntityFromWorklogDomain(aWorklogDomain);
+        worklogEntity.setTaskId(aTaskId);
+        return mAppDatabase.getWorklogDao().createWorklog(worklogEntity);
     }
 
-    @NonNull
     @Override
-    public void saveWorklog(@NonNull final String aTaskKey, @NonNull final WorklogDomain aWorklogDomain){
-        WorklogOutputEntity worklogOutputEntity = WorklogEntityMapper.mapWorklogEntityFromWorklogDomain(aWorklogDomain);
-        String jsonObject = WorklogEntityMapper.mapWorklogEntityToJsonObject(worklogOutputEntity);
-        Timber.d("Sending json: " + jsonObject);
-        Single<Response<ResponseBody>> single = mAppDatabase.updateWorklog(aTaskKey, worklogOutputEntity.getId(), jsonObject);
-        single.subscribe(aResponseBodyResponse -> {
-            if(aResponseBodyResponse.isSuccessful()){
-                Timber.d("Success");
-            } else{
-                Timber.d("Error " + aResponseBodyResponse.code());
-            }
-        }, Timber::e);
+    public int updateWorklog(long aTaskId, @NonNull final WorklogDomain aWorklogDomain){
+        WorklogEntity worklogEntity = WorklogEntityMapper.mapWorklogEntityFromWorklogDomain(aWorklogDomain);
+        worklogEntity.setTaskId(aTaskId);
+        return mAppDatabase.getWorklogDao().updateWorklog(worklogEntity);
+    }
+
+    @Override
+    public int deleteWorklog(long aTaskId, @NonNull final WorklogDomain aWorklogDomain){
+        WorklogEntity worklogEntity = WorklogEntityMapper.mapWorklogEntityFromWorklogDomain(aWorklogDomain);
+        worklogEntity.setTaskId(aTaskId);
+        return mAppDatabase.getWorklogDao().deleteWorklog(worklogEntity);
     }
 }

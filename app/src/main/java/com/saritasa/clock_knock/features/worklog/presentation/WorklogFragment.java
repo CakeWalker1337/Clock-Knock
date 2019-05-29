@@ -14,7 +14,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -22,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.mikepenz.fastadapter.FastAdapter;
@@ -53,6 +57,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     boolean isTimerStarted = false;
 
     String mTaskKey;
+    long mTaskId;
 
     private Intent mServiceIntent;
 
@@ -71,6 +76,10 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     @BindView(R.id.tvTime)
     TextView mTimeTextView;
 
+    private WorklogAdapterItem mChosenItem;
+
+    private int mChosenPosition;
+
     private ItemAdapter<WorklogAdapterItem> mItemAdapter;
 
     @Override
@@ -85,7 +94,6 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     @Override
     public void onAttach(final Context aContext){
         super.onAttach(aContext);
-        Timber.d("Attached");
     }
 
     @Nullable
@@ -94,10 +102,10 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         return aInflater.inflate(R.layout.fragment_worklog, aContainer, false);
     }
 
-    public static WorklogFragment newInstance(@Nullable String aTaskId, @Nullable String aAction){
-
+    public static WorklogFragment newInstance(long aTaskId, @Nullable String aTaskKey, @Nullable String aAction){
         Bundle args = new Bundle();
-        args.putString(Strings.TASK_ID_EXTRA, aTaskId);
+        args.putLong(Strings.TASK_ID_EXTRA, aTaskId);
+        args.putString(Strings.TASK_KEY_EXTRA, aTaskKey);
         args.putString(Strings.ACTION_EXTRA, aAction);
 
         WorklogFragment worklogFragmentatFragment = new WorklogFragment();
@@ -128,14 +136,15 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         mItemAdapter = new ItemAdapter<>();
         FastAdapter<WorklogAdapterItem> adapter = FastAdapter.with(mItemAdapter);
 
-        adapter.withOnClickListener((aView1, aAdapter, aItem, aPosition) -> {
-            onWorklogClicked(aItem);
+        adapter.withOnLongClickListener((aView1, aAdapter, aItem, aPosition) -> {
+            mChosenItem = aItem;
+            mChosenPosition = aPosition;
             return false;
         });
 
         initializeServiceConnection();
 
-        if(mWorklogPresenter.isTimerActive() && mWorklogPresenter.getTimerTask().equals(mTaskKey)){
+        if(mWorklogPresenter.isTimerActive() && mWorklogPresenter.getTimerTask() == mTaskId){
             bindService();
             mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_pause_circle_24dp));
             isTimerStarted = true;
@@ -144,16 +153,16 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         mTimerButton.setOnClickListener(aView -> {
 
             if(!isTimerStarted){
-                mWorklogPresenter.onStartButtonClicked(mTaskKey);
+                mWorklogPresenter.onStartButtonClicked(mTaskId, mTaskKey);
             } else{
                 mWorklogPresenter.onStopButtonClicked();
             }
         });
 
         mWorklogRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        registerForContextMenu(mWorklogRecyclerView);
         mWorklogRecyclerView.setAdapter(adapter);
-        onDataRequest(mTaskKey);
+        onDataRequest(mTaskId, mTaskKey);
     }
 
     /**
@@ -165,9 +174,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
             @Override
             public void onServiceConnected(final ComponentName aComponentName, final IBinder aIBinder){
                 mTimerServiceBinder = (TimerServiceBinder) aIBinder;
-                mTimerServiceBinder.setTimerListener(aTime -> {
-                    mWorklogPresenter.onTimerTicked(aTime);
-                });
+                mTimerServiceBinder.setTimerListener(aTime -> mWorklogPresenter.onTimerTicked(aTime));
             }
 
             @Override
@@ -186,7 +193,6 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     public void onViewCreated(View aView, @Nullable Bundle aSavedInstanceState){
         super.onViewCreated(aView, aSavedInstanceState);
 
-        Timber.d("Fragment created");
     }
 
     @Override
@@ -227,13 +233,22 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
 
     @Override
     public void showErrorMessage(@NonNull final String aMessage){
-        Snackbar.make(getView(), aMessage, Snackbar.LENGTH_LONG);
+        Toast.makeText(getContext(), aMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void updateWorklogList(@NonNull final List<WorklogAdapterItem> aTasksDomains){
+    public void setWorklogList(@NonNull final List<WorklogAdapterItem> aTasksDomains){
+        mItemAdapter.clear();
         mItemAdapter.add(aTasksDomains);
         mItemAdapter.getFastAdapter().notifyAdapterDataSetChanged();
+
+        if(mItemAdapter.getAdapterItemCount() > 0){
+            hideNoWorklogMessageView();
+            showWorklogView();
+        } else{
+            hideWorklogView();
+            showNoWorklogMessageView();
+        }
     }
 
     @Override
@@ -251,13 +266,36 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     @Override
     public void addWorklogToList(@NonNull final WorklogAdapterItem aWorklogAdapterItem){
         mItemAdapter.add(0, aWorklogAdapterItem);
+        mItemAdapter.getFastAdapter().notifyAdapterDataSetChanged();
+
+        if(mItemAdapter.getAdapterItemCount() > 0){
+            hideNoWorklogMessageView();
+            showWorklogView();
+        }
+    }
+
+    @Override
+    public void editWorklogInList(final int aPosition, @NonNull final WorklogAdapterItem aWorklogAdapterItem){
+        mItemAdapter.set(aPosition, aWorklogAdapterItem);
+        mItemAdapter.getFastAdapter().notifyAdapterDataSetChanged();
+    }
+
+    @Override
+    public void removeWorklogFromList(final int aPosition){
+        mItemAdapter.remove(aPosition);
+        mItemAdapter.getFastAdapter().notifyAdapterDataSetChanged();
+
+        if(mItemAdapter.getAdapterItemCount() == 0){
+            hideWorklogView();
+            showNoWorklogMessageView();
+        }
     }
 
     @Override
     public void setTimeToTimer(final String aTime){
-
-        getActivity().runOnUiThread(() -> mTimeTextView.setText(aTime));
-
+        if(getActivity() != null){
+            getActivity().runOnUiThread(() -> mTimeTextView.setText(aTime));
+        }
     }
 
     @Override
@@ -291,9 +329,9 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         builder.setPositiveButton(
                 "Create",
                 (dialog, id) -> {
-                    mWorklogPresenter.onTimerStopped(mTaskKey,
-                                                     description.getText().toString(),
-                                                     timePicker.getHour() * Constants.ONE_HOUR_SEC + timePicker.getMinute() * Constants.ONE_MINUTE_SEC);
+                    mWorklogPresenter.onWorklogAdd(mTaskId,
+                                                   description.getText().toString(),
+                                                   timePicker.getHour() * Constants.ONE_HOUR_SEC + timePicker.getMinute() * Constants.ONE_MINUTE_SEC);
                     isTimerStarted = false;
                     mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_play_circle_24dp));
                     setTimeToTimer(getString(R.string.default_time_string));
@@ -311,10 +349,8 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
 
     /**
      * Method calls when worklog item has been clicked.
-     *
-     * @param aWorklogAdapterItem worklog item which has been clicked.
      */
-    public void onWorklogClicked(@NonNull WorklogAdapterItem aWorklogAdapterItem){
+    public void showEditWorklogAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater layoutInflater = this.getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_worklog, null);
@@ -323,14 +359,19 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         timePicker.setIs24HourView(true);
         builder.setView(view);
         builder.setCancelable(true);
-        int seconds = aWorklogAdapterItem.getTimeSpentSeconds();
+        int seconds = mChosenItem.getTimeSpentSeconds();
         timePicker.setHour(seconds / 3600);
         timePicker.setMinute((seconds % 3600) / 60);
-        descriptionEditText.setText(aWorklogAdapterItem.getDescription());
+        descriptionEditText.setText(mChosenItem.getDescription());
         builder.setPositiveButton(
                 "Save",
                 (dialog, id) -> {
-                    mWorklogPresenter.onWorklogClicked(mTaskKey, aWorklogAdapterItem);
+                    mWorklogPresenter.onWorklogEdit(mChosenPosition,
+                                                    mChosenItem,
+                                                    mTaskId,
+                                                    descriptionEditText.getText().toString(),
+                                                    timePicker.getHour() * Constants.ONE_HOUR_SEC + timePicker.getMinute() * Constants.ONE_MINUTE_SEC);
+
                     dialog.cancel();
                 });
 
@@ -345,10 +386,10 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     /**
      * On data request
      *
-     * @param aTaskKey Task id string
+     * @param aTaskId Task id string
      */
-    public void onDataRequest(@NonNull String aTaskKey){
-        mWorklogPresenter.onDataRequest(aTaskKey);
+    public void onDataRequest(long aTaskId, String aTaskKey){
+        mWorklogPresenter.onDataRequest(aTaskId, aTaskKey);
     }
 
     /**
@@ -358,7 +399,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
      * @param aTimestamp Timestamp value
      */
     public void startService(String aTaskKey, long aTimestamp){
-        mServiceIntent = TimerService.newIntent(getContext(), Strings.START_SERVICE_ACTION, aTaskKey, aTimestamp);
+        mServiceIntent = TimerService.newIntent(getContext(), Strings.START_SERVICE_ACTION, mTaskId, aTaskKey, aTimestamp);
         getActivity().startService(mServiceIntent);
     }
 
@@ -397,8 +438,42 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
      */
     @Nullable
     public String getExtraValues(){
-        mTaskKey = getArguments().getString(Strings.TASK_ID_EXTRA);
+        mTaskId = getArguments().getLong(Strings.TASK_ID_EXTRA);
+        mTaskKey = getArguments().getString(Strings.TASK_KEY_EXTRA);
         String action = getArguments().getString(Strings.ACTION_EXTRA);
         return action;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.item_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.edit:
+                showEditWorklogAlertDialog();
+                break;
+            case R.id.delete:
+                mWorklogPresenter.onWorklogDelete(mChosenPosition, mTaskId, mChosenItem);
+                break;
+
+            default:
+                mChosenItem = null;
+                mChosenPosition = -1;
+                return super.onContextItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public void runTaskOnUiThread(final Runnable aRunnable){
+        if(getActivity() != null){
+            getActivity().runOnUiThread(aRunnable);
+        }
     }
 }

@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import com.saritasa.clock_knock.base.presentation.BasePresenter;
 import com.saritasa.clock_knock.base.presentation.BaseView;
 
+import java.util.Date;
+
 /**
  * Presenter interface provides worklog methods to presenter object.
  *
@@ -16,24 +18,25 @@ public interface WorklogPresenter<VIEW extends BaseView> extends BasePresenter<V
     /**
      * Loads tasks from API and throws it into presenter through ViewState.
      */
-    void onDataRequest(@NonNull String aTaskKey);
+    void onDataRequest(long aTaskId, @NonNull String aTaskKey);
 
     /**
      * Method calls when timer stop button has clicked.
      *
-     * @param aTaskKey task key (Ex: MISC-303)
+     * @param aTaskId task key (Ex: MISC-303)
      * @param aDescription description of the worklog
      * @param aTimeSpentSeconds time displays on the timer in seconds.
      */
-    void onTimerStopped(@NonNull String aTaskKey, @NonNull String aDescription, int aTimeSpentSeconds);
+    void onWorklogAdd(long aTaskId, @NonNull String aDescription, int aTimeSpentSeconds);
 
     /**
      * Method calls when worklog item has been clicked.
      *
-     * @param aTaskKey task key (Ex: MISC-303)
-     * @param aWorklogAdapterItem worklog item which has been clicked.
+     * @param aTaskId task key (Ex: MISC-303)
      */
-    void onWorklogClicked(@NonNull String aTaskKey, @NonNull WorklogAdapterItem aWorklogAdapterItem);
+    void onWorklogEdit(int aPosition, WorklogAdapterItem aOldItem, long aTaskId, @NonNull String aDescription, int aTimeSpentSeconds);
+
+    void onWorklogDelete(int aPosition, long aTaskId, @NonNull WorklogAdapterItem aWorklogItem);
 
     /**
      * Checks timer activity
@@ -68,7 +71,7 @@ public interface WorklogPresenter<VIEW extends BaseView> extends BasePresenter<V
      *
      * @param aTaskKey Task id string
      */
-    void onStartButtonClicked(@NonNull String aTaskKey);
+    void onStartButtonClicked(long aTaskId, @NonNull String aTaskKey);
 
     /**
      * Calls when stop button is clicked
@@ -87,6 +90,5 @@ public interface WorklogPresenter<VIEW extends BaseView> extends BasePresenter<V
      *
      * @return Taks id string
      */
-    @Nullable
-    String getTimerTask();
+    long getTimerTask();
 }

@@ -51,7 +51,7 @@ public interface WorklogView extends BaseView{
      *
      * @param aWorklogDomains new list of data.
      */
-    void updateWorklogList(@NonNull List<WorklogAdapterItem> aWorklogDomains);
+    void setWorklogList(@NonNull List<WorklogAdapterItem> aWorklogDomains);
 
     /**
      * Updates activity title.
@@ -66,6 +66,10 @@ public interface WorklogView extends BaseView{
      * @param aWorklogAdapterItem worklog adapter item object.
      */
     void addWorklogToList(@NonNull WorklogAdapterItem aWorklogAdapterItem);
+
+    void editWorklogInList(int aPosition, @NonNull WorklogAdapterItem aWorklogAdapterItem);
+
+    void removeWorklogFromList(int aPosition);
 
     /**
      * Sets time string to timer
