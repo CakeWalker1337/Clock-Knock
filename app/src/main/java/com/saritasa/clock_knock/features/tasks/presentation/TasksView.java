@@ -17,11 +17,6 @@ public interface TasksView extends BaseView{
     void showTasksView();
 
     /**
-     * Shows ProgressBar in the middle of the screen.
-     */
-    void showLoadingProgress();
-
-    /**
      * Shows TextView with text means "nothing to show" in the middle of the screen.
      */
     void showNoTasksMessageView();
@@ -30,11 +25,6 @@ public interface TasksView extends BaseView{
      * Hides recycler view with tasks.
      */
     void hideTasksView();
-
-    /**
-     * Hides ProgressBar in the middle of the screen.
-     */
-    void hideLoadingProgress();
 
     /**
      * Hides TextView with text means "nothing to show" in the middle of the screen.
@@ -54,4 +44,10 @@ public interface TasksView extends BaseView{
      * @param aTasksDomains New list of data.
      */
     void updateTaskList(@NonNull List<TasksAdapterItem> aTasksDomains);
+
+    void addTaskToList(@NonNull TasksAdapterItem aTaskItem);
+
+    void removeTaskFromList(int aPosition);
+
+    void editTaskInList(@NonNull TasksAdapterItem aTaskItem, int aPosition);
 }

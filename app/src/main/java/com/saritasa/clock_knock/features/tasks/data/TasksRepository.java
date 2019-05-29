@@ -5,7 +5,11 @@ import android.support.annotation.NonNull;
 import com.saritasa.clock_knock.base.data.BaseRepository;
 import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
+import java.util.ArrayList;
+
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Interface for Repository of tasks feature.
@@ -19,6 +23,11 @@ public interface TasksRepository extends BaseRepository{
      * @return Observable with domain objects.
      */
     @NonNull
-    Observable<TasksDomain> loadTasks();
+    ArrayList<TasksDomain> loadTasks();
 
+    long createTask(TasksDomain aTasksDomain);
+
+    int updateTask(TasksDomain aTasksDomain);
+
+    int deleteTask(TasksDomain aTasksDomain);
 }

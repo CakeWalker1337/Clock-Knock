@@ -26,4 +26,14 @@ public class TasksMapper{
         return tasksAdapterItem;
     }
 
+    public static TasksDomain mapTasksAdapterItemToTasksDomain(@NonNull TasksAdapterItem aTasksAdapterItem){
+        TasksDomain tasksDomain = new TasksDomain();
+        tasksDomain.setId(aTasksAdapterItem.getId());
+        tasksDomain.setName(aTasksAdapterItem.getName());
+        tasksDomain.setStatus(aTasksAdapterItem.getStatus());
+        tasksDomain.setSummary(aTasksAdapterItem.getSummary());
+        tasksDomain.setPriorityId(aTasksAdapterItem.getPriority());
+        return tasksDomain;
+    }
+
 }

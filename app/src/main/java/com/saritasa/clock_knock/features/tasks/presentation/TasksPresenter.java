@@ -15,4 +15,10 @@ public interface TasksPresenter<VIEW extends MvpView> extends BasePresenter<VIEW
      */
     void onRequest();
 
+    void onTaskAdd(String aTitle, String aSummary, String aStatus, int aPriority);
+
+    void onTaskEdit(int aPosition, long aId, String aTitle, String aSummary, String aStatus, int aPriority);
+
+    void onTaskDelete(int aPostition, TasksAdapterItem aTasksAdapterItem);
+
 }

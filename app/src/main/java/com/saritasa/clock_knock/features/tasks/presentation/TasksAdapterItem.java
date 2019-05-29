@@ -8,17 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.saritasa.clock_knock.R;
-import com.saritasa.clock_knock.util.svg.GlideApp;
-import com.saritasa.clock_knock.util.svg.SvgSoftwareLayerSetter;
 
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +24,7 @@ import timber.log.Timber;
 public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapterItem.ViewHolder>{
 
     private String mName;
-    private String mId;
+    private long mId;
     private int mPriority;
     private String mStatus;
     private String mSummary;
@@ -40,7 +34,6 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
     @NonNull
     @Override
     public ViewHolder getViewHolder(final View v){
-        Timber.d("Getting viewHolder");
         return new ViewHolder(v);
     }
 
@@ -102,8 +95,7 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
      *
      * @return id.
      */
-    @NonNull
-    public String getId(){
+    public long getId(){
         return mId;
     }
 
@@ -112,7 +104,7 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
      *
      * @param aId id.
      */
-    public void setId(@NonNull final String aId){
+    public void setId(final long aId){
         mId = aId;
     }
 
@@ -178,7 +170,6 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
         @Override
         public void bindView(@NonNull final TasksAdapterItem item, @NonNull final List<Object> payloads){
             if(tvTitle != null){
-                Timber.d("NOT NULL");
             }
             tvTitle.setText(item.getName());
             tvStatus.setText(item.getStatus());
@@ -201,7 +192,7 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
                 default:
                     priorityColor = Color.BLACK;
             }
-            ivPriorityIcon.setBackgroundColor(priorityColor);
+            ivPriorityIcon.setColorFilter(priorityColor);
 
         }
 

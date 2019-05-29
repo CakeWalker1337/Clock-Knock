@@ -5,7 +5,14 @@ import android.support.annotation.NonNull;
 import com.saritasa.clock_knock.base.domain.BaseInteractorImpl;
 import com.saritasa.clock_knock.features.tasks.data.TasksRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Interactor for tasks module. Processes data in the domain layer.
@@ -26,18 +33,34 @@ public class TasksInteractorImpl extends BaseInteractorImpl<TasksRepository> imp
 
     @Override
     @NonNull
-    public Observable<TasksDomain> loadTasks(){
-        return mRepository.loadTasks()
-                .filter(aTasksDomain -> !aTasksDomain.getStatus().equals(PROGRESS_STATUS_DONE))
-                .sorted((aTasksDomain1, aTasksDomain2) -> {
-                    if(aTasksDomain1.getPriorityId() < aTasksDomain2.getPriorityId()){
-                        return LESS;
-                    } else if(aTasksDomain1.getPriorityId() == aTasksDomain2.getPriorityId()){
-                        return EQUAL;
-                    } else{
-                        return MORE;
-                    }
-                });
+    public ArrayList<TasksDomain> loadTasks(){
+        ArrayList<TasksDomain> tasksDomains = mRepository.loadTasks();
+        Collections.sort(tasksDomains,
+                         (first, second) -> {
+                             if(first.getPriorityId() < second.getPriorityId()){
+                                 return LESS;
+                             } else if(first.getPriorityId() == second.getPriorityId()){
+                                 return EQUAL;
+                             } else{
+                                 return MORE;
+                             }
+                         });
+        return tasksDomains;
+    }
+
+    @Override
+    public long createTask(final TasksDomain aTasksDomain){
+        return mRepository.createTask(aTasksDomain);
+    }
+
+    @Override
+    public int updateTask(final TasksDomain aTasksDomain){
+        return mRepository.updateTask(aTasksDomain);
+    }
+
+    @Override
+    public int deleteTask(final TasksDomain aTasksDomain){
+        return mRepository.deleteTask(aTasksDomain);
     }
 
     public String getStringResource(int aResourceId){

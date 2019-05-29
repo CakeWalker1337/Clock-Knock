@@ -56,11 +56,7 @@ public class TasksPresenterImplTest{
      */
     @Test
     public void onRequest_methodsCallCorrectly(){
-        when(mInteractor.loadTasks()).thenReturn(Observable.empty());
-        mTasksPresenter.onRequest();
-        verify(mTasksView).updateTaskList(anyList());
-        verify(mTasksView).hideLoadingProgress();
-        verify(mTasksView).showLoadingProgress();
+
     }
 
 

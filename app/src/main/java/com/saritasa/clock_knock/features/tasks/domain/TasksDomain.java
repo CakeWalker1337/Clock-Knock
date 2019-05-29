@@ -1,8 +1,6 @@
 package com.saritasa.clock_knock.features.tasks.domain;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import java.util.Objects;
 
 /**
@@ -11,17 +9,16 @@ import java.util.Objects;
 public class TasksDomain{
 
     private String mName;
-    private String mId;
+    private long mId;
     private String mStatus;
     private String mSummary;
     private int mPriorityId;
 
-    @NonNull
     public int getPriorityId(){
         return mPriorityId;
     }
 
-    public void setPriorityId(@NonNull final int aPriorityId){
+    public void setPriorityId(final int aPriorityId){
         mPriorityId = aPriorityId;
     }
 
@@ -34,12 +31,11 @@ public class TasksDomain{
         mName = aName;
     }
 
-    @NonNull
-    public String getId(){
+    public long getId(){
         return mId;
     }
 
-    public void setId(@NonNull final String aId){
+    public void setId(final long aId){
         mId = aId;
     }
 
@@ -62,17 +58,17 @@ public class TasksDomain{
     }
 
     @Override
-    public boolean equals(final Object aObject){
-        if(this == aObject){
+    public boolean equals(final Object aO){
+        if(this == aO){
             return true;
         }
-        if(!(aObject instanceof TasksDomain)){
+        if(!(aO instanceof TasksDomain)){
             return false;
         }
-        TasksDomain that = (TasksDomain) aObject;
-        return getPriorityId() == that.getPriorityId() &&
+        TasksDomain that = (TasksDomain) aO;
+        return getId() == that.getId() &&
+                getPriorityId() == that.getPriorityId() &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getStatus(), that.getStatus()) &&
                 Objects.equals(getSummary(), that.getSummary());
     }
@@ -82,11 +78,12 @@ public class TasksDomain{
         return Objects.hash(getName(), getId(), getStatus(), getSummary(), getPriorityId());
     }
 
+    @NonNull
     @Override
     public String toString(){
         return "TasksDomain{" +
                 "mName='" + mName + '\'' +
-                ", mId='" + mId + '\'' +
+                ", mId=" + mId +
                 ", mStatus='" + mStatus + '\'' +
                 ", mSummary='" + mSummary + '\'' +
                 ", mPriorityId=" + mPriorityId +

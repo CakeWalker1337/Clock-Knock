@@ -37,6 +37,7 @@
         android:layout_marginTop="@dimen/standard_margin"
         android:background="@drawable/ic_task_status_background"
         android:textColor="#FFFFFF"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="IN PROGRESS" />

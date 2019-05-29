@@ -9,7 +9,9 @@ import com.saritasa.clock_knock.features.session.data.SessionRepository;
 import com.saritasa.clock_knock.features.tasks.domain.TasksDomain;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -18,8 +20,8 @@ import io.reactivex.Single;
  */
 public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepository{
 
-    SessionRepository mSessionRepository;
-    AppDatabase mAppDatabase;
+    private SessionRepository mSessionRepository;
+    private AppDatabase mAppDatabase;
 
     /**
      * @param aResourceManager - resource manager object
@@ -33,42 +35,30 @@ public class TasksRepositoryImpl extends BaseRepositoryImpl implements TasksRepo
 
     @NonNull
     @Override
-    public Observable<TasksDomain> loadTasks(){
-        return mAppDatabase.getTaskDao().getAllTasks()
-                .map(TasksEntityMapper::mapEntityObjectToDomainObject);
+    public ArrayList<TasksDomain> loadTasks(){
+        List<TaskEntity> taskEntities = mAppDatabase.getTaskDao().getAllTasks();
+
+        ArrayList<TasksDomain> tasksDomains = new ArrayList<>();
+        for(TaskEntity taskEntity : taskEntities){
+            tasksDomains.add(TasksEntityMapper.mapEntityObjectToDomainObject(taskEntity));
+        }
+        taskEntities.clear();
+
+        return tasksDomains;
     }
 
-    /**
-     * Test method. Hardcodes object Йto test feature without using api.
-     * This method will be deprecated soon.
-     *
-     * @return Single object of imitated api response.
-     */
-    //TODO: Delete this one when login feature will be ready to merging.
-    @NonNull
-    private Single<TasksResponseEntity> getTestApiTask(){
+    @Override
+    public long createTask(TasksDomain aTasksDomain){
+        return mAppDatabase.getTaskDao().addTask(TasksEntityMapper.mapDomainObjectToEntityObject(aTasksDomain));
+    }
 
-        return Single.create(emitter -> {
-            TasksResponseEntity tasksResponseEntity = new TasksResponseEntity();
+    @Override
+    public int updateTask(TasksDomain aTasksDomain){
+        return mAppDatabase.getTaskDao().updateTask(TasksEntityMapper.mapDomainObjectToEntityObject(aTasksDomain));
+    }
 
-            TasksStatusEntity tasksStatusEntity = new TasksStatusEntity("IN PROGRESS");
-            TasksPriorityEntity tasksPriorityEntity = new TasksPriorityEntity("http://www.iconninja.com/files/704/5/100/home-icon.png",
-                                                                              "3");
-            TasksAvatarUrlsEntity tasksAvatarUrlsEntity = new TasksAvatarUrlsEntity("http://www.iconninja.com/files/704/5/100/home-icon.png");
-            TasksProjectEntity tasksProjectEntity = new TasksProjectEntity(tasksAvatarUrlsEntity);
-            TasksFieldsEntity tasksFieldsEntity = new TasksFieldsEntity("Test task",
-                                                                        tasksStatusEntity,
-                                                                        tasksPriorityEntity,
-                                                                        tasksProjectEntity);
-
-            TasksIssueEntity tasksIssueEntity = new TasksIssueEntity(tasksFieldsEntity, "Misc-208", "1");
-
-            ArrayList<TasksIssueEntity> arrayList = new ArrayList<>();
-            arrayList.add(tasksIssueEntity);
-
-            tasksResponseEntity.setIssues(arrayList);
-
-            emitter.onSuccess(tasksResponseEntity);
-        });
+    @Override
+    public int deleteTask(TasksDomain aTasksDomain){
+        return mAppDatabase.getTaskDao().deleteTask(TasksEntityMapper.mapDomainObjectToEntityObject(aTasksDomain));
     }
 }
