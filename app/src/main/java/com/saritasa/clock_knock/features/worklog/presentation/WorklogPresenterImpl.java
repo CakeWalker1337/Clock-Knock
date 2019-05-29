@@ -25,6 +25,7 @@ import timber.log.Timber;
 public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> implements WorklogPresenter<WorklogView>{
 
     private WorklogInteractor mWorklogInteractor;
+    private int mTotalTime = 0;
 
     /**
      * @param aWorklogInteractor provided interactor object.
@@ -45,8 +46,6 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
 
     @Override
     public void onDataRequest(long aTaskId, @NonNull final String aTaskKey){
-        getViewState().updateActivityTitle(aTaskKey);
-
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> {
             ArrayList<WorklogDomain> worklogDomains = mWorklogInteractor.loadWorklog(aTaskId);
@@ -76,6 +75,8 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
             getViewState().runTaskOnUiThread(() -> {
                 worklogAdapterItem.setId(id);
                 mWorklogInteractor.clearTimerData();
+                mTotalTime += worklogAdapterItem.getTimeSpentSeconds();
+                getViewState().showTotalTimeString(DateTimeFormatter.longTimeSecondsToText(mTotalTime));
                 getViewState().addWorklogToList(worklogAdapterItem);
             });
         });
@@ -84,6 +85,7 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
     @Override
     public void onWorklogEdit(int aPosition, WorklogAdapterItem aOldItem, long aTaskId, @NonNull String aDescription, int aTimeSpentSeconds){
         aOldItem.setDescription(aDescription);
+        int oldTime = aOldItem.getTimeSpentSeconds();
         aOldItem.setTimeSpentSeconds(aTimeSpentSeconds);
         aOldItem.setTimeSpent(DateTimeFormatter.longTimeSecondsToText(aTimeSpentSeconds));
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -95,6 +97,8 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
                     getViewState().showErrorMessage("Error in worklog editing!");
                     return;
                 }
+                mTotalTime += aTimeSpentSeconds - oldTime;
+                getViewState().showTotalTimeString(DateTimeFormatter.longTimeSecondsToText(mTotalTime));
                 getViewState().editWorklogInList(aPosition, aOldItem);
             });
 
@@ -112,6 +116,8 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
                     getViewState().showErrorMessage("Error in worklog deleting!");
                     return;
                 }
+                mTotalTime -= aWorklogItem.getTimeSpentSeconds();
+                getViewState().showTotalTimeString(DateTimeFormatter.longTimeSecondsToText(mTotalTime));
                 getViewState().removeWorklogFromList(aPosition);
             });
         });
@@ -174,6 +180,14 @@ public class WorklogPresenterImpl extends BasePresenterImpl<WorklogView> impleme
             getViewState().showWorklogView();
             getViewState().hideNoWorklogMessageView();
         }
+
+        mTotalTime = 0;
+
+        for(WorklogAdapterItem item : aWorklogAdapterItems){
+            mTotalTime += item.getTimeSpentSeconds();
+        }
+
+        getViewState().showTotalTimeString(DateTimeFormatter.longTimeSecondsToText(mTotalTime));
         getViewState().setWorklogList(aWorklogAdapterItems);
     }
 

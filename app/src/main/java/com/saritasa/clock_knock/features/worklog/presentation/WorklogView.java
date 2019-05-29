@@ -54,13 +54,6 @@ public interface WorklogView extends BaseView{
     void setWorklogList(@NonNull List<WorklogAdapterItem> aWorklogDomains);
 
     /**
-     * Updates activity title.
-     *
-     * @param aNewTitle new activity title.
-     */
-    void updateActivityTitle(@NonNull String aNewTitle);
-
-    /**
      * Adds worklog adapter item to exist list of data inside item adapter.
      *
      * @param aWorklogAdapterItem worklog adapter item object.
@@ -89,4 +82,6 @@ public interface WorklogView extends BaseView{
      * Attempts to stop timer
      */
     void tryToStopTimer();
+
+    void showTotalTimeString(String aTotalTime);
 }

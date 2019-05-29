@@ -120,7 +120,7 @@ public class TimerService extends Service{
         contentView.setTextViewText(R.id.task, mTaskKey);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_pause_circle_outline_black_24dp)
+                .setSmallIcon(R.drawable.ic_check_circle_outline_24dp)
                 .setCustomContentView(contentView)
                 .setContentIntent(contentIntent);
 

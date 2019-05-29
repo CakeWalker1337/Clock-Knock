@@ -75,6 +75,8 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     ImageButton mTimerButton;
     @BindView(R.id.tvTime)
     TextView mTimeTextView;
+    @BindView(R.id.tvTotalTime)
+    TextView mTotalTimeTextView;
 
     private WorklogAdapterItem mChosenItem;
 
@@ -333,6 +335,11 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    public void showTotalTimeString(String aTotalTime){
+        mTotalTimeTextView.setText(aTotalTime);
     }
 
     /**
