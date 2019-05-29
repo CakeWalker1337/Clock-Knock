@@ -29,4 +29,14 @@ public final class TasksEntityMapper{
         return tasksDomain;
     }
 
+    @NonNull
+    public static TaskEntity mapDomainObjectToEntityObject(@NonNull TasksDomain aTasksDomain){
+        TaskEntity taskEntity = new TaskEntity();
+        taskEntity.setId(aTasksDomain.getId());
+        taskEntity.setTitle(aTasksDomain.getName());
+        taskEntity.setStatus(aTasksDomain.getStatus());
+        taskEntity.setDescription(aTasksDomain.getSummary());
+        taskEntity.setPriority(aTasksDomain.getPriorityId());
+        return taskEntity;
+    }
 }

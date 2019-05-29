@@ -1,5 +1,6 @@
 package com.saritasa.clock_knock.features.worklog.data;
 
+
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
@@ -26,11 +27,14 @@ public class WorklogEntity {
     @ColumnInfo(name = "description")
     private String mDescription;
 
-    @ColumnInfo(name = "time_spent")
-    private String mTimeSpent;
+    @ColumnInfo(name = "time_spent_seconds")
+    private long mTimeSpentSeconds;
 
     @ColumnInfo(name = "task_id")
-    private String taskId;
+    private long mTaskId;
+
+    @ColumnInfo(name = "creation_date")
+    private String mCreationDate;
 
     public long getId(){
         return mId;
@@ -48,20 +52,28 @@ public class WorklogEntity {
         mDescription = aDescription;
     }
 
-    public String getTimeSpent(){
-        return mTimeSpent;
+    public long getTaskId(){
+        return mTaskId;
     }
 
-    public void setTimeSpent(final String aTimeSpent){
-        mTimeSpent = aTimeSpent;
+    public void setTaskId(final long aTaskId){
+        mTaskId = aTaskId;
     }
 
-    public String getTaskId(){
-        return taskId;
+    public String getCreationDate(){
+        return mCreationDate;
     }
 
-    public void setTaskId(final String aTaskId){
-        taskId = aTaskId;
+    public void setCreationDate(final String aCreationDate){
+        mCreationDate = aCreationDate;
+    }
+
+    public long getTimeSpentSeconds(){
+        return mTimeSpentSeconds;
+    }
+
+    public void setTimeSpentSeconds(final long aTimeSpentSeconds){
+        mTimeSpentSeconds = aTimeSpentSeconds;
     }
 
     @Override
@@ -74,15 +86,15 @@ public class WorklogEntity {
         }
         WorklogEntity that = (WorklogEntity) aObject;
         return getId() == that.getId() &&
+                getTimeSpentSeconds() == that.getTimeSpentSeconds() &&
+                getTaskId() == that.getTaskId() &&
                 Objects.equals(getDescription(), that.getDescription()) &&
-                Objects.equals(getTimeSpent(), that.getTimeSpent()) &&
-                Objects.equals(getTaskId(), that.getTaskId());
+                Objects.equals(getCreationDate(), that.getCreationDate());
     }
 
     @Override
     public int hashCode(){
-
-        return Objects.hash(getId(), getDescription(), getTimeSpent(), getTaskId());
+        return Objects.hash(getId(), getDescription(), getTimeSpentSeconds(), getTaskId(), getCreationDate());
     }
 
     @Override
@@ -90,8 +102,9 @@ public class WorklogEntity {
         return "WorklogEntity{" +
                 "mId=" + mId +
                 ", mDescription='" + mDescription + '\'' +
-                ", mTimeSpent='" + mTimeSpent + '\'' +
-                ", taskId='" + taskId + '\'' +
+                ", mTimeSpentSeconds=" + mTimeSpentSeconds +
+                ", mTaskId=" + mTaskId +
+                ", mCreationDate='" + mCreationDate + '\'' +
                 '}';
     }
 }

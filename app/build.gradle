@@ -8,6 +8,12 @@ android{
     }
     defaultConfig{
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
         applicationId "com.saritasa.clock_knock"
         minSdkVersion 23
         targetSdkVersion 28
@@ -38,6 +44,8 @@ android{
         exclude 'META-INF/ASL2.0'
     }
 
+
+
     compileOptions{
         targetCompatibility 1.8
         sourceCompatibility 1.8
@@ -58,8 +66,6 @@ dependencies{
 
     //UI
     implementation libraries.constraintLayout
-    implementation libraries.glide
-    annotationProcessor libraries.glideCompiler
     implementation libraries.design
 
     //Network
@@ -109,4 +115,5 @@ dependencies{
     // Room
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
 }

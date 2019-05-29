@@ -56,6 +56,11 @@ public final class Strings{
     public static final String PREFERENCE_TASK_ID = "timer_task_id";
 
     /**
+     * Shared preferences key for task id
+     */
+    public static final String PREFERENCE_TASK_KEY = "timer_task_key";
+
+    /**
      * Action for starting service
      */
     public static final String START_SERVICE_ACTION = "com.saritasa.clock_knock.StartService";
@@ -78,7 +83,12 @@ public final class Strings{
     /**
      * String for creating an extra for holding the task id
      */
-    public static final String TASK_ID_EXTRA = "com.saritasa.clock_knock.task";
+    public static final String TASK_ID_EXTRA = "com.saritasa.clock_knock.task.id";
+
+    /**
+     * String for creating an extra for holding the task id
+     */
+    public static final String TASK_KEY_EXTRA = "com.saritasa.clock_knock.task.key";
 
     /**
      * String for creating an extra for holding the timestamp

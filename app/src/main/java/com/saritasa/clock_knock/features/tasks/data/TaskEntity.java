@@ -1,17 +1,11 @@
 package com.saritasa.clock_knock.features.tasks.data;
 
+
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.IntDef;
 
-import com.saritasa.clock_knock.util.Constants;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
-
-
 
 
 @Entity(tableName = "tasks")
@@ -19,7 +13,7 @@ public class TaskEntity{
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private String mId;
+    private long mId;
 
     @ColumnInfo(name = "title")
     private String mTitle;
@@ -33,11 +27,11 @@ public class TaskEntity{
     @ColumnInfo(name = "status")
     private String mStatus;
 
-    public String getId(){
+    public long getId(){
         return mId;
     }
 
-    public void setId(final String aId){
+    public void setId(final long aId){
         mId = aId;
     }
 
@@ -74,16 +68,16 @@ public class TaskEntity{
     }
 
     @Override
-    public boolean equals(final Object aObject){
-        if(this == aObject){
+    public boolean equals(final Object aO){
+        if(this == aO){
             return true;
         }
-        if(!(aObject instanceof TaskEntity)){
+        if(!(aO instanceof TaskEntity)){
             return false;
         }
-        TaskEntity that = (TaskEntity) aObject;
-        return getPriority() == that.getPriority() &&
-                Objects.equals(getId(), that.getId()) &&
+        TaskEntity that = (TaskEntity) aO;
+        return getId() == that.getId() &&
+                getPriority() == that.getPriority() &&
                 Objects.equals(getTitle(), that.getTitle()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getStatus(), that.getStatus());
@@ -97,7 +91,7 @@ public class TaskEntity{
     @Override
     public String toString(){
         return "TaskEntity{" +
-                "mId='" + mId + '\'' +
+                "mId=" + mId +
                 ", mTitle='" + mTitle + '\'' +
                 ", mDescription='" + mDescription + '\'' +
                 ", mPriority=" + mPriority +

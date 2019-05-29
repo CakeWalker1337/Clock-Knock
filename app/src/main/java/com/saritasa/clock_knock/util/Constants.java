@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.util;
 
+import android.widget.AdapterView;
+
 /**
  * A final class for numeric constants
  */
@@ -35,6 +37,8 @@ public final class Constants{
     public static final int PRIORITY_MEDIUM = 1;
 
     public static final int PRIORITY_LOW = 0;
+
+    public static final int PRIORITY_INVALID = AdapterView.INVALID_POSITION;
 
     private Constants(){
     }

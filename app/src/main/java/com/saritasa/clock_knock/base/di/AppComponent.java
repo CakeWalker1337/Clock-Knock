@@ -1,6 +1,5 @@
 package com.saritasa.clock_knock.base.di;
 
-import android.arch.persistence.room.Database;
 import android.support.annotation.NonNull;
 
 import com.saritasa.clock_knock.App;
