@@ -73,18 +73,43 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
 
     @Override
     public void goToTasks(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new TasksFragment()).commit();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new TasksFragment()).addToBackStack(null).commit();
     }
 
     @Override
-    public void goToWorklog(@NonNull final String aTaskKey, @NonNull final String aAction){
-        WorklogFragment worklogFragment = WorklogFragment.newInstance(aTaskKey, aAction);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, worklogFragment).commit();
+    public void goToWorklog(long aTaskId, @NonNull final String aTaskKey, @NonNull final String aAction){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        WorklogFragment worklogFragment = WorklogFragment.newInstance(aTaskId, aTaskKey, aAction);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, worklogFragment).addToBackStack(null).commit();
     }
 
     @Override
     public void startTimer(long aTaskId, @Nullable String aTaskKey, long aTimestamp){
         Intent intent = TimerService.newIntent(this, Strings.START_SERVICE_ACTION, aTaskId, aTaskKey, aTimestamp);
         startService(intent);
+    }
+
+    @Override
+    public void runTaskOnUiThread(final Runnable aRunnable){
+        runOnUiThread(aRunnable);
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        int fragmentsRemain = getSupportFragmentManager().getBackStackEntryCount();
+        if(fragmentsRemain == 0){
+            finish();
+        } else if(fragmentsRemain == 1){
+            setTitle("Your tasks");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
     }
 }
