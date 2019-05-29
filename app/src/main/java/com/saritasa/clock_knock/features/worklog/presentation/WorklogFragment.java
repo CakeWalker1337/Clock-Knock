@@ -252,18 +252,6 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     }
 
     @Override
-    public void updateActivityTitle(@NonNull final String aNewTitle){
-        if(getActivity() == null){
-            return;
-        }
-        ActionBar actionBar = ((MvpAppCompatActivity) getActivity()).getSupportActionBar();
-        if(actionBar == null){
-            return;
-        }
-        actionBar.setTitle(aNewTitle);
-    }
-
-    @Override
     public void addWorklogToList(@NonNull final WorklogAdapterItem aWorklogAdapterItem){
         mItemAdapter.add(0, aWorklogAdapterItem);
         mItemAdapter.getFastAdapter().notifyAdapterDataSetChanged();

@@ -80,6 +80,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     @Override
     public void goToWorklog(long aTaskId, @NonNull final String aTaskKey, @NonNull final String aAction){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(aTaskKey);
         WorklogFragment worklogFragment = WorklogFragment.newInstance(aTaskId, aTaskKey, aAction);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, worklogFragment).addToBackStack(null).commit();
     }
@@ -102,7 +103,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         if(fragmentsRemain == 0){
             finish();
         } else if(fragmentsRemain == 1){
-            setTitle("Your tasks");
+            getSupportActionBar().setTitle("Your tasks");
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
     }
