@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#303F9E</color>
+
+    <color name="colorPriorityLow">#4CAF50</color>
+    <color name="colorPriorityMedium">#FFA000</color>
+    <color name="colorPriorityHigh">@android:color/holo_red_dark</color>
+
+    <color name="colorStatusInProgress">@color/colorPrimary</color>
+    <color name="colorStatusInProgressDark">@color/colorPrimaryDark</color>
+    <color name="colorStatusDone">#4CAF50</color>
+    <color name="colorStatusDoneDark">#4AA34E</color>
+    <color name="colorStatusClosed">#F44336</color>
+    <color name="colorStatusClosedDark">#E04135</color>
 </resources>

@@ -1,5 +1,7 @@
 package com.saritasa.clock_knock.features.tasks.presentation;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.PictureDrawable;
 import android.support.annotation.NonNull;
@@ -11,7 +13,11 @@ import android.widget.TextView;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.saritasa.clock_knock.R;
+import com.saritasa.clock_knock.util.Constants;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,14 +35,11 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
     private String mStatus;
     private String mSummary;
 
-
-
     @NonNull
     @Override
     public ViewHolder getViewHolder(final View v){
         return new ViewHolder(v);
     }
-
 
     @Override
     public int getType(){
@@ -157,6 +160,8 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
         TextView tvStatus;
         @BindView(R.id.tvSummary)
         TextView tvSummary;
+        @BindView(R.id.tvPriorityText)
+        TextView tvPriorityText;
         @BindView(R.id.ivPriorityIcon)
         ImageView ivPriorityIcon;
         @BindView(R.id.ivProjectIcon)
@@ -172,28 +177,35 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
             if(tvTitle != null){
             }
             tvTitle.setText(item.getName());
-            tvStatus.setText(item.getStatus());
             tvSummary.setText(item.getSummary());
 
-            ivProjectIcon.setImageResource(R.mipmap.ic_launcher_round);
             ivPriorityIcon.setImageResource(R.drawable.ic_arrow_upward_black_24dp);
 
-            int priorityColor;
-            switch(item.getPriority()) {
-                case 0:
-                    priorityColor = Color.GREEN;
-                    break;
-                case 1:
-                    priorityColor = Color.rgb(255, 160, 0);
-                    break;
-                case 2:
-                    priorityColor = Color.RED;
-                    break;
-                default:
-                    priorityColor = Color.BLACK;
+            Context context = tvPriorityText.getContext();
+            String[] priorities = context.getResources().getStringArray(R.array.task_priority);
+            tvPriorityText.setText(priorities[item.getPriority()]);
+
+            int priorityColor = Color.BLACK;
+            if(item.getPriority() != Constants.PRIORITY_INVALID){
+                int[] priorityColors = context.getResources().getIntArray(R.array.task_priority_colors);
+                priorityColor = priorityColors[item.getPriority()];
             }
             ivPriorityIcon.setColorFilter(priorityColor);
 
+            TypedArray statusColors = context.getResources().obtainTypedArray(R.array.task_status_colors);
+            List<String> statuses = Arrays.asList(context.getResources().getStringArray(R.array.task_status));
+            int statusDrawable = R.drawable.ic_task_status_inprogress_background;
+            int index = statuses.indexOf(item.getStatus());
+            if(index != -1){
+                statusDrawable = statusColors.getResourceId(index, R.drawable.ic_task_status_inprogress_background);
+            }
+            tvStatus.setText(item.getStatus());
+            tvStatus.setBackground(context.getDrawable(statusDrawable));
+            statusColors.recycle();
+
+            TypedArray projectIcons = context.getResources().obtainTypedArray(R.array.project_icons);
+            ivProjectIcon.setImageResource(projectIcons.getResourceId(Integer.valueOf(String.valueOf(item.getId() % 10)), 0));
+            projectIcons.recycle();
         }
 
         @Override
@@ -201,6 +213,7 @@ public class TasksAdapterItem extends AbstractItem<TasksAdapterItem, TasksAdapte
             tvTitle.setText(null);
             tvStatus.setText(null);
             tvSummary.setText(null);
+            tvPriorityText.setText(null);
             ivPriorityIcon.setImageResource(android.R.color.transparent);
             ivProjectIcon.setImageResource(android.R.color.transparent);
         }

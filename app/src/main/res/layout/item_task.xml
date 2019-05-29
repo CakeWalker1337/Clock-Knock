@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin"
-        android:background="@drawable/ic_task_status_background"
+        android:background="@drawable/ic_task_status_inprogress_background"
         android:textColor="#FFFFFF"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,10 +46,9 @@
         android:id="@+id/tvSummary"
         android:layout_width="0dp"
         android:layout_height="22dp"
-        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivPriorityIcon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:text="First step in development (maxim)" />
@@ -58,9 +57,22 @@
         android:id="@+id/ivPriorityIcon"
         android:layout_width="@dimen/priority_icon_edge_length"
         android:layout_height="@dimen/priority_icon_edge_length"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus" />
+
+    <TextView
+        android:id="@+id/tvPriorityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivPriorityIcon"
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+        tools:text="Medium" />
 
 
 </android.support.constraint.ConstraintLayout>

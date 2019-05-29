@@ -10,4 +10,29 @@
         <item>Medium</item>
         <item>High</item>
     </string-array>
+
+    <array name="task_priority_colors">
+        <item>@color/colorPriorityLow</item>
+        <item>@color/colorPriorityMedium</item>
+        <item>@color/colorPriorityHigh</item>
+    </array>
+
+    <array name="task_status_colors">
+        <item>@drawable/ic_task_status_inprogress_background</item>
+        <item>@drawable/ic_task_status_done_background</item>
+        <item>@drawable/ic_task_status_closed_background</item>
+    </array>
+
+    <array name="project_icons">
+        <item>@drawable/ic_project_icon_1</item>
+        <item>@drawable/ic_project_icon_2</item>
+        <item>@drawable/ic_project_icon_3</item>
+        <item>@drawable/ic_project_icon_4</item>
+        <item>@drawable/ic_project_icon_5</item>
+        <item>@drawable/ic_project_icon_6</item>
+        <item>@drawable/ic_project_icon_7</item>
+        <item>@drawable/ic_project_icon_8</item>
+        <item>@drawable/ic_project_icon_9</item>
+        <item>@drawable/ic_project_icon_10</item>
+    </array>
 </resources>
