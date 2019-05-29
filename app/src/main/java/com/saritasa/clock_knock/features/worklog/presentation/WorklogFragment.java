@@ -87,7 +87,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
     @Override
     public void onDestroy(){
         super.onDestroy();
-        if(mWorklogPresenter.isTimerActive()){
+        if(mWorklogPresenter.isTimerActive() && mWorklogPresenter.getTimerTask() == mTaskId){
             unbindService();
         }
         mWorklogPresenter.detachView(this);
