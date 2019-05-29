@@ -31,6 +31,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
         super.onCreate(aSavedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("Your tasks");
+
         App.get(this).getAppComponent()
                 .mainComponentBuilder()
                 .build()
@@ -38,24 +40,26 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
 
         mMainPresenter.attachView(this);
 
-        String taskId = getIntent().getStringExtra(Strings.TASK_ID_EXTRA);
+        long taskId = getIntent().getLongExtra(Strings.TASK_ID_EXTRA, -1);
+        String taskKey = getIntent().getStringExtra(Strings.TASK_KEY_EXTRA);
         String action = getIntent().getAction();
 
         if (mMainPresenter.isTimerActive()) {
             mMainPresenter.onTimerActivityChecked();
         }
 
-        if (taskId != null && action != null) {
-            goToWorklog(taskId, action);
+        if(taskId != -1 && taskKey != null && action != null){
+            goToWorklog(taskId, taskKey, action);
         } else {
             goToTasks();
         }
     }
 
-    public static Intent newIntent(@NonNull Context aContext, @NonNull String aTaskId, @NonNull String aAction) {
+    public static Intent newIntent(@NonNull Context aContext, long aTaskId, @NonNull String aTaskKey, @NonNull String aAction){
         Intent intent = new Intent(aContext, MainActivity.class);
         intent.setAction(aAction);
         intent.putExtra(Strings.TASK_ID_EXTRA, aTaskId);
+        intent.putExtra(Strings.TASK_KEY_EXTRA, aTaskKey);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
     }
@@ -79,8 +83,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Navi
     }
 
     @Override
-    public void startTimer(@Nullable String aTaskId, long aTimestamp){
-        Intent intent = TimerService.newIntent(this, Strings.START_SERVICE_ACTION, aTaskId, aTimestamp);
+    public void startTimer(long aTaskId, @Nullable String aTaskKey, long aTimestamp){
+        Intent intent = TimerService.newIntent(this, Strings.START_SERVICE_ACTION, aTaskId, aTaskKey, aTimestamp);
         startService(intent);
     }
 }

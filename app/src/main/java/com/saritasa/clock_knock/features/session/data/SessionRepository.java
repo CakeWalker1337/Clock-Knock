@@ -32,15 +32,24 @@ public interface SessionRepository{
      *
      * @param aTaskId Task id string
      */
-    void saveTaskId(@NonNull String aTaskId);
+    void saveTaskId(long aTaskId);
+
+    /**
+     * Saves the task id
+     *
+     * @param aTaskKey Task id string
+     */
+    void saveTaskKey(@NonNull String aTaskKey);
 
     /**
      * Gets the task id
      *
      * @return Task id string
      */
+    long getTaskId();
+
     @Nullable
-    String getTaskId();
+    String getTaskKey();
 
     /**
      * Clears timer data from storage

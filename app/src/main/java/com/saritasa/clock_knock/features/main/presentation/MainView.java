@@ -15,5 +15,5 @@ public interface MainView extends BaseView{
      * @param aTaskId Task id string
      * @param aTimestamp Timestamp value
      */
-    void startTimer(@Nullable String aTaskId, long aTimestamp);
+    void startTimer(long aTaskId, @Nullable String aTaskKey, long aTimestamp);
 }

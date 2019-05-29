@@ -39,10 +39,15 @@ public class PreferenceManagerImpl implements PreferenceManager{
         mSharedPreferences.edit().putLong(Strings.PREFERENCE_START_TIMESTAMP, aTimestamp).apply();
     }
 
+    @Override
+    public long getTaskId(){
+        return mSharedPreferences.getLong(Strings.PREFERENCE_TASK_ID, -1);
+    }
+
     @Nullable
     @Override
-    public String getTaskId(){
-        return mSharedPreferences.getString(Strings.PREFERENCE_TASK_ID, null);
+    public String getTaskKey(){
+        return mSharedPreferences.getString(Strings.PREFERENCE_TASK_KEY, null);
     }
 
     @Override
@@ -56,7 +61,17 @@ public class PreferenceManagerImpl implements PreferenceManager{
     }
 
     @Override
-    public void saveTaskId(@NonNull String aTaskId){
-        mSharedPreferences.edit().putString(Strings.PREFERENCE_TASK_ID, aTaskId).apply();
+    public void removeTaskKey(){
+        mSharedPreferences.edit().remove(Strings.PREFERENCE_TASK_KEY).apply();
+    }
+
+    @Override
+    public void saveTaskId(long aTaskId){
+        mSharedPreferences.edit().putLong(Strings.PREFERENCE_TASK_ID, aTaskId).apply();
+    }
+
+    @Override
+    public void saveTaskKey(@NonNull String aTaskKey){
+        mSharedPreferences.edit().putString(Strings.PREFERENCE_TASK_KEY, aTaskKey).apply();
     }
 }

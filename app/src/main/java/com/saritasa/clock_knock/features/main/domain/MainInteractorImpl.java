@@ -36,9 +36,14 @@ public class MainInteractorImpl extends BaseInteractorImpl<MainRepository> imple
         return mSessionRepository.getStartTimestamp();
     }
 
+    @Override
+    public long getTaskId(){
+        return mSessionRepository.getTaskId();
+    }
+
     @Nullable
     @Override
-    public String getTaskId(){
-        return mSessionRepository.getTaskId();
+    public String getTaskKey(){
+        return mSessionRepository.getTaskKey();
     }
 }

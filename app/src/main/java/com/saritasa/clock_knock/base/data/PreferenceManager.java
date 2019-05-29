@@ -32,7 +32,21 @@ public interface PreferenceManager{
      *
      * @param aTaskId Task id string
      */
-    void saveTaskId(@NonNull String aTaskId);
+    void saveTaskId(long aTaskId);
+
+    /**
+     * Saves the task id
+     *
+     * @param aTaskKey Task id string
+     */
+    void saveTaskKey(@NonNull String aTaskKey);
+
+    /**
+     * Gets the task id
+     *
+     * @return Task id string
+     */
+    long getTaskId();
 
     /**
      * Gets the task id
@@ -40,7 +54,7 @@ public interface PreferenceManager{
      * @return Task id string
      */
     @Nullable
-    String getTaskId();
+    String getTaskKey();
 
     /**
      * Removes timestamp value from SharedPrefs
@@ -51,4 +65,9 @@ public interface PreferenceManager{
      * Removes task id value from SharedPrefs
      */
     void removeTaskId();
+
+    /**
+     * Removes task id value from SharedPrefs
+     */
+    void removeTaskKey();
 }

@@ -30,6 +30,8 @@ public interface MainInteractor extends BaseInteractor{
      *
      * @return Task id string
      */
+    long getTaskId();
+
     @Nullable
-    String getTaskId();
+    String getTaskKey();
 }

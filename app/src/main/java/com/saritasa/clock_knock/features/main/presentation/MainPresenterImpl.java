@@ -28,8 +28,9 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
 
     @Override
     public void onTimerActivityChecked(){
-        String taskId = mMainInteractor.getTaskId();
+        long taskId = mMainInteractor.getTaskId();
+        String taskKey = mMainInteractor.getTaskKey();
         long timestamp = mMainInteractor.getStartTimestamp();
-        getViewState().startTimer(taskId, timestamp);
+        getViewState().startTimer(taskId, taskKey, timestamp);
     }
 }

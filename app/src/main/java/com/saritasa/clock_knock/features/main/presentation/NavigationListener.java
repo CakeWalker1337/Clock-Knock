@@ -19,5 +19,5 @@ public interface NavigationListener{
      * @param aTaskKey Task id string
      * @param aAction Action value string
      */
-    void goToWorklog(@NonNull String aTaskKey, @NonNull String aAction);
+    void goToWorklog(long aTaskId, @NonNull String aTaskKey, @NonNull String aAction);
 }

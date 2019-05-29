@@ -37,19 +37,30 @@ public class SessionRepositoryImpl implements SessionRepository{
     }
 
     @Override
-    public void saveTaskId(@NonNull final String aTaskId){
+    public void saveTaskId(final long aTaskId){
         mPreferenceManager.saveTaskId(aTaskId);
+    }
+
+    @Override
+    public void saveTaskKey(@NonNull final String aTaskKey){
+        mPreferenceManager.saveTaskKey(aTaskKey);
+    }
+
+    @Override
+    public long getTaskId(){
+        return mPreferenceManager.getTaskId();
     }
 
     @Nullable
     @Override
-    public String getTaskId(){
-        return mPreferenceManager.getTaskId();
+    public String getTaskKey(){
+        return mPreferenceManager.getTaskKey();
     }
 
     @Override
     public void clearTimerData(){
         mPreferenceManager.removeStartTimestamp();
         mPreferenceManager.removeTaskId();
+        mPreferenceManager.removeTaskKey();
     }
 }
