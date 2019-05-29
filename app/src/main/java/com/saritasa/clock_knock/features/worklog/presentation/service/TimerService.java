@@ -147,6 +147,9 @@ public class TimerService extends Service{
 
                 Intent intent = MainActivity.newIntent(this, mTaskId, mTaskKey, STOP_TIMER_ACTION);
                 startActivity(intent);
+                Intent closeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                sendBroadcast(closeIntent);
+
                 onDestroy();
 
             } else if(action.equals(Strings.START_SERVICE_ACTION)){
