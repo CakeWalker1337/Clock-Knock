@@ -14,4 +14,5 @@
     <dimen name="image_size">48dp</dimen>
     <dimen name="one_margin">8dp</dimen>
     <dimen name="font_standard">16sp</dimen>
+    <dimen name="font_header">20sp</dimen>
 </resources>

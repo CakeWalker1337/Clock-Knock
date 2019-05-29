@@ -146,7 +146,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
 
         if(mWorklogPresenter.isTimerActive() && mWorklogPresenter.getTimerTask() == mTaskId){
             bindService();
-            mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_pause_circle_24dp));
+            mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_check_circle_black_24dp));
             isTimerStarted = true;
         }
 
@@ -296,7 +296,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
         startService(mTaskKey, aTimestamp);
         bindService();
         isTimerStarted = true;
-        mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_pause_circle_24dp));
+        mTimerButton.setBackground(getActivity().getDrawable(R.drawable.ic_check_circle_black_24dp));
     }
 
     @Override

@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/playButton"
-        android:layout_width="@dimen/image_size"
-        android:layout_height="@dimen/image_size"
-        android:layout_margin="@dimen/one_margin"
+    <TextView
+        android:id="@+id/task"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/ic_pause_circle_outline_black_24dp"
-        android:backgroundTint="@color/colorPrimary" />
+        android:layout_marginStart="@dimen/one_margin"
+        android:layout_weight="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/font_header"
+        tools:text="MISC-309" />
 
     <TextView
         android:id="@+id/time"
@@ -23,16 +25,13 @@
         android:textColor="@android:color/black"
         android:textSize="@dimen/font_standard" />
 
-    <TextView
-        android:id="@+id/task"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+    <ImageView
+        android:id="@+id/playButton"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"
         android:layout_gravity="center_vertical"
-        android:gravity="end"
-        android:layout_marginEnd="@dimen/one_margin"
-        tools:text="MISC-309"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/font_standard" />
+        android:layout_margin="@dimen/one_margin"
+        android:background="@drawable/ic_check_circle_outline_24dp"
+        android:backgroundTint="@color/colorPrimary" />
 
 </LinearLayout>
