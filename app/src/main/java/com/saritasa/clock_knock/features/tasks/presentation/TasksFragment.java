@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
@@ -137,7 +138,7 @@ public class TasksFragment extends BaseFragment implements TasksView{
 
     @Override
     public void showErrorMessage(final String aMessage){
-        Snackbar.make(getView(), aMessage, Snackbar.LENGTH_LONG);
+        Toast.makeText(getActivity(), aMessage, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

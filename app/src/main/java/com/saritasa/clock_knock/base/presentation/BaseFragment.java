@@ -9,6 +9,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import timber.log.Timber;
 
 public class BaseFragment extends MvpAppCompatFragment{
 
@@ -17,7 +18,6 @@ public class BaseFragment extends MvpAppCompatFragment{
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-
         mUnbinder = ButterKnife.bind(this, view);
     }
 

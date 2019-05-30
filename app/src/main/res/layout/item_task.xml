@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/padding_standart"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_standart">
 
     <ImageView
         android:id="@+id/ivProjectIcon"
-        android:adjustViewBounds="true"
         android:layout_width="@dimen/project_avatar_edge_length"
         android:layout_height="@dimen/project_avatar_edge_length"
+        android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,9 +18,9 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginStart="@dimen/standard_margin"
-        android:textAlignment="textStart"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:singleLine="true"
         android:textSize="@dimen/task_name_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/ivProjectIcon"
         app:layout_constraintEnd_toStartOf="@+id/tvStatus"
@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin"
         android:background="@drawable/ic_task_status_inprogress_background"
-        android:textColor="#FFFFFF"
         android:textAllCaps="true"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="IN PROGRESS" />
@@ -47,8 +47,11 @@
         android:layout_width="0dp"
         android:layout_height="22dp"
         android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriorityText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:text="First step in development (maxim)" />
