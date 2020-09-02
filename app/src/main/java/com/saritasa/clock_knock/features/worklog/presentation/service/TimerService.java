@@ -171,8 +171,9 @@ public class TimerService extends Service{
      * @param aStartTimestamp Timestamp to start from
      */
     public void startTimer(long aStartTimestamp){
-        Notification notification = createNotification(aStartTimestamp);
-        startForeground(NOTIFICATION_ID, notification);
+//        Notification notification = createNotification(aStartTimestamp);
+//        startForeground(NOTIFICATION_ID, notification);
+
 
         mDisposable = Observable.interval(ONE_SECOND, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.computation())

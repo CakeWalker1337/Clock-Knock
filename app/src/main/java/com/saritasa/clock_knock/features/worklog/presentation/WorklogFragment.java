@@ -235,7 +235,7 @@ public class WorklogFragment extends BaseFragment implements WorklogView{
 
     @Override
     public void showErrorMessage(@NonNull final String aMessage){
-        Toast.makeText(getContext(), aMessage, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), aMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
